@@ -1,5 +1,5 @@
 ---
-title: "Plotting tool for brain atlases"
+title: "Tri-surface plotting tool for brain atlases"
 author: "Athanasia Mowinckel & Didac Vidal Pineiro"
 output: github_document
 ---
@@ -11,19 +11,21 @@ knitr::opts_chunk$set(
   fig.path = "man/img/README-",
   echo = TRUE
 )
-library(ggseg)
+#library(ggseg3d)
 ```
 
 
-# ggseg <img src="man/img/logo.png" align="right" alt="" width="120" />  
+# ggseg3d <img src="man/img/logo.png" align="right" alt="" width="120" />  
 <!-- badges: start -->
-  [![Travis build status](https://travis-ci.com/LCBC-UiO/ggseg.svg?branch=master)](https://travis-ci.com/LCBC-UiO/ggseg)
-  [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/LCBC-UiO/ggseg?branch=master&svg=true)](https://ci.appveyor.com/project/LCBC-UiO/ggseg)
-  [![Coverage status](https://codecov.io/gh/LCBC-UiO/ggseg/branch/master/graph/badge.svg)](https://codecov.io/github/LCBC-UiO/ggseg?branch=master)
-[![CRAN status](https://www.r-pkg.org/badges/version/ggseg)](https://CRAN.R-project.org/package=ggseg)
+[![Travis build status](https://travis-ci.com/LCBC-UiO/ggseg3d.svg?branch=master)](https://travis-ci.com/LCBC-UiO/ggseg3d)
+  [![Coverage status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/github/LCBC-UiO/ggseg3d?branch=master)
+[![CRAN status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/LCBC-UiO/ggseg3d?branch=master&svg=true)](https://ci.appveyor.com/project/LCBC-UiO/ggseg3d)
+[![Codecov test coverage](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/LCBC-UiO/ggseg3d?branch=master)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
-This package mainly contains a plotting function `ggseg` and data.frames of different brain atlases for plotting.
+This package mainly contains a plotting function `ggseg3d` and data.frames of different brain atlases for plotting.
 Plotting results of analyses on regions or networks often involves swapping between statistical tools, like R and Matlab, 
 and software for brain imaging to correctly visualise analysis results.
 
@@ -36,7 +38,7 @@ There are currently four atlases available in the package:
 2. `aseg` - Automatic subcortical segmentation.  
 
 We are working on creating a detailed description in the wiki on how to create and contribute atlases to the package.
-The `ggseg` function already allows you to provide it with a data.frame of a custom atlas if you have it, but is must
+The `ggseg3d` function already allows you to provide it with a data.frame of a custom atlas if you have it, but is must
 correspond to certain specifications to work.
 
 Please see the [wiki](https://github.com/LCBC-UiO/ggseg/wiki/Creating-and-contributing-atlases) for information on adding atlases, or inspect the included datasets for requirements. 
@@ -49,7 +51,7 @@ The package can be installed using devtools. The package includes some large dat
 
 ```{r eval=F}
 install.packages("remotes")
-remotes::install_github("LCBC-UiO/ggseg", build_vignettes = TRUE)
+remotes::install_github("LCBC-UiO/ggseg3d", build_vignettes = TRUE)
 ```
 
 The functions are now installed, and you may load them when you want to use them.
@@ -57,17 +59,17 @@ All functions are documented in standard R fashion.
 
 ## Use
 The package also has a vignette, to help you get started using it. 
-You can access it [here](https://lcbc-uio.github.io/ggseg/ggseg.html), or via R:
+You can access it [here](https://lcbc-uio.github.io/ggseg3d/ggseg3d.html), or via R:
 
 ```{r eval=F}
-library(ggseg)
-vignette("ggseg")
+library(ggseg3d)
+vignette("ggseg3d")
 ```
 
 You can also see one of the creators blog for introductions to its use [here](https://drmowinckels.io/blog/introducing-the-ggseg-r-package-for-brain-segmentations/)
 
 ### Report bugs or requests  
-Don't hesitate to ask for support using [github issues](https://github.com/LCBC-UiO/ggseg/issues), or requesting new atlases. 
+Don't hesitate to ask for support using [github issues](https://github.com/LCBC-UiO/ggseg3d/issues), or requesting new atlases. 
 While we would love getting help in creating new atlases, you may also request atlases through the issues, and we will try to get to it. 
 
 # Funding
@@ -78,3 +80,4 @@ This tool is partly funded by:
 **Grant agreement number:** 732592.
 
 **Call:** Societal challenges: Health, demographic change and well-being
+

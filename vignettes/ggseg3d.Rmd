@@ -9,10 +9,6 @@ vignette: >
 
 ```{r setup, include=F}
 knitr::opts_chunk$set(eval=FALSE)
-devtools::load_all(".")
-library(magrittr)
-library(dplyr)
-library(tidyr)
 ```
 
 ## Introduction
@@ -85,18 +81,6 @@ You can provide custom colour palettes either in hex or R-names
   ggseg3d(.data = someData, atlas = dkt_3d, 
           colour = "p", text = "p", 
           palette = c("forestgreen", "white", "firebrick"))
-  ggseg3d(.data = someData, atlas = dkt_3d, 
-          colour = "p", text = "p", palette = c("#ff0000", "#00ff00", "#0000ff"))
-```
-
-If you want to alter the colour of `NA` regions, supply `na.colour`
-```{r,fig.width=5, eval=FALSE}
-  ggseg3d(.data = someData, atlas = dkt_3d, 
-          colour = "p", text = "p", 
-          na.colour = "black", camera="medial")
-  ggseg3d(.data = someData, atlas = dkt_3d, 
-          colour = "p", text = "p", 
-          na.colour = "#ffff00", camera="medial")
 ```
 
 If you are plotting the sub-cortical structures, you might want to reduce the opacity of the `NA` structures, so that you can see the more medial structures. you may also want to add the `glassbrain` option, any value above 0 and up to 1 increases the opacity of a glass brain overlay.
@@ -109,14 +93,15 @@ somData_aseg = aseg_3d %>%
 
   ggseg3d(.data = somData_aseg, atlas = aseg_3d, 
           colour = "p", text = "p", 
-          na.alpha= .5, glassbrain = .5, 
-          glassbrain_hemisphere = "left")
+          na.alpha= .5) %>% 
+    add_glassbrain()
 ```
 
 ## Camera
-You can rotate away all you like. if you want to start from the medial view, you can use the `camera` option
+You can rotate away all you like. if you want to start from the medial view, you can use the `pan_camera` option
 ```{r,fig.width=5, eval=FALSE}
-  ggseg3d(.data = someData, atlas=dkt_3d, colour = "p", camera = "medial")
+  ggseg3d(.data = someData, atlas=dkt_3d, colour = "p") %>% 
+   pan_camera("medial")
 ```
 
 There is also a surface of the white-matter

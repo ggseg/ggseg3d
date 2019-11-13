@@ -32,12 +32,6 @@
 #'   \item{`dkt_3d`}{
 #'     The Desikan-Killiany Cortical Atlas [default], Freesurfer cortical segmentations, in 3dmesh format
 #'   }
-#'   \item{`yeo7_3d`}{
-#'     Yeo 2011 7 resting-state networks, in 3dmesh format
-#'   }
-#'   \item{`yeo17_3d`}{
-#'     Yeo 2011 17 resting-state networks, in 3dmesh format
-#'   }
 #' }
 #'
 #' \strong{Available surfaces:}
@@ -50,118 +44,51 @@
 #' @return a plotly object
 #'
 #' @importFrom dplyr filter full_join select distinct summarise
-#' @importFrom gplots col2hex
 #' @importFrom plotly plot_ly add_trace layout
 #' @importFrom scales colour_ramp brewer_pal rescale gradient_n_pal
 #' @importFrom tidyr unite_
 #' @importFrom magrittr "%>%"
 #'
 #' @examples
-#' library(ggplot2)
 #' ggseg3d()
 #' ggseg3d(surface="white")
 #' ggseg3d(surface="inflated")
-#' ggseg3d(remove.axes = FALSE)
+#' ggseg3d(show.legend = FALSE)
 #'
 #' @seealso \code{\link[plotly]{plot_ly}}, \code{\link[plotly]{add_trace}}, \code{\link[plotly]{layout}}, the plotly package
 #'
 #' @export
-ggseg3d <- function(.data=NULL, atlas="dkt_3d", surface = "LCBC", hemisphere = c("right","subcort"),
+ggseg3d <- function(.data=NULL, atlas="dkt_3d",
+                    surface = "LCBC", hemisphere = c("right","subcort"),
                     label = "area", text = NULL, colour = "colour",
                     palette = NULL, na.colour = "darkgrey", na.alpha = 1,
-                    remove.axes = TRUE, show.legend = TRUE,
-                    camera = "lateral", glassbrain = 0, glassbrain_hemisphere = c("left", "right"),
-                    glassbrain_colour = "#cecece") {
+                    show.legend = TRUE) {
 
 
   # Grab the atlas, even if it has been provided as character string
-  atlas3d = if(!is.character(atlas)){
-    atlas
-  }else{
-    get(atlas)
-  }
-
-  if(!any(grepl("3d", atlas3d$atlas))){
-    stop(paste0("This is not a 3d atlas, did you mean ", atlas3d$atlas[1], "_3d?"))
-  }
-
-  if(!any(atlas3d$surf %in% surface)){
-    stop(paste0("There is no surface '",surface,"' in this atlas." ))
-  }
-
-  if(!any(atlas3d$hemi %in% hemisphere)){
-    stop(paste0("There is no data for the ",hemisphere," hemisphere in this atlas." ))
-  }
-
-  atlas3d <- as_ggseg3d_atlas(atlas3d)
-
-  # grab the correct surface and hemisphere
-  atlas3d = atlas3d %>%
-    filter(surf %in% surface & hemi %in% hemisphere) %>%
-    unnest(cols = ggseg_3d)
+  atlas3d = get_atlas(atlas,
+                      surface = surface,
+                      hemisphere = hemisphere)
 
   # If data has been supplied, merge it
   if(!is.null(.data)){
-
-    # Find columns they have in common
-    cols = names(atlas3d)[names(atlas3d) %in% names(.data)]
-
-    # Merge the brain with the data
-    atlas3d = atlas3d %>%
-      full_join(.data, by = cols, copy=TRUE)
-
-    # Find if there are instances of those columns that
-    # are not present in the atlas. Maybe mispelled?
-    errs = atlas3d %>%
-      filter(unlist(lapply(atlas3d$mesh, is.null))) %>%
-      select(!!cols) %>%
-      distinct() %>%
-      unite_("tt", cols, sep = " - ") %>%
-      summarise(value = paste0(tt, collapse = ", "))
-
-    if(errs != ""){
-      warning(paste("Some data is not merged properly into the atlas. Check for spelling mistakes in:",
-                    errs$value))
-
-      atlas3d = atlas3d %>%
-        filter(!unlist(lapply(atlas3d$mesh, is.null)))
-    }
+    atlas3d <- data_merge(.data, atlas3d)
   }
+
+
+  pal.colours <- get_palette(palette)
 
   # If colour column is numeric, calculate the gradient
   if(is.numeric(unlist(atlas3d[,colour]))){
-
-    if(is.null(palette)){
-      palette = c("skyblue", "dodgerblue")
-    }
-
-    pal.colours = palette
-    # pal.colours = if(length(palette)==1){
-    #   if(!palette %in% unlist(lapply(paletteers$palettes, function(x) x$palette))){
-    #     stop(paste0("No such palette '", palette, "'. Choose one from the paletteer package."))
-    #   }
-    #
-    #   get_paletteer(palette)
-    # }else{
-    #   palette
-    # }
-
-
-    pal.colours = data.frame(seq(0,1, length.out = length(pal.colours)),
-                             pal.colours, stringsAsFactors = F)
-    names(pal.colours) = NULL
-
     atlas3d$new_col = gradient_n_pal(pal.colours[,2], NULL,"Lab")(
       rescale(x=unlist(atlas3d[,colour])))
-
     fill = "new_col"
   }else{
     fill = colour
   }
 
-
   # initiate plot
-  p = plot_ly()
+  p = plotly::plot_ly()
 
   # add one trace per file inputed
   for(tt in 1:nrow(atlas3d)){
@@ -178,7 +105,7 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d", surface = "LCBC", hemisphere = c
       paste0(text, ": ", unlist(atlas3d[tt, text]))
     }
 
-    p = add_trace(p,
+    p = plotly::add_trace(p,
                   x = atlas3d$mesh[[tt]]$vb["xpts",],
                   y = atlas3d$mesh[[tt]]$vb["ypts",],
                   z = atlas3d$mesh[[tt]]$vb["zpts",],
@@ -199,7 +126,7 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d", surface = "LCBC", hemisphere = c
   # work around to get legend
   if(show.legend & is.numeric(unlist(atlas3d[,colour]))){
 
-    p = add_trace(p,
+    p = plotly::add_trace(p,
                   x = c(min(atlas3d$mesh[[1]]$vb["xpts",]), max(atlas3d$mesh[[1]]$vb["xpts",])),
                   y = c(min(atlas3d$mesh[[1]]$vb["ypts",]), max(atlas3d$mesh[[1]]$vb["ypts",])),
                   z = c(min(atlas3d$mesh[[1]]$vb["zpts",]), max(atlas3d$mesh[[1]]$vb["zpts",])),
@@ -211,78 +138,10 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d", surface = "LCBC", hemisphere = c
     )
   }
 
-  if(glassbrain != 0){
-
-    cortex <- cortex_3d %>%
-      filter(hemi %in% glassbrain_hemisphere) %>%
-      unnest(ggseg_3d)
-
-    glassbrain_colour <- if(grepl("^#", glassbrain_colour)){
-      glassbrain_colour
-    }else{
-      col2hex(glassbrain_colour)
-    }
-
-    # add one trace per file inputed
-    for(tt in 1:nrow(cortex)){
-
-      col = rep(glassbrain_colour, length(cortex$mesh[[tt]]$it[1,]))
-
-      p = add_trace(p,
-                    x = cortex$mesh[[tt]]$vb["xpts",],
-                    y = cortex$mesh[[tt]]$vb["ypts",],
-                    z = cortex$mesh[[tt]]$vb["zpts",],
-
-                    i = cortex$mesh[[tt]]$it[1,]-1,
-                    j = cortex$mesh[[tt]]$it[2,]-1,
-                    k = cortex$mesh[[tt]]$it[3,]-1,
-
-                    facecolor = col,
-                    type = "mesh3d",
-                    showscale = FALSE,
-                    name = "cerebral cortex",
-                    opacity = glassbrain
-      )
-    }
-  }
-
-  if(remove.axes){
-    # Axix removal
-    ax <- list(
-      title = "",
-      zeroline = FALSE,
-      showline = FALSE,
-      showticklabels = FALSE,
-      showgrid = FALSE,
-      showbackground = FALSE
-    )
-
-    p = layout(p,
-               scene = list(
-                 xaxis=ax,
-                 yaxis=ax,
-                 zaxis=ax,
-                 plot_bgcolor='transparent',
-                 paper_bgcolor='transparent'))
-  }
-
-  views = if(class(camera) != "list"){
-    switch(camera,
-           "lateral" = list(eye = list(x = 2, y = 0, z = 1)),
-           "medial" = list(eye = list(x = -2.25, y = -0.5, z = -0.5))
-    )
-  }else{
-    camera
-  }
-
-  # create final plotly plot
-  p %>%
-    layout(
-      scene = list(camera = views)
-    )
+ p
 }
 
 ## quiets concerns of R CMD check
 if(getRversion() >= "2.15.1"){
-  globalVariables(c("tt", "surf", "mesh", "new_col"))
+  utils::globalVariables(c("tt", "surf", "mesh", "new_col"))
 }

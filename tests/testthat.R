@@ -1,6 +1,6 @@
 library(testthat)
-library(ggseg)
-library(ggplot2)
+library(ggseg3d)
 
+test_check("ggseg3d")
 
-test_check("ggseg")
+# covr::zero_coverage(covr::package_coverage("."))

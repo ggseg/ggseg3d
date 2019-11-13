@@ -1,49 +1,27 @@
-context("test-ggseg_atlas")
 
-test_that("check that ggseg_atlas is correct", {
-  tt <- data.frame(.long = double(),
-                   .lat = double(),
-                   .id = character(),
-                   hemi = character(),
-                   side = character())
-
-  expect_error(as_ggseg_atlas(tt))
-
-  tt <- data.frame(long = double(),
-                   lat = double(),
-                   id = character(),
-                   hemi = character(),
-                   side = character(),
-                   area = character())
-  expect_warning(as_ggseg_atlas(tt))
-
-  expect_equal(dim(as_ggseg_atlas(dkt)), c(80,6))
-
-})
+tt <- data.frame(atlas = "k",
+                 surf = "white",
+                 hemi = "left",
+                 area = "something",
+                 colour = "#d2d2d2",
+                 stringsAsFactors = FALSE)
+tt$mesh[[1]] = list(it=array(0, dim=3),vb=array(0, dim=3))
 
 test_that("check that ggseg3d_atlas is correct", {
-  tt <- data.frame(atlas = character(),
-                   surf = character(),
-                   hemi = character())
 
-  expect_error(as_ggseg3d_atlas(tt))
-  expect_warning(as_ggseg_atlas())
+  expect_error(as_ggseg3d_atlas(tt[,-1]),
+               "missing necessary columns")
+  expect_error(as_ggseg3d_atlas(),
+               "is missing, with no default")
 
+  k <- expect_warning(as_ggseg3d_atlas(tt),
+                     "Unknown columns")
+  expect_equal(names(k),
+               c("atlas", "surf", "hemi", "ggseg_3d"))
+  expect_equal(nrow(k), 1)
 })
 
 test_that("check that is_ggseg_atlas works", {
-  expect_true(is_ggseg_atlas(dkt))
-  expect_true(is_ggseg_atlas(dkt_3d))
-
-  dt <- data.frame(.long = double(),
-                   .lat = double(),
-                   .id = character(),
-                   area = as.character(),
-                   hemi = character(),
-                   side = character()
-  )
-
-  expect_false(is_ggseg_atlas(dt))
+  expect_false(is_ggseg3d_atlas(tt))
 
 })
-

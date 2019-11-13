@@ -1,44 +1,28 @@
-data_merge <- function(.data, geobrain){
+data_merge <- function(.data, atlas3d){
 
-  # Find columns they have in common
-  cols = names(geobrain)[names(geobrain) %in% names(.data)]
+    # Find columns they have in common
+    cols = names(atlas3d)[names(atlas3d) %in% names(.data)]
 
-  if(dplyr::is_grouped_df(.data)){
+    # Merge the brain with the data
+    atlas3d = atlas3d %>%
+      dplyr::full_join(.data, by = cols, copy=TRUE)
 
-    .data <- .data %>%
-      tidyr::nest()
+    # Find if there are instances of those columns that
+    # are not present in the atlas. Maybe mispelled?
+    errs = atlas3d %>%
+      dplyr::filter(unlist(lapply(atlas3d$mesh, is.null))) %>%
+      dplyr::select(!!cols) %>%
+      dplyr::distinct() %>%
+      tidyr::unite_("tt", cols, sep = " - ") %>%
+      dplyr::summarise(value = paste0(tt, collapse = ", "))
 
-    cols = stats::na.omit(cols[!names(.data) %in% cols])
+    if(errs != ""){
+      warning(paste("Some data is not merged properly into the atlas. Check for spelling mistakes in:",
+                    errs$value))
 
-    geobrain <- .data %>%
-      dplyr::mutate(data = purrr::map(data,
-                                      ~dplyr::full_join(geobrain, ., by=cols, copy=TRUE))) %>%
-      tidyr::unnest(cols = c(data)) %>%
-      dplyr::ungroup()
+      atlas3d = atlas3d %>%
+        dplyr::filter(!unlist(lapply(atlas3d$mesh, is.null)))
+    }
 
-  }else{
-    # Merge the brain with the .data
-    geobrain = dplyr::full_join(geobrain, .data, by = cols, copy=TRUE)
-  }
-
-  # Find if there are instances of those columns that
-  # are not present in the geobrain. Maybe mispelled?
-  errs = geobrain %>%
-    dplyr::filter(is.na(.lat)) %>%
-    dplyr::select(!!cols) %>%
-    dplyr::distinct() %>%
-    tidyr::unite_("tt", cols, sep = " - ") %>%
-    dplyr::summarise(value = paste0(tt, collapse = ", "))
-
-  if(errs != ""){
-    warning(paste("Some .data is not merged properly into the geobrain. Check for spelling mistakes in:",
-                  errs$value))
-  }
-
-    return(geobrain)
-}
-
-## quiets concerns of R CMD check
-if(getRversion() >= "2.15.1"){
-  utils::globalVariables(c("data"))
+    atlas3d
 }

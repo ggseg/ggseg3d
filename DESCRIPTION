@@ -1,6 +1,6 @@
-Package: ggseg
+Package: ggseg3d
 Title: Plotting tool for brain atlases
-Version: 1.5.2
+Version: 1.5.3
 Authors@R: c(person("Athanasia Mo", "Mowinckel", 
                     email = "a.m.mowinckel@psykologi.uio.no", 
                     role = c("aut", "cre"),
@@ -9,31 +9,25 @@ Authors@R: c(person("Athanasia Mo", "Mowinckel",
                     email = "d.v.pineiro@psykologi.uio.no", 
                     role = c("aut"),
                     comment = c(ORCID = "0000-0001-9997-9156")))
-Description: This package mainly contains two plotting functions: `ggseg` and `ggseg3d`, and data.frames or tibbles of different brain atlases for plotting. By far, the largestbit of the package is the data for each of the atlases.
+Description: This package mainly contains a plotting functions: `ggseg3d`, and data.frames or tibbles of different brain atlases for plotting. By far, the largestbit of the package is the data for each of the atlases.
 License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 6.1.1
-Depends: R (>= 2.10),
-    ggplot2
+Depends: R (>= 2.10)
 LazyData: true
-Imports: dplyr,
-    stats,
-    utils,
-    tidyr,
+Imports: 
+    dplyr,
     magrittr,
-    methods,
-    gplots,
     plotly,
     scales,
-    purrr,
-    remotes,
-    rlang
+    tidyr,
+    remotes
 Suggests:
     knitr,
     rmarkdown,
     covr,
-    testthat,
+    testthat (>= 2.1.0),
     devtools
 VignetteBuilder: knitr
-URL: https://github.com/LCBC-UiO/ggseg
-BugReports: https://github.com/LCBC-UiO/ggseg/issues
+URL: https://github.com/LCBC-UiO/ggseg3d
+BugReports: https://github.com/LCBC-UiO/ggseg3d/issues
