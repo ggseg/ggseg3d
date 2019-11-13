@@ -1,0 +1,9 @@
+pandoc: '2.2'
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  ggseg3d: ggseg3d.html
+urls:
+  reference: https://lcbc-uio.github.io/ggseg3d//reference
+  article: https://lcbc-uio.github.io/ggseg3d//articles
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//index.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//reference/add_glassbrain.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//reference/aseg_3d.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//reference/dkt_3d.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//reference/ggseg3d.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//reference/ggseg3d_atlas-class.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//reference/install_atlases.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//reference/is_ggseg3d_atlas.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//reference/pan_camera.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//reference/remove_axes.html</loc>
+  </url>
+  <url>
+    <loc>https://lcbc-uio.github.io/ggseg3d//articles/ggseg3d.html</loc>
+  </url>
+</urlset>
