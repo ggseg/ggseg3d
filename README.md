@@ -7,7 +7,7 @@ Athanasia Mowinckel & Didac Vidal Pineiro
 <!-- badges: start -->
 
 [![Travis build
-status](https://travis-ci.com/LCBC-UiO/ggseg3d.svg?branch=master)](https://travis-ci.com/LCBC-UiO/ggseg3d)
+status](https://travis-ci.org/LCBC-UiO/ggseg3d.svg?branch=master)](https://travis-ci.org/LCBC-UiO/ggseg3d)
 [![Coverage
 status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/github/LCBC-UiO/ggseg3d?branch=master)
 [![CRAN
