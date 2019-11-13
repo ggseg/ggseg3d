@@ -2,7 +2,7 @@ Tri-surface plotting tool for brain atlases
 ================
 Athanasia Mowinckel & Didac Vidal Pineiro
 
-# ggseg3d <img src="man/img/logo.png" align="right" alt="" width="120" />
+# ggseg3d <img src='man/figures/logo.png' align="right" height="138.5" />
 
 <!-- badges: start -->
 
@@ -14,8 +14,6 @@ status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](h
 status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/LCBC-UiO/ggseg3d?branch=master&svg=true)](https://ci.appveyor.com/project/LCBC-UiO/ggseg3d)
-[![Codecov test
-coverage](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/LCBC-UiO/ggseg3d?branch=master)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
@@ -33,8 +31,8 @@ R.
 
 There are currently four atlases available in the package:
 
-1.  `dkt` - Desikan-Killany atlas (aparc).  
-2.  `aseg` - Automatic subcortical segmentation.
+1.  `dkt_3d` - Desikan-Killany atlas (aparc).  
+2.  `aseg_3d` - Automatic subcortical segmentation.
 
 We are working on creating a detailed description in the wiki on how to
 create and contribute atlases to the package. The `ggseg3d` function
@@ -52,7 +50,7 @@ You may find more atlases in the companion package
 
 ## Installation
 
-The package can be installed using devtools. The package includes some
+The package can be installed using {remotes}. The package includes some
 large datasets for the brain coordinates. Please be patient during
 download and install, it will take some time.
 
@@ -74,9 +72,6 @@ or via R:
 library(ggseg3d)
 vignette("ggseg3d")
 ```
-
-You can also see one of the creators blog for introductions to its use
-[here](https://drmowinckels.io/blog/introducing-the-ggseg-r-package-for-brain-segmentations/)
 
 ### Report bugs or requests
 

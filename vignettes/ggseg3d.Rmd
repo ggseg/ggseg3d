@@ -8,7 +8,11 @@ vignette: >
 ---
 
 ```{r setup, include=F}
-knitr::opts_chunk$set(eval=FALSE)
+knitr::opts_chunk$set(eval=TRUE)
+devtools::load_all(".")
+library(magrittr)
+library(dplyr)
+library(tidyr)
 ```
 
 ## Introduction
@@ -20,18 +24,20 @@ A lot of credit goes to A.M.Winkler and his [Brainder](https://brainder.org/) wo
 ## Basic use
 The function `ggseg3d()`, is based in the plotly, it is recommended to get a little familiarized with with [plotly](https://plotly-book.cpsievert.me/). 
 
-Out-of-the-box, ggseg() works without supplying any extra information. 
+Out-of-the-box, `ggseg()` works without supplying any extra information. 
 It will create a base plot of the aparc (dkt) brain segmentations.
 All `[...]_3d` atlases have a built in `colour` column for default colour plotting of the segments.
 
-```{r start, eval=F}
-library(ggseg)
+```{r start, eval=FALSE}
+library(ggseg3d)
 library(magrittr)
 library(dplyr)
 library(tidyr)
 ```
 ```{r starte, message=FALSE}
-ggseg3d()
+ggseg3d() %>% 
+  remove_axes() %>% 
+  pan_camera("medial")
 ```
 
 
@@ -45,7 +51,7 @@ To grab all the data for a surface and hemisphere, you should reduce the data to
 ```{r}
 dkt_3d %>% 
   filter(surf == "inflated" & hemi == "right") %>% 
-  unnest()
+  unnest(cols = ggseg_3d)
 ```
 
 ## External data supply
@@ -59,13 +65,16 @@ The column you want to use for colour, needs to be supplied to the `colour` opti
 ```{r,fig.width=5}
 someData = dkt_3d %>% 
   filter(surf == "inflated" & hemi == "right") %>% 
-  unnest() %>% 
+  unnest(ggseg_3d) %>% 
   select(area) %>% 
   na.omit() %>% 
   mutate(p = sample(seq(0,.5, length.out = 100 ), nrow(.)) %>% 
            round(2)) 
   
-  ggseg3d(.data = someData, atlas = dkt_3d, colour = "p", text = "p")
+  ggseg3d(.data = someData, 
+          atlas = dkt_3d,
+          colour = "p", text = "p") %>% 
+  pan_camera("medial")
 ```
 
 ## Colours
@@ -83,10 +92,10 @@ You can provide custom colour palettes either in hex or R-names
           palette = c("forestgreen", "white", "firebrick"))
 ```
 
-If you are plotting the sub-cortical structures, you might want to reduce the opacity of the `NA` structures, so that you can see the more medial structures. you may also want to add the `glassbrain` option, any value above 0 and up to 1 increases the opacity of a glass brain overlay.
+If you are plotting the sub-cortical structures, you might want to reduce the opacity of the `NA` structures, so that you can see the more medial structures. you may also want to add the `glassbrain`.
 ```{r,fig.width=5, warning=F, message=FALSE}
 somData_aseg = aseg_3d %>% 
-  unnest() %>% 
+  unnest(cols = ggseg_3d) %>% 
   select(label) %>% 
   filter(!grepl("Ventricle|Putamen", label)) %>% 
   mutate(p = seq(1, nrow(.))) 
@@ -105,7 +114,7 @@ You can rotate away all you like. if you want to start from the medial view, you
 ```
 
 There is also a surface of the white-matter
-```{r,fig.width=5, eval=FALSE}
+```{r,fig.width=5, eval=TRUE}
  ggseg3d(atlas=dkt_3d, surface="white")
 ```
 
