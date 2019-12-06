@@ -9,22 +9,16 @@
 #' @param hemisphere String. Hemisphere to plot. Either "left" or "right"[default],
 #' can also be "subcort".
 #' @param surface String. Which surface to plot. Either "pial","white", or "inflated"[default]
-#' @param remove.axes Logical. Should axis and grid be removed.
 #' @param label String. Quoted name of column in atlas/data that should be used to name traces
 #' @param text String. Quoated name of column in atlas/data that should be added as extra
 #' information in the hover text.
 #' @param colour String. Quoted name of column from which colour should be supplied
-#' @param palette String. Either name of paletteer palette or vector of hex colours,
-#' used if colour is numeric.
+#' @param palette String. Vector of colour names or HEX colours. Can also be a named
+#' numeric vector, with colours as names, and breakpoint for that colour as the value
 #' @param na.colour String. Either name, hex of RGB for colour of NA in colour.
 #' @param na.alpha Numeric. A number between 0 and 1 to control transparency of NA-regions.
 #' @param show.legend Logical. Toggle legend if colour is numeric.
-#' @param camera String of "medial" or "lateral", or list of x, y, and z positions
-#' for initial camera position.
-#' @param glassbrain numeric between 0 and 1, transparency of a glass brain overlay.
-#' Recommended for subcrotical or white matter tracts.
-#' @param glassbrain_hemisphere Which hemisphere of the glassbrain to add.
-#' @param glassbrain_colour Colour of the glass brain.
+
 #'
 #' @details
 #' \describe{

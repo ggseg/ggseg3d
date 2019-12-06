@@ -29,26 +29,14 @@ information in the hover text.}
 
 \item{colour}{String. Quoted name of column from which colour should be supplied}
 
-\item{palette}{String. Either name of paletteer palette or vector of hex colours,
-used if colour is numeric.}
+\item{palette}{String. Vector of colour names or HEX colours. Can also be a named
+numeric vector, with colours as names, and breakpoint for that colour as the value}
 
 \item{na.colour}{String. Either name, hex of RGB for colour of NA in colour.}
 
 \item{na.alpha}{Numeric. A number between 0 and 1 to control transparency of NA-regions.}
 
 \item{show.legend}{Logical. Toggle legend if colour is numeric.}
-
-\item{remove.axes}{Logical. Should axis and grid be removed.}
-
-\item{camera}{String of "medial" or "lateral", or list of x, y, and z positions
-for initial camera position.}
-
-\item{glassbrain}{numeric between 0 and 1, transparency of a glass brain overlay.
-Recommended for subcrotical or white matter tracts.}
-
-\item{glassbrain_hemisphere}{Which hemisphere of the glassbrain to add.}
-
-\item{glassbrain_colour}{Colour of the glass brain.}
 }
 \value{
 a plotly object
