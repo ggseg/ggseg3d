@@ -1,24 +1,39 @@
 test_that("get_palette works", {
 
   expect_equal(get_palette(NULL),
-               structure(list(c(0, 1),
-                              c("skyblue", "dodgerblue")),
-                         class = "data.frame",
-                         row.names = c(NA,-2L))
+               structure(list(values = c(0, 1),
+                              norm = c(0, 1),
+                              orig = c("skyblue", "dodgerblue"),
+                              hex = c("#87CEEB", "#1E90FF")),
+                         row.names = c(NA, -2L),
+                         class = "data.frame")
   )
 
   expect_equal(get_palette(c("firebrick", "white", "goldenrod")),
-               structure(list(c(0, 0.5, 1),
-                              c("firebrick", "white", "goldenrod")),
-                         class = "data.frame",
-                         row.names = c(NA, -3L))
+               structure(list(values = c(0, 0.5, 1),
+                              norm = c(0, 0.5, 1),
+                              orig = c("firebrick", "white", "goldenrod"),
+                              hex = c("#B22222", "#FFFFFF", "#DAA520")),
+                         row.names = c(NA, -3L),
+                         class = "data.frame")
   )
 
-  expect_equal(get_palette(c("#fff", "#d3d3d3", "#32g303")),
-  structure(list(c(0, 0.5, 1),
-                 c("#fff", "#d3d3d3", "#32g303")),
-            class = "data.frame",
-            row.names = c(NA,-3L))
+  expect_equal(get_palette(c("#ffffff", "#d3d3d3", "#32f303")),
+               structure(list(values = c(0, 0.5, 1),
+                              norm = c(0, 0.5, 1),
+                              orig = c("#ffffff", "#d3d3d3", "#32f303"),
+                              hex = c("#FFFFFF", "#D3D3D3", "#32F303")),
+                         row.names = c(NA, -3L),
+                         class = "data.frame")
+  )
+
+  expect_equal(get_palette(c("#ffffff" = 0, "#d3d3d3" = 1, "#32f303" = 2)),
+               structure(list(values = c(0, 1, 2),
+                              norm = c(0, 0.5, 1),
+                              orig = c("#ffffff", "#d3d3d3", "#32f303"),
+                              hex = c("#FFFFFF", "#D3D3D3", "#32F303")),
+                         row.names = c(NA, -3L),
+                         class = "data.frame")
   )
 
 })

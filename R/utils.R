@@ -45,22 +45,38 @@ get_palette <- function(palette){
     palette = c("skyblue", "dodgerblue")
   }
 
-  pal.colours = palette
+  if(!is.null(names(palette))){
+     pal.colours <- names(palette)
+     pal.values <- unname(palette)
+     pal.norm <- range_norm(pal.values)
+  }else{
+    pal.colours <- palette
+    pal.norm <- seq(0,1, length.out = length(pal.colours))
+    pal.values <- seq(0,1, length.out = length(pal.colours))
+  }
 
-  # pal.colours = if(length(palette)==1){
-  #   if(!palette %in% unlist(lapply(paletteers$palettes, function(x) x$palette))){
-  #     stop(paste0("No such palette '", palette, "'. Choose one from the paletteer package."))
-  #   }
-  #
-  #   get_paletteer(palette)
-  # }else{
-  #   palette
-  # }
+  pal.colours = data.frame(values = pal.values,
+                           norm = pal.norm,
+                           orig = pal.colours,
+                           stringsAsFactors = F)
 
-
-  pal.colours = data.frame(seq(0,1, length.out = length(pal.colours)),
-                           pal.colours, stringsAsFactors = F)
-  names(pal.colours) = NULL
+  pal.colours$hex <- gradient_n_pal(
+    colours = pal.colours$orig,
+    values = pal.colours$values,
+    space = "Lab")(pal.colours$values)
 
   pal.colours
+}
+
+range_norm <- function(x){ (x-min(x)) / (max(x)-min(x)) }
+
+get_legend_limits <- function(atlas3d, palette, colour){
+
+  if(!is.null(names(palette))){
+    unname(palette)
+  }else{
+    c(min(atlas3d[,colour],na.rm=T),
+      max(atlas3d[,colour],na.rm=T))
+  }
+
 }

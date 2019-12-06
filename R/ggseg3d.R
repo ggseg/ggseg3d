@@ -75,14 +75,15 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d",
     atlas3d <- data_merge(.data, atlas3d)
   }
 
-
   pal.colours <- get_palette(palette)
 
   # If colour column is numeric, calculate the gradient
   if(is.numeric(unlist(atlas3d[,colour]))){
-    atlas3d$new_col = gradient_n_pal(pal.colours[,2], NULL,"Lab")(
-      rescale(x=unlist(atlas3d[,colour])))
+
+    atlas3d$new_col = gradient_n_pal(pal.colours$orig, pal.colours$values,"Lab")(
+      unlist(atlas3d[,colour]))
     fill = "new_col"
+
   }else{
     fill = colour
   }
@@ -126,14 +127,14 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d",
   # work around to get legend
   if(show.legend & is.numeric(unlist(atlas3d[,colour]))){
 
-    p = plotly::add_trace(p,
-                  x = c(min(atlas3d$mesh[[1]]$vb["xpts",]), max(atlas3d$mesh[[1]]$vb["xpts",])),
-                  y = c(min(atlas3d$mesh[[1]]$vb["ypts",]), max(atlas3d$mesh[[1]]$vb["ypts",])),
-                  z = c(min(atlas3d$mesh[[1]]$vb["zpts",]), max(atlas3d$mesh[[1]]$vb["zpts",])),
+    dt_leg <- dplyr::mutate(pal.colours,
+                     x = 0, y = 0, z = 0)
 
-                  intensity = c(min(atlas3d[,colour],na.rm=T),
-                                max(atlas3d[,colour],na.rm=T)),
-                  colorscale = pal.colours,
+    p = plotly::add_trace(p, data = dt_leg,
+                  x = ~ x, y = ~ y, z = ~ z,
+
+                  intensity =  ~ values,
+                  colorscale =  unname(dt_leg[,c("norm", "hex")]),
                   type = "mesh3d"
     )
   }

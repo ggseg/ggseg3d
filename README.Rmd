@@ -11,16 +11,18 @@ knitr::opts_chunk$set(
   fig.path = "man/img/README-",
   echo = TRUE
 )
-#library(ggseg3d)
+library(magrittr)
+if (!require("processx")) install.packages("processx")
+devtools::load_all(".")
 ```
 
 
 # ggseg3d <img src='man/figures/logo.png' align="right" height="138.5" /> 
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/LCBC-UiO/ggseg3d.svg?branch=master)](https://travis-ci.org/LCBC-UiO/ggseg3d)
-  [![Coverage status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/github/LCBC-UiO/ggseg3d?branch=master)
-[![CRAN status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/LCBC-UiO/ggseg3d?branch=master&svg=true)](https://ci.appveyor.com/project/LCBC-UiO/ggseg3d)
+  [![Coverage status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/LCBC-UiO/ggseg3d)
+[![CRAN status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
@@ -65,6 +67,47 @@ library(ggseg3d)
 vignette("ggseg3d")
 ```
 
+```{r eval=F}
+ggseg3d(atlas=dkt_3d) %>% 
+  remove_axes() %>% 
+  pan_camera("lateral")
+```
+```{r, include=FALSE}
+p <- ggseg3d(atlas=dkt_3d) %>% 
+  remove_axes() %>% 
+  pan_camera("lateral") %>% 
+  plotly::add_annotations( text="Screen capture",
+                  legendtitle=TRUE, showarrow=FALSE,
+                  font = list(color = 'darkgrey',
+                              family = 'sans serif',
+                              size = 50)) 
+plotly::orca(p, "man/img/README-dkt_3d-plot.png")
+```
+```{r echo=FALSE}
+knitr::include_graphics("man/img/README-dkt_3d-plot.png")
+```
+
+```{r eval=F}
+ggseg3d(atlas=aseg_3d) %>% 
+  add_glassbrain() %>% 
+  remove_axes() %>% 
+  pan_camera("lateral")
+```
+```{r, include=FALSE}
+p <- ggseg3d(atlas=aseg_3d) %>% 
+  add_glassbrain() %>% 
+  remove_axes() %>% 
+  pan_camera("lateral") %>% 
+  plotly::add_annotations( text="Screen capture",
+                  legendtitle=TRUE, showarrow=FALSE,
+                  font = list(color = 'darkgrey',
+                              family = 'sans serif',
+                              size = 50)) 
+plotly::orca(p, "man/img/README-aseg_3d-plot.png")
+```
+```{r echo=FALSE}
+knitr::include_graphics("man/img/README-aseg_3d-plot.png")
+```
 
 ### Report bugs or requests  
 Don't hesitate to ask for support using [github issues](https://github.com/LCBC-UiO/ggseg3d/issues), or requesting new atlases. 

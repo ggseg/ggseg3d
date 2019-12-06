@@ -2,12 +2,12 @@
 title: "Plotting brain mesh atlases in plotly"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Plotting brain mesh atlases in plotly}
+%\VignetteIndexEntry{Plotting brain mesh atlases in plotly}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
----
-
-```{r setup, include=F}
+  ---
+  
+  ```{r setup, include=F}
 knitr::opts_chunk$set(eval=TRUE)
 devtools::load_all(".")
 library(magrittr)
@@ -70,10 +70,10 @@ someData = dkt_3d %>%
   na.omit() %>% 
   mutate(p = sample(seq(0,.5, length.out = 100 ), nrow(.)) %>% 
            round(2)) 
-  
-  ggseg3d(.data = someData, 
-          atlas = dkt_3d,
-          colour = "p", text = "p") %>% 
+
+ggseg3d(.data = someData, 
+        atlas = dkt_3d,
+        colour = "p", text = "p") %>% 
   pan_camera("medial")
 ```
 
@@ -87,9 +87,16 @@ someData = dkt_3d %>%
 
 You can provide custom colour palettes either in hex or R-names
 ```{r,fig.width=5, eval=FALSE}
-  ggseg3d(.data = someData, atlas = dkt_3d, 
-          colour = "p", text = "p", 
-          palette = c("forestgreen", "white", "firebrick"))
+ggseg3d(.data = someData, atlas = dkt_3d, 
+        colour = "p", text = "p", 
+        palette = c("forestgreen", "white", "firebrick"))
+```
+
+A new improvement now allows you to also supply a named vector as palette, to control the breakpoints of the palette values, and allow you to have a colour bar that exceeds the values that exist in the data plotted.
+```{r,fig.width=5, eval=TRUE}
+ggseg3d(.data = someData, atlas = dkt_3d, 
+        colour = "p", text = "p", 
+        palette = c("forestgreen" = 0, "white" = .05, "firebrick" = 1))
 ```
 
 If you are plotting the sub-cortical structures, you might want to reduce the opacity of the `NA` structures, so that you can see the more medial structures. you may also want to add the `glassbrain`.
@@ -100,22 +107,23 @@ somData_aseg = aseg_3d %>%
   filter(!grepl("Ventricle|Putamen", label)) %>% 
   mutate(p = seq(1, nrow(.))) 
 
-  ggseg3d(.data = somData_aseg, atlas = aseg_3d, 
-          colour = "p", text = "p", 
-          na.alpha= .5) %>% 
-    add_glassbrain()
+ggseg3d(.data = somData_aseg, atlas = aseg_3d, 
+        colour = "p", text = "p", 
+        na.alpha= .5) %>% 
+  add_glassbrain()
 ```
+
 
 ## Camera
 You can rotate away all you like. if you want to start from the medial view, you can use the `pan_camera` option
 ```{r,fig.width=5, eval=FALSE}
-  ggseg3d(.data = someData, atlas=dkt_3d, colour = "p") %>% 
-   pan_camera("medial")
+ggseg3d(.data = someData, atlas=dkt_3d, colour = "p") %>% 
+  pan_camera("medial")
 ```
 
 There is also a surface of the white-matter
 ```{r,fig.width=5, eval=TRUE}
- ggseg3d(atlas=dkt_3d, surface="white")
+ggseg3d(atlas=dkt_3d, surface="white")
 ```
 
 There is much more you can do with the camera options, or by adding extra layout options to plotly. 

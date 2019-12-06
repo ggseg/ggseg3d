@@ -8,12 +8,12 @@ Athanasia Mowinckel & Didac Vidal Pineiro
 
 [![Travis build
 status](https://travis-ci.org/LCBC-UiO/ggseg3d.svg?branch=master)](https://travis-ci.org/LCBC-UiO/ggseg3d)
-[![Coverage
-status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/github/LCBC-UiO/ggseg3d?branch=master)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/LCBC-UiO/ggseg3d?branch=master&svg=true)](https://ci.appveyor.com/project/LCBC-UiO/ggseg3d)
+[![Coverage
+status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/LCBC-UiO/ggseg3d)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
@@ -72,6 +72,23 @@ or via R:
 library(ggseg3d)
 vignette("ggseg3d")
 ```
+
+``` r
+ggseg3d(atlas=dkt_3d) %>% 
+  remove_axes() %>% 
+  pan_camera("lateral")
+```
+
+![](man/img/README-dkt_3d-plot.png)<!-- -->
+
+``` r
+ggseg3d(atlas=aseg_3d) %>% 
+  add_glassbrain(()) %>% 
+  remove_axes() %>% 
+  pan_camera("lateral")
+```
+
+![](man/img/README-aseg_3d-plot.png)<!-- -->
 
 ### Report bugs or requests
 
