@@ -83,7 +83,7 @@ ggseg3d(atlas=dkt_3d) %>%
 
 ``` r
 ggseg3d(atlas=aseg_3d) %>% 
-  add_glassbrain(()) %>% 
+  add_glassbrain() %>% 
   remove_axes() %>% 
   pan_camera("lateral")
 ```
