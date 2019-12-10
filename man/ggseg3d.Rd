@@ -6,10 +6,19 @@
 \alias{ggseg3d-package}
 \title{ggseg3d: Plot brain segmentations with plotly}
 \usage{
-ggseg3d(.data = NULL, atlas = "dkt_3d", surface = "LCBC",
-  hemisphere = c("right", "subcort"), label = "area", text = NULL,
-  colour = "colour", palette = NULL, na.colour = "darkgrey",
-  na.alpha = 1, show.legend = TRUE)
+ggseg3d(
+  .data = NULL,
+  atlas = "dkt_3d",
+  surface = "LCBC",
+  hemisphere = c("right", "subcort"),
+  label = "area",
+  text = NULL,
+  colour = "colour",
+  palette = NULL,
+  na.colour = "darkgrey",
+  na.alpha = 1,
+  show.legend = TRUE
+)
 }
 \arguments{
 \item{.data}{A data.frame to use for plot aesthetics. Must include a
@@ -86,11 +95,11 @@ Useful links:
 \code{\link[plotly]{plot_ly}}, \code{\link[plotly]{add_trace}}, \code{\link[plotly]{layout}}, the plotly package
 }
 \author{
-\strong{Maintainer}: Athanasia Mo Mowinckel \email{a.m.mowinckel@psykologi.uio.no} (0000-0002-5756-0223)
+\strong{Maintainer}: Athanasia Mo Mowinckel \email{a.m.mowinckel@psykologi.uio.no} (\href{https://orcid.org/0000-0002-5756-0223}{ORCID})
 
 Authors:
 \itemize{
-  \item Didac Vidal-Piñeiro \email{d.v.pineiro@psykologi.uio.no} (0000-0001-9997-9156)
+  \item Didac Vidal-Piñeiro \email{d.v.pineiro@psykologi.uio.no} (\href{https://orcid.org/0000-0001-9997-9156}{ORCID})
 }
 
 

@@ -4,8 +4,12 @@
 \alias{add_glassbrain}
 \title{Add glass brain to ggseg3d plot}
 \usage{
-add_glassbrain(p, hemisphere = c("left", "right"), colour = "#cecece",
-  opacity = 0.3)
+add_glassbrain(
+  p,
+  hemisphere = c("left", "right"),
+  colour = "#cecece",
+  opacity = 0.3
+)
 }
 \arguments{
 \item{p}{plotly object}
