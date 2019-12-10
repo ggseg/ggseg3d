@@ -16,16 +16,19 @@
 #' @examples
 #' library(magrittr)
 #' ggseg3d() %>%
-#'    pan_camera("lateral")
+#'    pan_camera("right lateral")
 pan_camera <- function(p, camera){
 
   stopifnot(is.character(camera)|is.list(camera))
 
   views = if(class(camera) != "list"){
-    camera <- match.arg(camera, c("lateral", "medial"))
+    camera <- match.arg(camera, c("left lateral", "left medial",
+                                  "right lateral", "right medial"))
     switch(camera,
-           "lateral" = list(eye = list(x = 2, y = 0, z = 1)),
-           "medial" = list(eye = list(x = -2.25, y = -0.5, z = -0.5))
+           "left lateral" = list(eye = list(x = -2, y = 0, z = 1)),
+           "left medial" = list(eye = list(x = 2, y = -.15, z = -0.5)),
+           "right lateral" = list(eye = list(x = 2, y = 0, z = 1)),
+           "right medial" = list(eye = list(x = -2.25, y = -0.5, z = -0.5))
     )
   }else{
     camera

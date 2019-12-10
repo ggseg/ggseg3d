@@ -19,7 +19,7 @@ devtools::load_all(".")
 
 # ggseg3d <img src='man/figures/logo.png' align="right" height="138.5" /> 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/LCBC-UiO/ggseg3d.svg?branch=master)](https://travis-ci.org/LCBC-UiO/ggseg3d)
+[![Travis build status](https://travis-ci.com/LCBC-UiO/ggseg3d.svg?branch=master)](https://travis-ci.com/LCBC-UiO/ggseg3d)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/LCBC-UiO/ggseg3d?branch=master&svg=true)](https://ci.appveyor.com/project/LCBC-UiO/ggseg3d)
   [![Coverage status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/LCBC-UiO/ggseg3d)
 [![CRAN status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)

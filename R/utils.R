@@ -69,14 +69,3 @@ get_palette <- function(palette){
 }
 
 range_norm <- function(x){ (x-min(x)) / (max(x)-min(x)) }
-
-get_legend_limits <- function(atlas3d, palette, colour){
-
-  if(!is.null(names(palette))){
-    unname(palette)
-  }else{
-    c(min(atlas3d[,colour],na.rm=T),
-      max(atlas3d[,colour],na.rm=T))
-  }
-
-}

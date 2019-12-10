@@ -25,5 +25,5 @@ plotly savvy.
 \examples{
 library(magrittr)
 ggseg3d() \%>\%
-   pan_camera("lateral")
+   pan_camera("right lateral")
 }
