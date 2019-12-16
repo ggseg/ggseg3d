@@ -2,12 +2,12 @@
 title: "Plotting brain mesh atlases in plotly"
 output: rmarkdown::html_vignette
 vignette: >
-%\VignetteIndexEntry{Plotting brain mesh atlases in plotly}
+  %\VignetteIndexEntry{Plotting brain mesh atlases in plotly}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
-  ---
+---
   
-  ```{r setup, include=F}
+```{r setup, include=F}
 knitr::opts_chunk$set(eval=TRUE)
 devtools::load_all(".")
 library(magrittr)
@@ -30,7 +30,6 @@ All `[...]_3d` atlases have a built in `colour` column for default colour plotti
 
 ```{r start, eval=FALSE}
 library(ggseg3d)
-library(magrittr)
 library(dplyr)
 library(tidyr)
 ```
@@ -104,7 +103,7 @@ If you are plotting the sub-cortical structures, you might want to reduce the op
 somData_aseg = aseg_3d %>% 
   unnest(cols = ggseg_3d) %>% 
   select(label) %>% 
-  filter(!grepl("Ventricle|Putamen", label)) %>% 
+  filter(!grepl("Ventricle|Putamen|Amygdala", label)) %>% 
   mutate(p = seq(1, nrow(.))) 
 
 ggseg3d(.data = somData_aseg, atlas = aseg_3d, 

@@ -74,6 +74,13 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d",
   # If colour column is numeric, calculate the gradient
   if(is.numeric(unlist(atlas3d[,colour]))){
 
+    if(is.null(names(palette))){
+      pal.colours$values <- seq(min(atlas3d[,colour], na.rm = TRUE),
+                                max(atlas3d[,colour], na.rm = TRUE),
+                                length.out = nrow(pal.colours))
+    }
+
+    print(pal.colours)
     atlas3d$new_col = gradient_n_pal(pal.colours$orig, pal.colours$values,"Lab")(
       unlist(atlas3d[,colour]))
     fill = "new_col"
@@ -101,20 +108,20 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d",
     }
 
     p = plotly::add_trace(p,
-                  x = atlas3d$mesh[[tt]]$vb["xpts",],
-                  y = atlas3d$mesh[[tt]]$vb["ypts",],
-                  z = atlas3d$mesh[[tt]]$vb["zpts",],
+                          x = atlas3d$mesh[[tt]]$vb["xpts",],
+                          y = atlas3d$mesh[[tt]]$vb["ypts",],
+                          z = atlas3d$mesh[[tt]]$vb["zpts",],
 
-                  i = atlas3d$mesh[[tt]]$it[1,]-1,
-                  j = atlas3d$mesh[[tt]]$it[2,]-1,
-                  k = atlas3d$mesh[[tt]]$it[3,]-1,
+                          i = atlas3d$mesh[[tt]]$it[1,]-1,
+                          j = atlas3d$mesh[[tt]]$it[2,]-1,
+                          k = atlas3d$mesh[[tt]]$it[3,]-1,
 
-                  facecolor = col,
-                  type = "mesh3d",
-                  text = txt,
-                  showscale = FALSE,
-                  opacity = op,
-                  name = unlist(atlas3d[tt, label])
+                          facecolor = col,
+                          type = "mesh3d",
+                          text = txt,
+                          showscale = FALSE,
+                          opacity = op,
+                          name = unlist(atlas3d[tt, label])
     )
   }
 
@@ -122,18 +129,18 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d",
   if(show.legend & is.numeric(unlist(atlas3d[,colour]))){
 
     dt_leg <- dplyr::mutate(pal.colours,
-                     x = 0, y = 0, z = 0)
+                            x = 0, y = 0, z = 0)
 
     p = plotly::add_trace(p, data = dt_leg,
-                  x = ~ x, y = ~ y, z = ~ z,
+                          x = ~ x, y = ~ y, z = ~ z,
 
-                  intensity =  ~ values,
-                  colorscale =  unname(dt_leg[,c("norm", "hex")]),
-                  type = "mesh3d"
+                          intensity =  ~ values,
+                          colorscale =  unname(dt_leg[,c("norm", "hex")]),
+                          type = "mesh3d"
     )
   }
 
- p
+  p
 }
 
 ## quiets concerns of R CMD check
