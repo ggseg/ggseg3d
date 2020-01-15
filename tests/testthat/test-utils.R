@@ -1,5 +1,24 @@
 test_that("get_palette works", {
 
+  expect_equal(get_palette("blue"),
+               data.frame(values = c(0,1),
+                          norm = c(0,1),
+                          orig = "blue",
+                          hex = "#0000FF",
+                          stringsAsFactors = FALSE
+                          )
+  )
+
+
+  expect_equal(get_palette(c("blue"=1)),
+               data.frame(values = c(1,2),
+                          norm = c(0,1),
+                          orig = "blue",
+                          hex = "#0000FF",
+                          stringsAsFactors = FALSE
+               )
+  )
+
   expect_equal(get_palette(NULL),
                structure(list(values = c(0, 1),
                               norm = c(0, 1),

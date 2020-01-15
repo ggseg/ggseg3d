@@ -80,7 +80,6 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d",
                                 length.out = nrow(pal.colours))
     }
 
-    print(pal.colours)
     atlas3d$new_col = gradient_n_pal(pal.colours$orig, pal.colours$values,"Lab")(
       unlist(atlas3d[,colour]))
     fill = "new_col"

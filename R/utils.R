@@ -55,17 +55,28 @@ get_palette <- function(palette){
     pal.values <- seq(0,1, length.out = length(pal.colours))
   }
 
-  pal.colours = data.frame(values = pal.values,
-                           norm = pal.norm,
-                           orig = pal.colours,
-                           stringsAsFactors = F)
+  # Might be a single colour
+  pal.colours = if(length(palette) == 1){
+    # If a single colour, dummy create a second
+    # palette row for interpolation
+    data.frame(values = c(pal.values,pal.values+1),
+               norm = c(0, 1 ),
+               orig = c(pal.colours,pal.colours),
+               stringsAsFactors = F)
+  }else{
+    data.frame(values = pal.values,
+               norm = pal.norm,
+               orig = pal.colours,
+               stringsAsFactors = F)
+  }
 
   pal.colours$hex <- gradient_n_pal(
     colours = pal.colours$orig,
     values = pal.colours$values,
     space = "Lab")(pal.colours$values)
 
-  pal.colours
+    pal.colours
+
 }
 
 range_norm <- function(x){ (x-min(x)) / (max(x)-min(x)) }
