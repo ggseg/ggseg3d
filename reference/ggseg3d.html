@@ -138,10 +138,20 @@ represents.</p>
 <p><code>ggseg3d</code> plots and returns a plotly mesh3d object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggseg3d</span>(<span class='kw'>.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>atlas</span> <span class='kw'>=</span> <span class='st'>"dkt_3d"</span>, <span class='kw'>surface</span> <span class='kw'>=</span> <span class='st'>"LCBC"</span>,
-  <span class='kw'>hemisphere</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"subcort"</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"area"</span>, <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"colour"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.colour</span> <span class='kw'>=</span> <span class='st'>"darkgrey"</span>,
-  <span class='kw'>na.alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>ggseg3d</span>(
+  <span class='kw'>.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>atlas</span> <span class='kw'>=</span> <span class='st'>"dkt_3d"</span>,
+  <span class='kw'>surface</span> <span class='kw'>=</span> <span class='st'>"LCBC"</span>,
+  <span class='kw'>hemisphere</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"subcort"</span>),
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"area"</span>,
+  <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"colour"</span>,
+  <span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na.colour</span> <span class='kw'>=</span> <span class='st'>"darkgrey"</span>,
+  <span class='kw'>na.alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>options.legend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,6 +204,10 @@ numeric vector, with colours as names, and breakpoint for that colour as the val
       <th>show.legend</th>
       <td><p>Logical. Toggle legend if colour is numeric.</p></td>
     </tr>
+    <tr>
+      <th>options.legend</th>
+      <td><p>list of layout changes to colourbar</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -242,9 +256,9 @@ Available atlases:
     </ul>
 
     <h2>Author</h2>
-    <p><strong>Maintainer</strong>: Athanasia Mo Mowinckel <a href='mailto:a.m.mowinckel@psykologi.uio.no'>a.m.mowinckel@psykologi.uio.no</a> (0000-0002-5756-0223)</p>
+    <p><strong>Maintainer</strong>: Athanasia Mo Mowinckel <a href='mailto:a.m.mowinckel@psykologi.uio.no'>a.m.mowinckel@psykologi.uio.no</a> (<a href='https://orcid.org/0000-0002-5756-0223'>ORCID</a>)</p>
 <p>Authors:</p><ul>
-<li><p>Didac Vidal-Piñeiro <a href='mailto:d.v.pineiro@psykologi.uio.no'>d.v.pineiro@psykologi.uio.no</a> (0000-0001-9997-9156)</p></li>
+<li><p>Didac Vidal-Piñeiro <a href='mailto:d.v.pineiro@psykologi.uio.no'>d.v.pineiro@psykologi.uio.no</a> (<a href='https://orcid.org/0000-0001-9997-9156'>ORCID</a>)</p></li>
 </ul>
 
 
