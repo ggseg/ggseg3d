@@ -18,6 +18,7 @@
 #' @param na.colour String. Either name, hex of RGB for colour of NA in colour.
 #' @param na.alpha Numeric. A number between 0 and 1 to control transparency of NA-regions.
 #' @param show.legend Logical. Toggle legend if colour is numeric.
+#' @param options.legend list of layout changes to colourbar
 
 #'
 #' @details
@@ -56,7 +57,7 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d",
                     surface = "LCBC", hemisphere = c("right","subcort"),
                     label = "area", text = NULL, colour = "colour",
                     palette = NULL, na.colour = "darkgrey", na.alpha = 1,
-                    show.legend = TRUE) {
+                    show.legend = TRUE, options.legend = NULL) {
 
 
   # Grab the atlas, even if it has been provided as character string
@@ -130,12 +131,13 @@ ggseg3d <- function(.data=NULL, atlas="dkt_3d",
     dt_leg <- dplyr::mutate(pal.colours,
                             x = 0, y = 0, z = 0)
 
-    p = plotly::add_trace(p, data = dt_leg,
+    p <- plotly::add_trace(p, data = dt_leg,
                           x = ~ x, y = ~ y, z = ~ z,
 
                           intensity =  ~ values,
                           colorscale =  unname(dt_leg[,c("norm", "hex")]),
-                          type = "mesh3d"
+                          type = "mesh3d",
+                          colorbar = options.legend
     )
   }
 

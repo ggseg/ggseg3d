@@ -8,7 +8,7 @@ vignette: >
 ---
   
 ```{r setup, include=F}
-knitr::opts_chunk$set(eval=TRUE)
+knitr::opts_chunk$set(eval=TRUE, fig.width=5)
 devtools::load_all(".")
 library(magrittr)
 library(dplyr)
@@ -110,6 +110,17 @@ ggseg3d(.data = somData_aseg, atlas = aseg_3d,
         colour = "p", text = "p", 
         na.alpha= .5) %>% 
   add_glassbrain()
+```
+
+### Legend options
+A new feature now also allows you to control the colourbar appearance through the `colourbar` option in `plotly::add_trace`, through the `legend.option` argument. 
+This argument takes a list, and you can for instance change the title. 
+
+
+```{r}
+ ggseg3d(.data=someData,
+      colour = "p", text="p", 
+      options.legend = list(title=list(text="mm")))
 ```
 
 
