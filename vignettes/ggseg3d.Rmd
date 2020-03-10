@@ -25,7 +25,7 @@ A lot of credit goes to A.M.Winkler and his [Brainder](https://brainder.org/) wo
 The function `ggseg3d()`, is based in the plotly, it is recommended to get a little familiarized with with [plotly](https://plotly-book.cpsievert.me/). 
 
 Out-of-the-box, `ggseg()` works without supplying any extra information. 
-It will create a base plot of the aparc (dkt) brain segmentations.
+It will create a base plot of the aparc (dk) brain segmentations.
 All `[...]_3d` atlases have a built in `colour` column for default colour plotting of the segments.
 
 ```{r start, eval=FALSE}
@@ -43,35 +43,36 @@ ggseg3d() %>%
 ## Atlas data
 The data is stored in tibbles, and looks like so:
 ```{r,fig.width=5}
-dkt_3d
+dk_3d
 ```
 
 To grab all the data for a surface and hemisphere, you should reduce the data to one line, and then `unnest()`
 ```{r}
-dkt_3d %>% 
+dk_3d %>% 
   filter(surf == "inflated" & hemi == "right") %>% 
   unnest(cols = ggseg_3d)
 ```
 
 ## External data supply
 Particularly notice the `mesh` column, which is a list column of lists. In there is all the 6 vectors needed to create the mesh of the tri-surface plot. 
-You'll also need to notive the `label`, `annot` and `area` columns, which are likely the columns you will be matching on when proviging with your own data for colours. 
+You'll also need to notive the `label`, `annot` and `region` columns, which are likely the columns you will be matching on when proviging with your own data for colours. 
 You need to be meticulous when fixing your data, be sure it matches.
 The function _should_ give you a warning if it's struggling to match something. 
 
 The column you want to use for colour, needs to be supplied to the `colour` option, and you'll likely want to supply it to the `text` option, as this will add another line to the plotly hover information.
 
 ```{r,fig.width=5}
-someData = dkt_3d %>% 
+someData = dk_3d %>% 
   filter(surf == "inflated" & hemi == "right") %>% 
   unnest(ggseg_3d) %>% 
-  select(area) %>% 
+  ungroup() %>% 
+  select(region) %>% 
   na.omit() %>% 
   mutate(p = sample(seq(0,.5, length.out = 100 ), nrow(.)) %>% 
            round(2)) 
 
 ggseg3d(.data = someData, 
-        atlas = dkt_3d,
+        atlas = dk_3d,
         colour = "p", text = "p") %>% 
   pan_camera("right medial")
 ```
@@ -79,21 +80,21 @@ ggseg3d(.data = someData,
 ## Colours
 <!-- You can also change the palette. Choose from ALL the paletteer palettes, just use their name. -->
 <!-- ```{r,fig.width=5} -->
-<!--   ggseg3d(.data = someData, atlas = dkt_3d, colour = "p", text = "p", palette = "berlin") -->
-<!--   ggseg3d(.data = someData, atlas = dkt_3d, colour = "p", text = "p", palette = "RdBu") -->
-<!--   ggseg3d(.data = someData, atlas = dkt_3d, colour = "p", text = "p", palette = "GrandBudapest1") -->
+<!--   ggseg3d(.data = someData, atlas = dk_3d, colour = "p", text = "p", palette = "berlin") -->
+<!--   ggseg3d(.data = someData, atlas = dk_3d, colour = "p", text = "p", palette = "RdBu") -->
+<!--   ggseg3d(.data = someData, atlas = dk_3d, colour = "p", text = "p", palette = "GrandBudapest1") -->
 <!-- ``` -->
 
 You can provide custom colour palettes either in hex or R-names
 ```{r,fig.width=5, eval=FALSE}
-ggseg3d(.data = someData, atlas = dkt_3d, 
+ggseg3d(.data = someData, atlas = dk_3d, 
         colour = "p", text = "p", 
         palette = c("forestgreen", "white", "firebrick"))
 ```
 
 A new improvement now allows you to also supply a named vector as palette, to control the breakpoints of the palette values, and allow you to have a colour bar that exceeds the values that exist in the data plotted.
 ```{r,fig.width=5, eval=TRUE}
-ggseg3d(.data = someData, atlas = dkt_3d, 
+ggseg3d(.data = someData, atlas = dk_3d, 
         colour = "p", text = "p", 
         palette = c("forestgreen" = 0, "white" = .05, "firebrick" = 1))
 ```
@@ -127,13 +128,13 @@ This argument takes a list, and you can for instance change the title.
 ## Camera
 You can rotate away all you like. if you want to start from the medial view, you can use the `pan_camera` option
 ```{r,fig.width=5, eval=FALSE}
-ggseg3d(.data = someData, atlas=dkt_3d, colour = "p") %>% 
+ggseg3d(.data = someData, atlas=dk_3d, colour = "p") %>% 
   pan_camera("right medial")
 ```
 
 There is also a surface of the white-matter
 ```{r,fig.width=5, eval=TRUE}
-ggseg3d(atlas=dkt_3d, surface="white")
+ggseg3d(atlas=dk_3d, surface="white")
 ```
 
 There is much more you can do with the camera options, or by adding extra layout options to plotly. 

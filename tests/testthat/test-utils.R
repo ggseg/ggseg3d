@@ -59,13 +59,13 @@ test_that("get_palette works", {
 
 test_that("get_atlas works", {
 
-  expect_error(get_atlas("dkt3d"), "not found")
-  expect_error(get_atlas("dkt_3d"), "surface")
-  expect_error(get_atlas("dkt_3d", surface="LCBC"), "hemisphere")
+  expect_error(get_atlas("dkt_3d"), "not found")
+  expect_error(get_atlas("dk_3d"), "surface")
+  expect_error(get_atlas("dk_3d", surface="LCBC"), "hemisphere")
 
-  k <- get_atlas("dkt_3d", surface="LCBC", hemisphere = "left")
+  k <- get_atlas("dk_3d", surface="LCBC", hemisphere = "left")
   expect_equal(dim(k), c(36,11))
-  expect_equal(names(k), c("atlas", "surf", "hemi", "area", "colour", "mesh", "label",
+  expect_equal(names(k), c("atlas", "surf", "hemi", "region", "colour", "mesh", "label",
                            "roi", "annot", "acronym", "lobe"))
 
 
@@ -75,7 +75,7 @@ test_that("get_atlas works", {
 
   k <- get_atlas("aseg_3d", surface="LCBC", hemisphere = "subcort")
   expect_equal(dim(k), c(32,9))
-  expect_equal(names(k), c("atlas", "surf", "hemi", "area", "colour", "mesh", "label",
+  expect_equal(names(k), c("atlas", "surf", "hemi", "region", "colour", "mesh", "label",
                            "files", "roi"))
 
 })

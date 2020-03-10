@@ -7,8 +7,8 @@
 #' A nested tibble for all available surfaces and hemispheres
 #'
 #' @docType data
-#' @name dkt_3d
-#' @usage data(dkt_3d)
+#' @name dk_3d
+#' @usage data(dk_3d)
 #' @keywords datasets
 #' @family ggseg3d_atlases
 #'
@@ -29,12 +29,12 @@
 #'   \item{mesh}{list of meshes in two lists: vb and it}
 #'   \item{acronym}{abbreviated name of annot}
 #'   \item{lobe}{lobe localization}
-#'   \item{area}{name of area in full}
+#'   \item{region}{name of region in full}
 #'   \item{colour}{HEX colour of region}
 #' }
 #' @examples
-#' data(dkt_3d)
-"dkt_3d"
+#' data(dk_3d)
+"dk_3d"
 
 
 #' Freesurfer automatic subcortical segmentation of a brain volume
@@ -64,7 +64,7 @@
 #'   \item{annot}{concatenated region name}
 #'   \item{label}{label `hemi_annot` of the region}
 #'   \item{mesh}{list of meshes in two lists: vb and it}
-#'   \item{area}{name of area in full}
+#'   \item{region}{name of region in full}
 #'   \item{colour}{HEX colour of region}
 #' }
 #'

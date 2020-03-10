@@ -8,10 +8,10 @@
 \usage{
 ggseg3d(
   .data = NULL,
-  atlas = "dkt_3d",
+  atlas = "dk_3d",
   surface = "LCBC",
   hemisphere = c("right", "subcort"),
-  label = "area",
+  label = "region",
   text = NULL,
   colour = "colour",
   palette = NULL,
@@ -23,7 +23,7 @@ ggseg3d(
 }
 \arguments{
 \item{.data}{A data.frame to use for plot aesthetics. Must include a
-column called "area" corresponding to areas.}
+column called "region" corresponding to regions.}
 
 \item{atlas}{Either a string with the name of a 3d atlas to use.}
 
@@ -48,7 +48,14 @@ numeric vector, with colours as names, and breakpoint for that colour as the val
 
 \item{show.legend}{Logical. Toggle legend if colour is numeric.}
 
-\item{options.legend}{list of layout changes to colourbar}
+\item{options.legend}{list of layout changes to colourbar
+
+\strong{Available surfaces:}
+\itemize{
+\item `inflated:` Fully inflated surface
+\item `semi-inflated:` Semi-inflated surface
+\item `white:` white matter surface
+ }}
 }
 \value{
 a plotly object
@@ -66,19 +73,6 @@ represents.
 This package contains data from various brain parcellations,
 with convenient functions to inspect the results directly on
 a brain-plot wither with plotly in 3d meshes.
-
-\describe{
-\strong{Available atlases:}
-  \item{`dkt_3d`}{
-    The Desikan-Killiany Cortical Atlas [default], Freesurfer cortical segmentations, in 3dmesh format
-  }
-}
-
-\strong{Available surfaces:}
-\itemize{
-\item `inflated` Fully inflated surface
-\item `white` white matter surface
- }
 }
 \examples{
 ggseg3d()

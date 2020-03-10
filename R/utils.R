@@ -1,3 +1,48 @@
+
+#' Convenience function to install all atlases from ggsegExtra-repo
+#'
+#' \code{install_atlases} calls devtools::install_github() with repo = "LCBC-UiO/ggsegExtra"
+#' @author Athanasia Mowinckel and Didac Pineiro
+#'
+#' @param repo repository to install via github
+#' @param ... other options to install_github
+#' @export
+install_atlases = function(repo="LCBC-UiO/ggsegExtra",...){
+  remotes::install_github(repo=repo, ...)
+}
+
+
+data_merge <- function(.data, atlas3d){
+
+  # Find columns they have in common
+  cols = names(atlas3d)[names(atlas3d) %in% names(.data)]
+
+  # Merge the brain with the data
+  atlas3d = atlas3d %>%
+    dplyr::full_join(.data, by = cols, copy=TRUE)
+
+  # Find if there are instances of those columns that
+  # are not present in the atlas. Maybe mispelled?
+  errs = atlas3d %>%
+    dplyr::filter(unlist(lapply(atlas3d$mesh, is.null))) %>%
+    dplyr::select(!!cols) %>%
+    dplyr::distinct() %>%
+    tidyr::unite_("tt", cols, sep = " - ") %>%
+    dplyr::summarise(value = paste0(tt, collapse = ", "))
+
+  if(errs != ""){
+    warning(paste("Some data is not merged properly into the atlas. Check for spelling mistakes in:",
+                  errs$value))
+
+    atlas3d = atlas3d %>%
+      dplyr::filter(!unlist(lapply(atlas3d$mesh, is.null)))
+  }
+
+  atlas3d
+}
+
+
+
 # from the package gplots
 col2hex <- function (colour){
   col <- grDevices::col2rgb(colour)
@@ -80,3 +125,16 @@ get_palette <- function(palette){
 }
 
 range_norm <- function(x){ (x-min(x)) / (max(x)-min(x)) }
+
+
+
+utils::globalVariables(c("region",
+                         "atlas",
+                         "colour",
+                         "group",
+                         "hemi",
+                         ".lat",
+                         ".long",
+                         ".id",
+                         "side",
+                         "x"))

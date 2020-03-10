@@ -2,7 +2,7 @@
 tt <- data.frame(atlas = "k",
                  surf = "white",
                  hemi = "left",
-                 area = "something",
+                 region = "something",
                  colour = "#d2d2d2",
                  stringsAsFactors = FALSE)
 tt$mesh[[1]] = list(it=array(0, dim=3),vb=array(0, dim=3))

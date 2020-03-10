@@ -4,7 +4,7 @@
 #' @author Athanasia Mowinckel and Didac Pineiro
 #'
 #' @param .data A data.frame to use for plot aesthetics. Must include a
-#' column called "area" corresponding to areas.
+#' column called "region" corresponding to regions.
 #' @param atlas Either a string with the name of a 3d atlas to use.
 #' @param hemisphere String. Hemisphere to plot. Either "left" or "right"[default],
 #' can also be "subcort".
@@ -19,21 +19,12 @@
 #' @param na.alpha Numeric. A number between 0 and 1 to control transparency of NA-regions.
 #' @param show.legend Logical. Toggle legend if colour is numeric.
 #' @param options.legend list of layout changes to colourbar
-
-#'
-#' @details
-#' \describe{
-#' \strong{Available atlases:}
-#'   \item{`dkt_3d`}{
-#'     The Desikan-Killiany Cortical Atlas [default], Freesurfer cortical segmentations, in 3dmesh format
-#'   }
-#' }
 #'
 #' \strong{Available surfaces:}
 #' \itemize{
-#' \item `inflated` Fully inflated surface
-# \item `semi-inflated` Semi-inflated surface
-#' \item `white` white matter surface
+#' \item `inflated:` Fully inflated surface
+#' \item `semi-inflated:` Semi-inflated surface
+#' \item `white:` white matter surface
 #'  }
 #'
 #' @return a plotly object
@@ -53,9 +44,9 @@
 #' @seealso \code{\link[plotly]{plot_ly}}, \code{\link[plotly]{add_trace}}, \code{\link[plotly]{layout}}, the plotly package
 #'
 #' @export
-ggseg3d <- function(.data=NULL, atlas="dkt_3d",
+ggseg3d <- function(.data=NULL, atlas="dk_3d",
                     surface = "LCBC", hemisphere = c("right","subcort"),
-                    label = "area", text = NULL, colour = "colour",
+                    label = "region", text = NULL, colour = "colour",
                     palette = NULL, na.colour = "darkgrey", na.alpha = 1,
                     show.legend = TRUE, options.legend = NULL) {
 

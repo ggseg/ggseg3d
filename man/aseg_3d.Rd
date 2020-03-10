@@ -16,7 +16,7 @@
   \item{annot}{concatenated region name}
   \item{label}{label `hemi_annot` of the region}
   \item{mesh}{list of meshes in two lists: vb and it}
-  \item{area}{name of area in full}
+  \item{region}{name of region in full}
   \item{colour}{HEX colour of region}
 }}
 \usage{
@@ -35,7 +35,7 @@ Fischl et al., (2002). Neuron, 33:341-355
 }
 \seealso{
 Other ggseg3d_atlases: 
-\code{\link{dkt_3d}}
+\code{\link{dk_3d}}
 }
 \concept{ggseg3d_atlases}
 \keyword{datasets}
