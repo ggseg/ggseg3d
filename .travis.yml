@@ -15,7 +15,8 @@ after_success:
 before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
-  script: Rscript -e 'pkgdown::deploy_site_github(ssh_id = Sys.getenv("TRAVIS_DEPLOY_KEY_COM", ""))'
+  script:
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'pkgdown::deploy_site_github(ssh_id = Sys.getenv("TRAVIS_DEPLOY_KEY_COM", ""))'
   skip_cleanup: true
 addons:
   apt:
@@ -23,24 +24,5 @@ addons:
       - libgdal-dev
       - libproj-dev
 
-#matrix:
-#  include:
-#    # works on Precise and Trusty
-#   - os: linux
-#     addons:
-#        apt:
-#          sources:
-#            - ubuntu-toolchain-r-test
-#          packages:
-#           - g++-7
-#      env:
-#        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-#
-#    - os: osx
-#      osx_image: xcode8
-#      env:
-#        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
-
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install libcgal-dev libglu1-mesa-dev mesa-common-dev; fi
-#    - eval "${MATRIX_EVAL}"
