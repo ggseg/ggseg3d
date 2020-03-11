@@ -2,6 +2,13 @@
 
 language: R
 cache: packages
+os:
+  - linux
+  - osx
+
+env:
+  global: RGL_USE_NULL=TRUE
+
 after_success:
   - Rscript -e 'covr::codecov()'
 before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
@@ -15,18 +22,18 @@ addons:
       - libgdal-dev
       - libproj-dev
 
-matrix:
-  include:
-    # works on Precise and Trusty
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-      env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+#matrix:
+#  include:
+#    # works on Precise and Trusty
+#   - os: linux
+#     addons:
+#        apt:
+#          sources:
+#            - ubuntu-toolchain-r-test
+#          packages:
+#           - g++-7
+#      env:
+#        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 #
 #    - os: osx
 #      osx_image: xcode8
@@ -34,4 +41,5 @@ matrix:
 #        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
 
 before_install:
-    - eval "${MATRIX_EVAL}"
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install libcgal-dev; fi
+#    - eval "${MATRIX_EVAL}"
