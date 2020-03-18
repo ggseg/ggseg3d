@@ -3,7 +3,7 @@ test_that("data_merge works", {
 
 
   someData <- data.frame(
-    area = c("transverse temporal", "insula",
+    region = c("transverse temporal", "insula",
              "pre central","superior parietal"),
     p = sample(seq(0,.5,.001), 4),
     stringsAsFactors = F)
@@ -11,11 +11,11 @@ test_that("data_merge works", {
   k <- data_merge(someData, atlas3d)
 
   expect_equal(names(k),
-               c("atlas", "surf", "hemi", "area", "colour", "mesh", "label",
+               c("atlas", "surf", "hemi", "region", "colour", "mesh", "label",
                  "roi", "annot", "acronym", "lobe", "p"))
 
   someData <- data.frame(
-    area = c("transverse templral", "insula",
+    region = c("transverse templral", "insula",
              "pre central","superior parietal"),
     p = sample(seq(0,.5,.001), 4),
     stringsAsFactors = F)
@@ -24,7 +24,7 @@ test_that("data_merge works", {
                       "transverse templral")
 
   expect_equal(names(k),
-               c("atlas", "surf", "hemi", "area", "colour", "mesh", "label",
+               c("atlas", "surf", "hemi", "region", "colour", "mesh", "label",
                  "roi", "annot", "acronym", "lobe", "p"))
 
 })

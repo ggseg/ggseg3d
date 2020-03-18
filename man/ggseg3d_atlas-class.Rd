@@ -6,10 +6,12 @@
 \alias{ggseg3d_atlas}
 \title{`ggseg3d_atlas` class}
 \usage{
-as_ggseg3d_atlas(x)
+as_ggseg3d_atlas(x, return = FALSE)
 }
 \arguments{
-\item{x}{dataframe to be made a ggseg-atlas}
+\item{x}{data.frame to be made a ggseg-atlas}
+
+\item{return}{return logical}
 }
 \description{
 The `ggseg_3datlas` class is a subclass of [`data.frame`][base::data.frame()],

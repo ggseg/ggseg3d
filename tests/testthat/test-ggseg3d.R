@@ -13,7 +13,7 @@ test_that("Check that ggseg3d is working", {
   dk <- data.frame(.long = double(),
                     .lat = double(),
                     .id = character(),
-                    area = as.character(),
+                    region = as.character(),
                     hemi = character(),
                     side = character())
   expect_error(ggseg3d(atlas=dk), "This is not a 3d atlas")
@@ -23,7 +23,7 @@ test_that("Check that ggseg3d is working", {
 
   expect_warning(
     ggseg3d(.data=data.frame(
-      area = c("transverse tempral", "insula",
+      region = c("transverse tempral", "insula",
                "pre central","superior parietal"),
       p = sample(seq(0,.5,.001), 4), stringsAsFactors = FALSE),
       colour = "p")
@@ -31,14 +31,14 @@ test_that("Check that ggseg3d is working", {
 
   expect_error(
     ggseg3d(.data=data.frame(
-      area = c("transverse temporal", "insula",
+      region = c("transverse temporal", "insula",
                "pre central","superior parietal"),
       p = sample(seq(0,.5,.001), 4), stringsAsFactors = F),
       colour = "p", palette="ponyomedium")
   )
 
   someData <- data.frame(
-    area = c("transverse temporal", "insula",
+    region = c("transverse temporal", "insula",
              "pre central","superior parietal"),
     p = sample(seq(0,.5,.001), 4),
     stringsAsFactors = F)

@@ -4,7 +4,7 @@
 #' @author Athanasia Mowinckel and Didac Pineiro
 #'
 #' @param .data A data.frame to use for plot aesthetics. Must include a
-#' column called "area" corresponding to areas.
+#' column called "region" corresponding to regions.
 #' @param atlas Either a string with the name of a 3d atlas to use.
 #' @param hemisphere String. Hemisphere to plot. Either "left" or "right"[default],
 #' can also be "subcort".
@@ -55,7 +55,7 @@
 #' @export
 ggseg3d <- function(.data=NULL, atlas="dk_3d",
                     surface = "LCBC", hemisphere = c("right","subcort"),
-                    label = "area", text = NULL, colour = "colour",
+                    label = "region", text = NULL, colour = "colour",
                     palette = NULL, na.colour = "darkgrey", na.alpha = 1,
                     show.legend = TRUE, options.legend = NULL) {
 

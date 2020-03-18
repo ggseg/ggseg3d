@@ -11,7 +11,7 @@ ggseg3d(
   atlas = "dk_3d",
   surface = "LCBC",
   hemisphere = c("right", "subcort"),
-  label = "area",
+  label = "region",
   text = NULL,
   colour = "colour",
   palette = NULL,
@@ -23,7 +23,7 @@ ggseg3d(
 }
 \arguments{
 \item{.data}{A data.frame to use for plot aesthetics. Must include a
-column called "area" corresponding to areas.}
+column called "region" corresponding to regions.}
 
 \item{atlas}{Either a string with the name of a 3d atlas to use.}
 
