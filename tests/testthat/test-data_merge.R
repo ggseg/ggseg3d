@@ -1,5 +1,5 @@
 test_that("data_merge works", {
-  atlas3d <- get_atlas("dkt_3d", "LCBC", "left")
+  atlas3d <- get_atlas("dk_3d", "LCBC", "left")
 
 
   someData <- data.frame(

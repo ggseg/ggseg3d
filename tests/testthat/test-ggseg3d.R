@@ -8,17 +8,17 @@ test_that("Check that ggseg3d is working", {
   p = ggseg3d(atlas="aseg_3d")
   expect_equal(length(p$x$attrs), 33)
 
-  expect_error(ggseg3d(atlas=dkt), "object 'dkt' not found")
+  expect_error(ggseg3d(atlas=dk), "object 'dk' not found")
 
-  dkt <- data.frame(.long = double(),
+  dk <- data.frame(.long = double(),
                     .lat = double(),
                     .id = character(),
                     area = as.character(),
                     hemi = character(),
                     side = character())
-  expect_error(ggseg3d(atlas=dkt), "This is not a 3d atlas")
+  expect_error(ggseg3d(atlas=dk), "This is not a 3d atlas")
   expect_error(ggseg3d(atlas=hhj), "object 'hhj")
-  expect_error(ggseg3d(atlas=dkt_3d, hemisphere = "hi"), "hemisphere")
+  expect_error(ggseg3d(atlas=dk_3d, hemisphere = "hi"), "hemisphere")
 
 
   expect_warning(

@@ -24,7 +24,7 @@
 #' @details
 #' \describe{
 #' \strong{Available atlases:}
-#'   \item{`dkt_3d`}{
+#'   \item{`dkt`}{
 #'     The Desikan-Killiany Cortical Atlas [default], Freesurfer cortical segmentations, in 3dmesh format
 #'   }
 #' }
@@ -53,7 +53,7 @@
 #' @seealso \code{\link[plotly]{plot_ly}}, \code{\link[plotly]{add_trace}}, \code{\link[plotly]{layout}}, the plotly package
 #'
 #' @export
-ggseg3d <- function(.data=NULL, atlas="dkt_3d",
+ggseg3d <- function(.data=NULL, atlas="dk_3d",
                     surface = "LCBC", hemisphere = c("right","subcort"),
                     label = "area", text = NULL, colour = "colour",
                     palette = NULL, na.colour = "darkgrey", na.alpha = 1,

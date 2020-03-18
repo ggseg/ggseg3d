@@ -4,7 +4,8 @@
 \name{aseg_3d}
 \alias{aseg_3d}
 \title{Freesurfer automatic subcortical segmentation of a brain volume}
-\format{A tibble with 4 observations and a nested data.frame
+\format{
+A tibble with 4 observations and a nested data.frame
 \describe{
   \item{surf}{type of surface (`inflated` or `white`)}
   \item{hemi}{hemisphere (`left`` or `right`)}
@@ -16,9 +17,10 @@
   \item{annot}{concatenated region name}
   \item{label}{label `hemi_annot` of the region}
   \item{mesh}{list of meshes in two lists: vb and it}
-  \item{area}{name of area in full}
+  \item{region}{name of region in full}
   \item{colour}{HEX colour of region}
-}}
+}
+}
 \usage{
 data(aseg_3d)
 }
@@ -35,7 +37,7 @@ Fischl et al., (2002). Neuron, 33:341-355
 }
 \seealso{
 Other ggseg3d_atlases: 
-\code{\link{dkt_3d}}
+\code{\link{dk_3d}}
 }
 \concept{ggseg3d_atlases}
 \keyword{datasets}

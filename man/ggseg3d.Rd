@@ -8,7 +8,7 @@
 \usage{
 ggseg3d(
   .data = NULL,
-  atlas = "dkt_3d",
+  atlas = "dk_3d",
   surface = "LCBC",
   hemisphere = c("right", "subcort"),
   label = "area",
@@ -69,7 +69,7 @@ a brain-plot wither with plotly in 3d meshes.
 
 \describe{
 \strong{Available atlases:}
-  \item{`dkt_3d`}{
+  \item{`dkt`}{
     The Desikan-Killiany Cortical Atlas [default], Freesurfer cortical segmentations, in 3dmesh format
   }
 }
