@@ -10,7 +10,6 @@ vignette: >
 ```{r setup, include=F}
 knitr::opts_chunk$set(eval=TRUE, fig.width=5)
 devtools::load_all(".")
-library(magrittr)
 library(dplyr)
 library(tidyr)
 ```

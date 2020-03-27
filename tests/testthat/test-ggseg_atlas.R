@@ -1,27 +1,26 @@
+test_that("atlases are true ggseg atlases", {
 
-tt <- data.frame(atlas = "k",
-                 surf = "white",
-                 hemi = "left",
-                 region = "something",
-                 colour = "#d2d2d2",
-                 stringsAsFactors = FALSE)
-tt$mesh[[1]] = list(it=array(0, dim=3),vb=array(0, dim=3))
-
-test_that("check that ggseg3d_atlas is correct", {
-
-  expect_error(as_ggseg3d_atlas(tt[,-1]),
-               "missing necessary columns")
-  expect_error(as_ggseg3d_atlas(),
-               "is missing, with no default")
-
-  k <- expect_warning(as_ggseg3d_atlas(tt),
-                     "Unknown columns")
-  expect_equal(names(k),
-               c("atlas", "surf", "hemi", "ggseg_3d"))
-  expect_equal(nrow(k), 1)
+  expect_true(is_ggseg_atlas(yeo17))
+  expect_true(is_ggseg_atlas(yeo7))
+  expect_true(is_ggseg_atlas(glasser))
+  expect_true(is_ggseg_atlas(jhu))
+  expect_true(is_ggseg_atlas(tracula))
+  expect_true(is_ggseg_atlas(hoCort))
+  
 })
 
-test_that("check that is_ggseg_atlas works", {
-  expect_false(is_ggseg3d_atlas(tt))
+
+test_that("atlases are true ggseg3d atlases", {
+  
+  expect_true(is_ggseg3d_atlas(yeo7_3d))
+  expect_true(is_ggseg3d_atlas(yeo17_3d))
+  expect_true(is_ggseg3d_atlas(glasser_3d))
+  expect_true(is_ggseg3d_atlas(tracula_3d))
+  expect_true(is_ggseg3d_atlas(jhu_3d))
+  expect_true(is_ggseg3d_atlas(desterieux_3d))
+  expect_true(is_ggseg3d_atlas(hcpa_3d))
+  expect_true(is_ggseg3d_atlas(icbm_3d))
+  expect_true(is_ggseg3d_atlas(schaefer17_3d))
+  expect_true(is_ggseg3d_atlas(schaefer7_3d))
 
 })

@@ -4,7 +4,8 @@
 \name{aseg_3d}
 \alias{aseg_3d}
 \title{Freesurfer automatic subcortical segmentation of a brain volume}
-\format{A tibble with 4 observations and a nested data.frame
+\format{
+A tibble with 4 observations and a nested data.frame
 \describe{
   \item{surf}{type of surface (`inflated` or `white`)}
   \item{hemi}{hemisphere (`left`` or `right`)}
@@ -18,7 +19,8 @@
   \item{mesh}{list of meshes in two lists: vb and it}
   \item{region}{name of region in full}
   \item{colour}{HEX colour of region}
-}}
+}
+}
 \usage{
 data(aseg_3d)
 }

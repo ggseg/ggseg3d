@@ -4,7 +4,8 @@
 \name{dk_3d}
 \alias{dk_3d}
 \title{Desikan-Killiany Cortical Atlas}
-\format{A tibble with 4 observations and a nested data.frame
+\format{
+A tibble with 4 observations and a nested data.frame
 \describe{
   \item{surf}{type of surface (`inflated` or `white`)}
   \item{hemi}{hemisphere (`left`` or `right`)}
@@ -20,7 +21,8 @@
   \item{lobe}{lobe localization}
   \item{region}{name of region in full}
   \item{colour}{HEX colour of region}
-}}
+}
+}
 \usage{
 data(dk_3d)
 }

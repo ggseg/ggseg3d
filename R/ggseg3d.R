@@ -86,7 +86,7 @@ ggseg3d <- function(.data=NULL, atlas="dk_3d",
   # add one trace per file inputed
   for(tt in 1:nrow(atlas3d)){
 
-    col = rep(unlist(atlas3d[tt, fill]), length(atlas3d$mesh[[tt]]$it[1,]))
+    col = rep(unlist(atlas3d[tt, fill]), nrow(atlas3d$mesh[[tt]]$faces))
 
     col = ifelse(is.na(col), na.colour, col)
 
@@ -99,13 +99,13 @@ ggseg3d <- function(.data=NULL, atlas="dk_3d",
     }
 
     p = plotly::add_trace(p,
-                          x = atlas3d$mesh[[tt]]$vb["xpts",],
-                          y = atlas3d$mesh[[tt]]$vb["ypts",],
-                          z = atlas3d$mesh[[tt]]$vb["zpts",],
+                          x = atlas3d$mesh[[tt]]$vertices$x,
+                          y = atlas3d$mesh[[tt]]$vertices$y,
+                          z = atlas3d$mesh[[tt]]$vertices$z,
 
-                          i = atlas3d$mesh[[tt]]$it[1,]-1,
-                          j = atlas3d$mesh[[tt]]$it[2,]-1,
-                          k = atlas3d$mesh[[tt]]$it[3,]-1,
+                          i = atlas3d$mesh[[tt]]$faces$i-1,
+                          j = atlas3d$mesh[[tt]]$faces$j-1,
+                          k = atlas3d$mesh[[tt]]$faces$k-1,
 
                           facecolor = col,
                           type = "mesh3d",

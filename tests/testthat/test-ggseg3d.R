@@ -1,63 +1,39 @@
-test_that("Check that ggseg3d is working", {
-  p = ggseg3d()
-  expect_is(p, c("plotly", "htmlwidget"))
-  expect_equal(length(p$x), 6)
-  expect_equal(length(p$x$attrs), 37)
-  rm(p)
+context("test-ggseg3d")
 
-  p = ggseg3d(atlas="aseg_3d")
-  expect_equal(length(p$x$attrs), 33)
-
-  expect_error(ggseg3d(atlas=dk), "object 'dk' not found")
-
-  dk <- data.frame(.long = double(),
-                    .lat = double(),
-                    .id = character(),
-                    region = as.character(),
-                    hemi = character(),
-                    side = character())
-  expect_error(ggseg3d(atlas=dk), "This is not a 3d atlas")
-  expect_error(ggseg3d(atlas=hhj), "object 'hhj")
-  expect_error(ggseg3d(atlas=dk_3d, hemisphere = "hi"), "hemisphere")
-
-
-  expect_warning(
-    ggseg3d(.data=data.frame(
-      region = c("transverse tempral", "insula",
-               "pre central","superior parietal"),
-      p = sample(seq(0,.5,.001), 4), stringsAsFactors = FALSE),
-      colour = "p")
-  )
-
-  expect_error(
-    ggseg3d(.data=data.frame(
-      region = c("transverse temporal", "insula",
-               "pre central","superior parietal"),
-      p = sample(seq(0,.5,.001), 4), stringsAsFactors = F),
-      colour = "p", palette="ponyomedium")
-  )
-
-  someData <- data.frame(
-    region = c("transverse temporal", "insula",
-             "pre central","superior parietal"),
-    p = sample(seq(0,.5,.001), 4),
-    stringsAsFactors = F)
-
+test_that("Check that mesh atlases are working", {
   expect_is(
-    ggseg3d(.data=someData,
-      colour = "p", text="p", palette=c("black", "white")),
+    ggseg3d(atlas=glasser_3d),
     c("plotly", "htmlwidget")
   )
-
+  
   expect_is(
-    ggseg3d(.data=someData,
-      colour = "p", text="p", palette=c("black", "white"),
-      show.legend = T),
+    ggseg3d(atlas=desterieux_3d),
     c("plotly", "htmlwidget")
   )
-
-  expect_error(ggseg3d(atlas = aseg_3d, surface = "white"), "no surface")
-
+  
+  expect_is(
+    ggseg3d(atlas=schaefer7_3d),
+    c("plotly", "htmlwidget")
+  )
+  
+  expect_is(
+    ggseg3d(atlas=schaefer17_3d),
+    c("plotly", "htmlwidget")
+  )
+  
+  expect_is(
+    ggseg3d(atlas=jhu_3d),
+    c("plotly", "htmlwidget")
+  )
+  
+  expect_is(
+    ggseg3d(atlas=tracula_3d),
+    c("plotly", "htmlwidget")
+  )
+  
+  expect_is(
+    ggseg3d(atlas=icbm_3d),
+    c("plotly", "htmlwidget")
+  )
+  
 })
-
-
