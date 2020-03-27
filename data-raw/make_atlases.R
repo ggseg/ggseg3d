@@ -29,7 +29,7 @@ x <- dplyr::mutate(
   region = gsub("corpus", "corpus ", region),
   region = gsub("isthmus", "isthmus ", region),
   region = gsub(" $", "", region),
-  region = gsub("unknown", "medial wall", region),
+  region = gsub("unknown", NA, region),
   atlas = "dk_3d"
 )
 
@@ -52,6 +52,6 @@ usethis::use_data(dk_3d, internal = FALSE, overwrite = TRUE)
 #
 # aseg_3d <- as_ggseg3d_atlas(x)
 
-k <- ggsegExtra:::restruct_old_3datlas(aseg_3d)
+aseg_3d <- ggsegExtra:::restruct_old_3datlas(aseg_3d)
 
 usethis::use_data(aseg_3d, internal = FALSE, overwrite = TRUE)

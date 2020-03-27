@@ -1,6 +1,4 @@
 ---
-title: "Tri-surface plotting tool for brain atlases"
-author: "Athanasia Mowinckel & Didac Vidal Pineiro"
 output: github_document
 ---
 
@@ -67,45 +65,37 @@ library(ggseg3d)
 vignette("ggseg3d")
 ```
 
-```{r eval=F}
-ggseg3d(atlas=dk_3d) %>% 
-  remove_axes() %>% 
-  pan_camera("lateral")
-```
-```{r, include=FALSE}
+```{r results='hide'}
 p <- ggseg3d(atlas=dk_3d) %>% 
   remove_axes() %>% 
-  pan_camera("left lateral") %>% 
+  pan_camera("right lateral")
+```
+```{r, echo=FALSE}
+p <- p %>% 
   plotly::add_annotations( text="Screen capture",
                   legendtitle=TRUE, showarrow=FALSE,
                   font = list(color = 'darkgrey',
                               family = 'sans serif',
                               size = 50)) 
 plotly::orca(p, "man/img/README-dk_3d-plot.png")
-```
-```{r echo=FALSE}
 knitr::include_graphics("man/img/README-dk_3d-plot.png")
 ```
 
-```{r eval=F}
-ggseg3d(atlas=aseg_3d) %>% 
-  add_glassbrain() %>% 
-  remove_axes() %>% 
-  pan_camera("lateral")
-```
-```{r, include=FALSE}
+
+```{r results = 'hide'}
 p <- ggseg3d(atlas=aseg_3d) %>% 
   add_glassbrain() %>% 
   remove_axes() %>% 
-  pan_camera("left lateral") %>% 
+  pan_camera("right lateral")
+```
+```{r, echo = FALSE}
+p <- p %>% 
   plotly::add_annotations( text="Screen capture",
                   legendtitle=TRUE, showarrow=FALSE,
                   font = list(color = 'darkgrey',
                               family = 'sans serif',
                               size = 50)) 
 plotly::orca(p, "man/img/README-aseg_3d-plot.png")
-```
-```{r echo=FALSE}
 knitr::include_graphics("man/img/README-aseg_3d-plot.png")
 ```
 
