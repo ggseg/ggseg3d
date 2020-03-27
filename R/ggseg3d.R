@@ -33,7 +33,6 @@
 #' @importFrom plotly plot_ly add_trace layout
 #' @importFrom scales colour_ramp brewer_pal rescale gradient_n_pal
 #' @importFrom tidyr unite_
-#' @importFrom magrittr "%>%"
 #'
 #' @examples
 #' ggseg3d()

@@ -29,7 +29,7 @@ to create a point of reference, particularly
 important for subcortical plots.
 }
 \examples{
-library(magrittr)
+library(dplyr)
 ggseg3d(atlas="aseg_3d") \%>\%
    add_glassbrain()
 }

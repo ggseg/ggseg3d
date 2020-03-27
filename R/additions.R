@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' library(magrittr)
+#' library(dplyr)
 #' ggseg3d(atlas="aseg_3d") %>%
 #'    add_glassbrain()
 add_glassbrain <- function(p,
@@ -21,9 +21,9 @@ add_glassbrain <- function(p,
                        colour = "#cecece",
                        opacity=.3){
 
-    cortex <- cortex_3d %>%
-      dplyr::filter(hemi %in% hemisphere) %>%
-      tidyr::unnest(ggseg_3d)
+    cortex <- dplyr::filter(cortex_3d,
+                            hemi %in% hemisphere)
+    cortex <- tidyr::unnest(cortex, ggseg_3d)
 
     colour <- if(grepl("^#", colour)){
       colour
@@ -72,7 +72,7 @@ add_glassbrain <- function(p,
 #' @export
 #'
 #' @examples
-#' library(magrittr)
+#' library(dplyr)
 #' ggseg3d() %>%
 #'    pan_camera("right lateral")
 pan_camera <- function(p, camera){

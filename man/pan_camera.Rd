@@ -23,7 +23,7 @@ view, or to custom made views if you are
 plotly savvy.
 }
 \examples{
-library(magrittr)
+library(dplyr)
 ggseg3d() \%>\%
    pan_camera("right lateral")
 }

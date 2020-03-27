@@ -2,27 +2,25 @@
 data_merge <- function(.data, atlas3d){
 
   # Find columns they have in common
-  cols = names(atlas3d)[names(atlas3d) %in% names(.data)]
+  cols <- names(atlas3d)[names(atlas3d) %in% names(.data)]
 
   # Merge the brain with the data
-  atlas3d = atlas3d %>%
-    dplyr::full_join(.data, by = cols, copy=TRUE)
+  atlas3d <- dplyr::full_join(atlas3d, .data, by = cols, copy=TRUE)
 
   # Find if there are instances of those columns that
   # are not present in the atlas. Maybe mispelled?
-  errs = atlas3d %>%
-    dplyr::filter(unlist(lapply(atlas3d$mesh, is.null))) %>%
-    dplyr::select(!!cols) %>%
-    dplyr::distinct() %>%
-    tidyr::unite_("tt", cols, sep = " - ") %>%
-    dplyr::summarise(value = paste0(tt, collapse = ", "))
+  errs <- dplyr::filter(atlas3d, unlist(lapply(atlas3d$mesh, is.null)))
+  errs <- dplyr::select(errs, !!cols)
+  errs <- dplyr::distinct(errs)
+  errs <- tidyr::unite_(errs, "tt", cols, sep = " - ")
+  errs <- dplyr::summarise(errs, value = paste0(tt, collapse = ", "))
 
   if(errs != ""){
     warning(paste("Some data is not merged properly into the atlas. Check for spelling mistakes in:",
                   errs$value))
 
-    atlas3d = atlas3d %>%
-      dplyr::filter(!unlist(lapply(atlas3d$mesh, is.null)))
+    atlas3d = dplyr::filter(atlas3d ,
+                            !unlist(lapply(atlas3d$mesh, is.null)))
   }
 
   atlas3d
@@ -63,10 +61,9 @@ get_atlas <- function(atlas, surface, hemisphere){
   atlas3d <- as_ggseg3d_atlas(atlas3d)
 
   # grab the correct surface and hemisphere
-  atlas3d %>%
-    dplyr::filter(surf %in% surface,
-                  hemi %in% hemisphere) %>%
-    tidyr::unnest(cols = ggseg_3d)
+  k <-  dplyr::filter(atlas3d, surf %in% surface,
+                  hemi %in% hemisphere)
+  tidyr::unnest(k, cols = ggseg_3d)
 
 }
 
