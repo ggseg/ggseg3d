@@ -73,22 +73,6 @@ represents.
 This package contains data from various brain parcellations,
 with convenient functions to inspect the results directly on
 a brain-plot wither with plotly in 3d meshes.
-<<<<<<< HEAD
-
-\describe{
-\strong{Available atlases:}
-  \item{`dkt`}{
-    The Desikan-Killiany Cortical Atlas [default], Freesurfer cortical segmentations, in 3dmesh format
-  }
-}
-
-\strong{Available surfaces:}
-\itemize{
-\item `inflated` Fully inflated surface
-\item `white` white matter surface
- }
-=======
->>>>>>> vertex
 }
 \examples{
 ggseg3d()

@@ -85,14 +85,6 @@ is_ggseg3d_atlas <- function(x){
 
   # Both should be true
   all(c(k,j))
-<<<<<<< HEAD
-}
-
-## quiets concerns of R CMD check
-if(getRversion() >= "2.15.1"){
-  utils::globalVariables(c("x", "ggseg_3d", "data"))
-=======
->>>>>>> vertex
 }
 
 ## quiets concerns of R CMD check
