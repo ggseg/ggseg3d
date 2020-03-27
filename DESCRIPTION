@@ -1,6 +1,6 @@
 Package: ggseg3d
 Title: Plotting tool for brain atlases
-Version: 1.5.3
+Version: 1.6.0
 Authors@R: c(person("Athanasia Mo", "Mowinckel", 
                     email = "a.m.mowinckel@psykologi.uio.no", 
                     role = c("aut", "cre"),
@@ -21,7 +21,10 @@ Imports:
     plotly,
     scales,
     tidyr,
-    remotes
+    remotes,
+    freesurfer,
+    utils,
+    geomorph
 Suggests:
     knitr,
     rmarkdown,

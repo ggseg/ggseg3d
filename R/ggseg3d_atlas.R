@@ -22,7 +22,7 @@
 #'   [`tibble`][tibble::tibble()]-package
 #'
 #' @name ggseg3d_atlas-class
-#' @importFrom dplyr tibble as_tibble one_of select everything rename group_by
+#' @importFrom dplyr tibble as_tibble one_of select everything rename group_by ungroup
 #' @importFrom tidyr unnest nest
 #' @aliases ggseg3d_atlas ggseg3d_atlas-class
 #' @export
@@ -49,13 +49,12 @@ as_ggseg3d_atlas <- function(x, return = FALSE) {
 
   }
 
-  names(x$mesh[[1]]) = c("vb", "it")
-
-  x <- group_by(x, atlas, surf, hemi) %>%
-    select(one_of(c(necessaries, "label")),
-           everything()) %>%
-    nest() %>%
-    rename(ggseg_3d = data)
+  x <- group_by(x, atlas, surf, hemi)
+  x <- select(x, one_of(c(necessaries, "label")),
+           everything())
+  x <- nest(x)
+  x <- rename(x, ggseg_3d = data)
+  x <- ungroup(x)
 
   class(x) <- c("ggseg3d_atlas", "tbl_df", "tbl", "data.frame")
 
@@ -86,11 +85,14 @@ is_ggseg3d_atlas <- function(x){
 
   # Both should be true
   all(c(k,j))
+<<<<<<< HEAD
 }
 
 ## quiets concerns of R CMD check
 if(getRversion() >= "2.15.1"){
   utils::globalVariables(c("x", "ggseg_3d", "data"))
+=======
+>>>>>>> vertex
 }
 
 ## quiets concerns of R CMD check

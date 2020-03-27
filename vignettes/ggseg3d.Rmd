@@ -10,7 +10,6 @@ vignette: >
 ```{r setup, include=F}
 knitr::opts_chunk$set(eval=TRUE, fig.width=5)
 devtools::load_all(".")
-library(magrittr)
 library(dplyr)
 library(tidyr)
 ```
@@ -65,6 +64,7 @@ The column you want to use for colour, needs to be supplied to the `colour` opti
 someData = dk_3d %>% 
   filter(surf == "inflated" & hemi == "right") %>% 
   unnest(ggseg_3d) %>% 
+  ungroup() %>% 
   select(region) %>% 
   na.omit() %>% 
   mutate(p = sample(seq(0,.5, length.out = 100 ), nrow(.)) %>% 

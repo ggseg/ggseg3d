@@ -64,9 +64,9 @@ test_that("get_atlas works", {
   expect_error(get_atlas("dk_3d", surface="LCBC"), "hemisphere")
 
   k <- get_atlas("dk_3d", surface="LCBC", hemisphere = "left")
-  expect_equal(dim(k), c(36,11))
+  expect_equal(dim(k), c(36, 9))
   expect_equal(names(k), c("atlas", "surf", "hemi", "region", "colour", "mesh", "label",
-                           "roi", "annot", "acronym", "lobe"))
+                           "roi", "annot"))
 
 
   expect_error(get_atlas("aseg3d"), "not found")
@@ -74,7 +74,7 @@ test_that("get_atlas works", {
   expect_error(get_atlas("aseg_3d", surface="LCBC", hemisphere = "left"), "no data")
 
   k <- get_atlas("aseg_3d", surface="LCBC", hemisphere = "subcort")
-  expect_equal(dim(k), c(32,9))
+  expect_equal(dim(k), c(32, 9))
   expect_equal(names(k), c("atlas", "surf", "hemi", "region", "colour", "mesh", "label",
                            "files", "roi"))
 

@@ -48,7 +48,14 @@ numeric vector, with colours as names, and breakpoint for that colour as the val
 
 \item{show.legend}{Logical. Toggle legend if colour is numeric.}
 
-\item{options.legend}{list of layout changes to colourbar}
+\item{options.legend}{list of layout changes to colourbar
+
+\strong{Available surfaces:}
+\itemize{
+\item `inflated:` Fully inflated surface
+\item `semi-inflated:` Semi-inflated surface
+\item `white:` white matter surface
+ }}
 }
 \value{
 a plotly object
@@ -66,6 +73,7 @@ represents.
 This package contains data from various brain parcellations,
 with convenient functions to inspect the results directly on
 a brain-plot wither with plotly in 3d meshes.
+<<<<<<< HEAD
 
 \describe{
 \strong{Available atlases:}
@@ -79,6 +87,8 @@ a brain-plot wither with plotly in 3d meshes.
 \item `inflated` Fully inflated surface
 \item `white` white matter surface
  }
+=======
+>>>>>>> vertex
 }
 \examples{
 ggseg3d()

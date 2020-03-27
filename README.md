@@ -1,6 +1,3 @@
-Tri-surface plotting tool for brain atlases
-================
-Athanasia Mowinckel & Didac Vidal Pineiro
 
 # ggseg3d <img src='man/figures/logo.png' align="right" height="138.5" />
 
@@ -31,7 +28,7 @@ R.
 
 There are currently four atlases available in the package:
 
-1.  `dkt_3d` - Desikan-Killany atlas (aparc).  
+1.  `dk_3d` - Desikan-Killany atlas (aparc).  
 2.  `aseg_3d` - Automatic subcortical segmentation.
 
 We are working on creating a detailed description in the wiki on how to
@@ -74,21 +71,21 @@ vignette("ggseg3d")
 ```
 
 ``` r
-ggseg3d(atlas=dkt_3d) %>% 
+p <- ggseg3d(atlas=dk_3d) %>% 
   remove_axes() %>% 
-  pan_camera("lateral")
+  pan_camera("right lateral")
 ```
 
-![](man/img/README-dkt_3d-plot.png)<!-- -->
+<img src="man/img/README-dk_3d-plot.png" width="700" />
 
 ``` r
-ggseg3d(atlas=aseg_3d) %>% 
+p <- ggseg3d(atlas=aseg_3d) %>% 
   add_glassbrain() %>% 
   remove_axes() %>% 
-  pan_camera("lateral")
+  pan_camera("right lateral")
 ```
 
-![](man/img/README-aseg_3d-plot.png)<!-- -->
+<img src="man/img/README-aseg_3d-plot.png" width="700" />
 
 ### Report bugs or requests
 
