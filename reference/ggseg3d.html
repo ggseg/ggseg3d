@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -50,7 +54,6 @@ the plot can mimmick the shape and position in the brain it
 represents.
 ggseg3d plots and returns a plotly mesh3d object." />
 <meta property="og:image" content="https://lcbc-uio.github.io/ggseg3d/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -68,7 +71,7 @@ ggseg3d plots and returns a plotly mesh3d object." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -82,7 +85,7 @@ ggseg3d plots and returns a plotly mesh3d object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggseg3d</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
       </span>
     </div>
 
@@ -106,7 +109,7 @@ ggseg3d plots and returns a plotly mesh3d object." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/LCBC-UiO/ggseg3d">
+  <a href="https://github.com/LCBC-UiO/ggseg3d/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -206,7 +209,12 @@ numeric vector, with colours as names, and breakpoint for that colour as the val
     </tr>
     <tr>
       <th>options.legend</th>
-      <td><p>list of layout changes to colourbar</p></td>
+      <td><p>list of layout changes to colourbar</p>
+<p><strong>Available surfaces:</strong></p><ul>
+<li><p>`inflated:` Fully inflated surface</p></li>
+<li><p>`semi-inflated:` Semi-inflated surface</p></li>
+<li><p>`white:` white matter surface</p></li>
+</ul></td>
     </tr>
     </table>
 
@@ -218,17 +226,6 @@ numeric vector, with colours as names, and breakpoint for that colour as the val
     <p>This package contains data from various brain parcellations,
 with convenient functions to inspect the results directly on
 a brain-plot wither with plotly in 3d meshes.</p>
-<dl class='dl-horizontal'>
-Available atlases:
-  <dt>`dkt`</dt><dd><p>The Desikan-Killiany Cortical Atlas [default], Freesurfer cortical segmentations, in 3dmesh format</p></dd>
-
-</dl>
-
-<p><strong>Available surfaces:</strong></p><ul>
-<li><p>`inflated` Fully inflated surface</p></li>
-<li><p>`white` white matter surface</p></li>
-</ul>
-
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Useful links:</p><ul>
@@ -245,24 +242,10 @@ Available atlases:
 <span class='fu'>ggseg3d</span>(<span class='kw'>surface</span><span class='kw'>=</span><span class='st'>"inflated"</span>)
 <span class='fu'>ggseg3d</span>(<span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p><strong>Maintainer</strong>: Athanasia Mo Mowinckel <a href='mailto:a.m.mowinckel@psykologi.uio.no'>a.m.mowinckel@psykologi.uio.no</a> (<a href='https://orcid.org/0000-0002-5756-0223'>ORCID</a>)</p>
-<p>Authors:</p><ul>
-<li><p>Didac Vidal-Piñeiro <a href='mailto:d.v.pineiro@psykologi.uio.no'>d.v.pineiro@psykologi.uio.no</a> (<a href='https://orcid.org/0000-0001-9997-9156'>ORCID</a>)</p></li>
-</ul>
-
-
-<p>Athanasia Mowinckel and Didac Pineiro</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -273,7 +256,7 @@ Available atlases:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.9000.</p>
 </div>
 
       </footer>
