@@ -83,10 +83,10 @@ pan_camera <- function(p, camera){
     camera <- match.arg(camera, c("left lateral", "left medial",
                                   "right lateral", "right medial"))
     switch(camera,
-           "left lateral" = list(eye = list(x = -2, y = 0, z = 1)),
-           "left medial" = list(eye = list(x = 2, y = -.15, z = -0.5)),
-           "right lateral" = list(eye = list(x = 2, y = 0, z = 1)),
-           "right medial" = list(eye = list(x = -2.25, y = -0.5, z = -0.5))
+           "left lateral" = list(eye = list(x = -2.5, y = 0, z = 0)),
+           "left medial" = list(eye = list(x = 2, y = 0, z = 0)),
+           "right lateral" = list(eye = list(x = 2, y = 0, z = 0)),
+           "right medial" = list(eye = list(x = -2.5, y = 0, z = 0))
     )
   }else{
     camera
