@@ -1,5 +1,6 @@
 #' `ggseg3d_atlas` class
-#' @param x dataframe to be made a ggseg-atlas
+#' @param x data.frame to be made a ggseg-atlas
+#' @param return return logical
 #'
 #' @description
 #' The `ggseg_3datlas` class is a subclass of [`data.frame`][base::data.frame()],
@@ -21,37 +22,47 @@
 #'   [`tibble`][tibble::tibble()]-package
 #'
 #' @name ggseg3d_atlas-class
-#' @importFrom dplyr tibble as_tibble one_of select everything rename group_by
+#' @importFrom dplyr tibble as_tibble one_of select everything rename group_by ungroup
 #' @importFrom tidyr unnest nest
 #' @aliases ggseg3d_atlas ggseg3d_atlas-class
 #' @export
 #' @seealso [tibble()], [as_tibble()], [tribble()], [print.tbl()], [glimpse()]
-as_ggseg3d_atlas <- function(x) {
+as_ggseg3d_atlas <- function(x, return = FALSE) {
 
   stopifnot(is.data.frame(x))
-
+  ret <- TRUE
   if("ggseg_3d" %in% names(x)) x <- unnest(x, cols = c(ggseg_3d))
 
-  necessaries <- c("atlas", "surf", "hemi", "area", "colour", "mesh")
+  necessaries <- c("atlas", "surf", "hemi", "region", "colour", "mesh")
   miss <- necessaries %in% names(x)
   if(!all(miss)){
     miss <- stats::na.omit(necessaries[!miss])
-    stop(paste0("There are missing necessary columns in the data.frame for it to be a ggseg3d_atlas: '",
-                paste0(as.character(miss), "'", collapse=" '"),
-                call.=FALSE)
-    )
+
+    if(!return){
+      stop(paste0("There are missing necessary columns in the data.frame for it to be a ggseg3d_atlas: '",
+                  paste0(as.character(miss), "'", collapse=" '"),
+                  call.=FALSE)
+      )
+    }else{
+      ret <- FALSE
+    }
+
   }
 
-  names(x$mesh[[1]]) = c("vb", "it")
+  x <- group_by(x, atlas, surf, hemi)
+  x <- select(x, one_of(c(necessaries, "label")),
+           everything())
+  x <- nest(x)
+  x <- rename(x, ggseg_3d = data)
+  x <- ungroup(x)
 
-  x <- group_by(x, atlas, surf, hemi) %>%
-    select(one_of(c(necessaries, "label")),
-           everything()) %>%
-    nest() %>%
-    rename(ggseg_3d = data)
+  class(x) <- c("ggseg3d_atlas", "tbl_df", "tbl", "data.frame")
 
-  class(x) <- c("ggseg_atlas", "tbl_df", "tbl", "data.frame")
-  return(x)
+  if(!return){
+    return(x)
+  }else{
+    return(ret)
+  }
 }
 
 
@@ -63,7 +74,17 @@ as_ggseg3d_atlas <- function(x) {
 #' @return logical
 #' @export
 is_ggseg3d_atlas <- function(x){
-  class(x)[1] == "ggseg_atlas"
+
+  # try to convert to check
+  k <- suppressWarnings(
+    as_ggseg3d_atlas(x, return = TRUE)
+  )
+
+  # check if class is set
+  j <- class(x)[1] == "ggseg3d_atlas"
+
+  # Both should be true
+  all(c(k,j))
 }
 
 ## quiets concerns of R CMD check

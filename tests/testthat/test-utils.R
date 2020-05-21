@@ -1,5 +1,24 @@
 test_that("get_palette works", {
 
+  expect_equal(get_palette("blue"),
+               data.frame(values = c(0,1),
+                          norm = c(0,1),
+                          orig = "blue",
+                          hex = "#0000FF",
+                          stringsAsFactors = FALSE
+                          )
+  )
+
+
+  expect_equal(get_palette(c("blue"=1)),
+               data.frame(values = c(1,2),
+                          norm = c(0,1),
+                          orig = "blue",
+                          hex = "#0000FF",
+                          stringsAsFactors = FALSE
+               )
+  )
+
   expect_equal(get_palette(NULL),
                structure(list(values = c(0, 1),
                               norm = c(0, 1),
@@ -40,14 +59,14 @@ test_that("get_palette works", {
 
 test_that("get_atlas works", {
 
-  expect_error(get_atlas("dkt3d"), "not found")
-  expect_error(get_atlas("dkt_3d"), "surface")
-  expect_error(get_atlas("dkt_3d", surface="LCBC"), "hemisphere")
+  expect_error(get_atlas("dk3d"), "not found")
+  expect_error(get_atlas("dk_3d"), "surface")
+  expect_error(get_atlas("dk_3d", surface="LCBC"), "hemisphere")
 
-  k <- get_atlas("dkt_3d", surface="LCBC", hemisphere = "left")
-  expect_equal(dim(k), c(36,11))
-  expect_equal(names(k), c("atlas", "surf", "hemi", "area", "colour", "mesh", "label",
-                           "roi", "annot", "acronym", "lobe"))
+  k <- get_atlas("dk_3d", surface="LCBC", hemisphere = "left")
+  expect_equal(dim(k), c(36, 9))
+  expect_equal(names(k), c("atlas", "surf", "hemi", "region", "colour", "mesh", "label",
+                           "roi", "annot"))
 
 
   expect_error(get_atlas("aseg3d"), "not found")
@@ -55,8 +74,8 @@ test_that("get_atlas works", {
   expect_error(get_atlas("aseg_3d", surface="LCBC", hemisphere = "left"), "no data")
 
   k <- get_atlas("aseg_3d", surface="LCBC", hemisphere = "subcort")
-  expect_equal(dim(k), c(32,9))
-  expect_equal(names(k), c("atlas", "surf", "hemi", "area", "colour", "mesh", "label",
+  expect_equal(dim(k), c(32, 9))
+  expect_equal(names(k), c("atlas", "surf", "hemi", "region", "colour", "mesh", "label",
                            "files", "roi"))
 
 })

@@ -10,24 +10,24 @@ source("data-raw/get_surface.R")
 # Function to grab all the data and create a nested tibble
 
 
-## DKT ----
-dkt_3d = get_surface("data-raw/mesh3d/DKT/", atlasname = "dkt_3d")
+## dk ----
+dk_3d = get_surface("data-raw/mesh3d/DK/", atlasname = "dk_3d")
 
-t = data.frame(ggseg::brain.pals$dkt)
+t = data.frame(ggseg::brain.pals$dk)
 names(t)[1] = "colour"
 t = t %>%
-  rownames_to_column(var = "area") %>%
+  rownames_to_column(var = "region") %>%
   mutate_all(as.character)
 
-t = dkt %>%
+t = dk %>%
   left_join(t) %>%
-  select(label, acronym, lobe, area, colour) %>%
+  select(label, acronym, lobe, region, colour) %>%
   distinct()
 
-dkt_3d = dkt_3d %>%
+dk_3d = dk_3d %>%
   mutate(data = map(data, ~left_join(., t, by="label"))) %>%
   mutate(data = map(data, ~mutate(., acronym = ifelse(annot == "corpuscallosum","cc", acronym),
-                                  area = ifelse(annot == "corpuscallosum","corpus callosum", area))
+                                  region = ifelse(annot == "corpuscallosum","corpus callosum", region))
   ))
 
 ## aseg ----
@@ -57,14 +57,28 @@ for(i in 1:length(mesh)){
 }
 
 aseg_3d = aseg_3d %>%
-  mutate(area=label,
+  mutate(region=label,
          surf="LCBC") %>%
   group_by(atlas, surf, hemi) %>%
   nest()
 #save(aseg_3d, file="data/aseg_3d.RData", compress = "xz")
 
 
-usethis::use_data(dkt_3d, aseg_3d,
+dk_3d <- dkt_3d %>%
+  mutate(atlas = "dk_3d") %>%
+  unnest(ggseg_3d) %>%
+  rename(region = area) %>%
+  group_by(atlas, surf, hemi) %>%
+  nest %>%
+  rename(ggseg_3d = data)
+
+aseg_3d <- aseg_3d %>%
+  unnest(ggseg_3d) %>%
+  rename(region = area) %>%
+  group_by(atlas, surf, hemi) %>%
+  nest %>%
+  rename(ggseg_3d = data)
+usethis::use_data(dk_3d, aseg_3d,
                   internal = FALSE, overwrite = TRUE, compress = "xz")
 
 
