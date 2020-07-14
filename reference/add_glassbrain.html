@@ -135,11 +135,11 @@ to create a point of reference, particularly
 important for subcortical plots.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_glassbrain</span>(
-  <span class='no'>p</span>,
-  <span class='kw'>hemisphere</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"left"</span>, <span class='st'>"right"</span>),
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"#cecece"</span>,
-  <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='fl'>0.3</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/ggseg3d/man/add_glassbrain.html'>add_glassbrain</a></span>(
+  <span class='kw'>p</span>,
+  hemisphere = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"left"</span>, <span class='st'>"right"</span>),
+  colour = <span class='st'>"#cecece"</span>,
+  opacity = <span class='fl'>0.3</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -168,13 +168,17 @@ important for subcortical plots.</p>
     <p>plotly object with glassbrain mesh</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='ggseg3d.html'>ggseg3d</a></span>(<span class='kw'>atlas</span><span class='kw'>=</span><span class='st'>"aseg_3d"</span>) <span class='kw'>%&gt;%</span>
-   <span class='fu'>add_glassbrain</span>()</div></pre>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/ggseg3d/man/ggseg3d.html'>ggseg3d</a></span>(atlas=<span class='st'>"aseg_3d"</span>) <span class='op'>%&gt;%</span>
+   <span class='fu'><a href='https://rdrr.io/pkg/ggseg3d/man/add_glassbrain.html'>add_glassbrain</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: `arrange_()` is deprecated as of dplyr 0.7.0.</span>
+#&gt; <span class='warning'>Please use `arrange()` instead.</span>
+#&gt; <span class='warning'>See vignette('programming') for more help</span>
+#&gt; <span class='warning'>This warning is displayed once every 8 hours.</span>
+#&gt; <span class='warning'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -190,7 +194,7 @@ important for subcortical plots.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
