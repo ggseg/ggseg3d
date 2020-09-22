@@ -18,7 +18,8 @@ ggseg3d(
   na.colour = "darkgrey",
   na.alpha = 1,
   show.legend = TRUE,
-  options.legend = NULL
+  options.legend = NULL,
+  ...
 )
 }
 \arguments{
@@ -48,7 +49,9 @@ numeric vector, with colours as names, and breakpoint for that colour as the val
 
 \item{show.legend}{Logical. Toggle legend if colour is numeric.}
 
-\item{options.legend}{list of layout changes to colourbar
+\item{options.legend}{list of layout changes to colourbar}
+
+\item{...}{additional arguments to \code{\link[plotly]{add_trace}}
 
 \strong{Available surfaces:}
 \itemize{

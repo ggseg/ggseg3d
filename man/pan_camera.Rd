@@ -4,12 +4,14 @@
 \alias{pan_camera}
 \title{Pan camera position of ggseg3d plot}
 \usage{
-pan_camera(p, camera)
+pan_camera(p, camera, aspectratio = 1)
 }
 \arguments{
 \item{p}{plotly object}
 
 \item{camera}{string or list.}
+
+\item{aspectratio}{camera aspect ratio}
 }
 \value{
 plotly object

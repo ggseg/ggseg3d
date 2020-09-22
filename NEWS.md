@@ -1,3 +1,6 @@
+# ggseg3d 1.6.01
+- added ellipsis `...` to plotly::add_trace for people to add more arguments.  
+
 # ggseg 1.5
 
 ## ggseg 1.5.2

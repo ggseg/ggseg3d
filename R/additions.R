@@ -67,6 +67,7 @@ add_glassbrain <- function(p,
 #'
 #' @param p plotly object
 #' @param camera string or list.
+#' @param aspectratio camera aspect ratio
 #'
 #' @return plotly object
 #' @export
@@ -75,7 +76,7 @@ add_glassbrain <- function(p,
 #' library(dplyr)
 #' ggseg3d() %>%
 #'    pan_camera("right lateral")
-pan_camera <- function(p, camera){
+pan_camera <- function(p, camera, aspectratio = 1){
 
   stopifnot(is.character(camera)|is.list(camera))
 
@@ -94,7 +95,8 @@ pan_camera <- function(p, camera){
 
   # create final plotly plot
   plotly::layout(p,
-                 scene = list(camera = views)
+                 scene = list(camera = views,
+                              aspectratio = aspectratio)
   )
 }
 

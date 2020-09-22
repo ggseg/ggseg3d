@@ -19,6 +19,7 @@
 #' @param na.alpha Numeric. A number between 0 and 1 to control transparency of NA-regions.
 #' @param show.legend Logical. Toggle legend if colour is numeric.
 #' @param options.legend list of layout changes to colourbar
+#' @param ... additional arguments to \code{\link[plotly]{add_trace}}
 #'
 #' \strong{Available surfaces:}
 #' \itemize{
@@ -47,7 +48,7 @@ ggseg3d <- function(.data=NULL, atlas="dk_3d",
                     surface = "LCBC", hemisphere = c("right","subcort"),
                     label = "region", text = NULL, colour = "colour",
                     palette = NULL, na.colour = "darkgrey", na.alpha = 1,
-                    show.legend = TRUE, options.legend = NULL) {
+                    show.legend = TRUE, options.legend = NULL, ...) {
 
 
   # Grab the atlas, even if it has been provided as character string
@@ -111,7 +112,8 @@ ggseg3d <- function(.data=NULL, atlas="dk_3d",
                           text = txt,
                           showscale = FALSE,
                           opacity = op,
-                          name = unlist(atlas3d[tt, label])
+                          name = unlist(atlas3d[tt, label]),
+                          ...
     )
   }
 
