@@ -53,7 +53,7 @@ download and install, it will take some time.
 
 ``` r
 install.packages("remotes")
-remotes::install_github("LCBC-UiO/ggseg3d", build_vignettes = TRUE)
+remotes::install_github("LCBC-UiO/ggseg3d", build_vignettes = FALSE)
 ```
 
 The functions are now installed, and you may load them when you want to
