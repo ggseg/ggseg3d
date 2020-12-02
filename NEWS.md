@@ -1,3 +1,6 @@
+# ggseg3d 1.6.02
+- Fix bug where installing with vignettes fail
+
 # ggseg3d 1.6.01
 - added ellipsis `...` to plotly::add_trace for people to add more arguments.  
 
