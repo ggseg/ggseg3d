@@ -10,8 +10,8 @@ knitr::opts_chunk$set(
   echo = TRUE
 )
 library(magrittr)
+library(ggseg3d)
 if (!require("processx")) install.packages("processx")
-devtools::load_all(".")
 ```
 
 
@@ -22,6 +22,7 @@ devtools::load_all(".")
   [![Coverage status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/LCBC-UiO/ggseg3d)
 [![CRAN status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![R build status](https://github.com/LCBC-UiO/ggseg3d/workflows/R-CMD-check/badge.svg)](https://github.com/LCBC-UiO/ggseg3d/actions)
 <!-- badges: end -->
 
 This package mainly contains a plotting function `ggseg3d` and data.frames of different brain atlases for plotting.

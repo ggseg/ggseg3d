@@ -15,3 +15,4 @@ img
 logo.png
 ^_pkgdown\.yml$
 vignettes
+^\.github$

@@ -8,8 +8,6 @@ test_that("Check that ggseg3d is working", {
   p = ggseg3d(atlas="aseg_3d")
   expect_equal(length(p$x$attrs), 33)
 
-  expect_error(ggseg3d(atlas=dk), "object 'dk' not found")
-
   dk <- data.frame(.long = double(),
                    .lat = double(),
                    .id = character(),

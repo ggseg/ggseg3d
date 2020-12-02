@@ -13,6 +13,8 @@ status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](h
 status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![R build
+status](https://github.com/LCBC-UiO/ggseg3d/workflows/R-CMD-check/badge.svg)](https://github.com/LCBC-UiO/ggseg3d/actions)
 <!-- badges: end -->
 
 This package mainly contains a plotting function `ggseg3d` and
@@ -53,7 +55,7 @@ download and install, it will take some time.
 
 ``` r
 install.packages("remotes")
-remotes::install_github("LCBC-UiO/ggseg3d", build_vignettes = FALSE)
+remotes::install_github("LCBC-UiO/ggseg3d", build_vignettes = TRUE)
 ```
 
 The functions are now installed, and you may load them when you want to
@@ -75,6 +77,12 @@ p <- ggseg3d(atlas=dk_3d) %>%
   remove_axes() %>% 
   pan_camera("right lateral")
 ```
+
+    #> Warning: `arrange_()` is deprecated as of dplyr 0.7.0.
+    #> Please use `arrange()` instead.
+    #> See vignette('programming') for more help
+    #> This warning is displayed once every 8 hours.
+    #> Call `lifecycle::last_warnings()` to see where this warning was generated.
 
 <img src="man/img/README-dk_3d-plot.png" width="700" />
 
