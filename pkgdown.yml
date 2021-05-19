@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   ggseg3d: ggseg3d.html
-last_built: 2020-12-02T13:00Z
+last_built: 2021-05-19T20:30Z
 urls:
   reference: https://lcbc-uio.github.io/ggseg3d//reference
   article: https://lcbc-uio.github.io/ggseg3d//articles

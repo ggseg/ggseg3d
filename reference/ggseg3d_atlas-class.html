@@ -48,7 +48,7 @@
 
 <meta property="og:title" content="`ggseg3d_atlas` class — ggseg3d_atlas-class" />
 <meta property="og:description" content="The `ggseg_3datlas` class is a subclass of [`data.frame`][base::data.frame()],
-created in order to have different default behaviour. It heavily relieas on
+created in order to have different default behaviour. It heavily relies on
 the &quot;tibble&quot; [`tbl_df`][tibble::tibble()].
 [tidyverse](https://www.tidyverse.org/packages/), including
 [dplyr](http://dplyr.tidyverse.org/),
@@ -87,7 +87,7 @@ the &quot;tibble&quot; [`tbl_df`][tibble::tibble()].
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggseg3d</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.02</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.3</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@ the &quot;tibble&quot; [`tbl_df`][tibble::tibble()].
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +112,7 @@ the &quot;tibble&quot; [`tbl_df`][tibble::tibble()].
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/LCBC-UiO/ggseg3d/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,7 +136,7 @@ the &quot;tibble&quot; [`tbl_df`][tibble::tibble()].
 
     <div class="ref-description">
     <p>The `ggseg_3datlas` class is a subclass of [`data.frame`][base::data.frame()],
-created in order to have different default behaviour. It heavily relieas on
+created in order to have different default behaviour. It heavily relies on
 the "tibble" [`tbl_df`][tibble::tibble()].
 [tidyverse](https://www.tidyverse.org/packages/), including
 [dplyr](http://dplyr.tidyverse.org/),
@@ -160,6 +160,11 @@ the "tibble" [`tbl_df`][tibble::tibble()].
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>an object of class 'ggseg3d_atlas'. A nested tibble of different
+   brain surface shapes, hemispheres and tri-surface mesh information
+   for different brain regions in a specific atlas.</p>
     <h2 class="hasAnchor" id="properties-of-ggseg-d-atlas-"><a class="anchor" href="#properties-of-ggseg-d-atlas-"></a>Properties of `ggseg3d_atlas`</h2>
 
     
@@ -169,12 +174,18 @@ the "tibble" [`tbl_df`][tibble::tibble()].
 * A `class` attribute of `c("ggseg3d_atlas", "tbl_df", "tbl", "data.frame")`.
 * A base type of `"list"`, where each element of the list has the same
   [NROW()].
-* Alot of this script and its functions are taken from the
+* A lot of this script and its functions are taken from the
   [`tibble`][tibble::tibble()]-package</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>[tibble()], [as_tibble()], [tribble()], [print.tbl()], [glimpse()]</p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>dk_3d</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "data.frame"</div><div class='input'><span class='va'>new_atlas</span> <span class='op'>&lt;-</span> <span class='fu'>as_ggseg3d_atlas</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>new_atlas</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "ggseg3d_atlas" "tbl_df"        "tbl"           "data.frame"   </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
