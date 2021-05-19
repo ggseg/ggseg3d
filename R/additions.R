@@ -15,7 +15,7 @@
 #' @examples
 #' library(dplyr)
 #' ggseg3d(atlas="aseg_3d") %>%
-#'    add_glassbrain()
+#'    add_glassbrain("left")
 add_glassbrain <- function(p,
                        hemisphere = c("left", "right"),
                        colour = "#cecece",

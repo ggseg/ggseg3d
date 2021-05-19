@@ -17,3 +17,4 @@ logo.png
 vignettes
 ^\.github$
 ^cran-comments\.md$
+^CRAN-RELEASE$
