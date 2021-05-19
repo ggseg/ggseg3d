@@ -50,7 +50,7 @@
 #' @keywords datasets
 #'
 #' @references Fischl et al., (2002). Neuron, 33:341-355
-#' (\href{https://www.ncbi.nlm.nih.gov/pubmed/11832223}{PubMed})
+#' (\href{https://pubmed.ncbi.nlm.nih.gov/11832223/}{PubMed})
 #'
 #' @format A tibble with 4 observations and a nested data.frame
 #' \describe{

@@ -35,7 +35,7 @@ can also be "subcort".}
 
 \item{label}{String. Quoted name of column in atlas/data that should be used to name traces}
 
-\item{text}{String. Quoated name of column in atlas/data that should be added as extra
+\item{text}{String. Quoted name of column in atlas/data that should be added as extra
 information in the hover text.}
 
 \item{colour}{String. Quoted name of column from which colour should be supplied}
@@ -49,7 +49,7 @@ numeric vector, with colours as names, and breakpoint for that colour as the val
 
 \item{show.legend}{Logical. Toggle legend if colour is numeric.}
 
-\item{options.legend}{list of layout changes to colourbar}
+\item{options.legend}{list of layout changes to colour bar}
 
 \item{...}{additional arguments to \code{\link[plotly]{add_trace}}
 
@@ -61,7 +61,7 @@ numeric vector, with colours as names, and breakpoint for that colour as the val
  }}
 }
 \value{
-a plotly object
+a plotly tri-surface mesh plot
 }
 \description{
 Plotting results from analyses done on data derived from brain
@@ -79,8 +79,8 @@ a brain-plot wither with plotly in 3d meshes.
 }
 \examples{
 ggseg3d()
-ggseg3d(surface="white")
-ggseg3d(surface="inflated")
+ggseg3d(surface = "white")
+ggseg3d(surface = "inflated")
 ggseg3d(show.legend = FALSE)
 
 }
@@ -103,6 +103,6 @@ Authors:
 }
 
 
-Athanasia Mowinckel and Didac Pineiro
+Athanasia Mowinckel and Didac Piñeiro
 }
 \keyword{internal}

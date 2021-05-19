@@ -1,3 +1,7 @@
+# ggseg3d 1.6.3
+- Prepare for CRAN
+- 
+
 # ggseg3d 1.6.02
 - Fix bug where installing with vignettes fail
 
@@ -11,7 +15,7 @@
 
 ## ggseg 1.5.1
 
-* Changed ggseg_atlas-class to have nested columns for easier vieweing and wrangling
+* Changed ggseg_atlas-class to have nested columns for easier viewing and wrangling
 
 ## ggseg 1.5
 

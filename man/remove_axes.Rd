@@ -14,7 +14,7 @@ plotly object without axes
 }
 \description{
 When publishing data visualisation in 3d mesh plots
-in general the axes are not important, atleast
+in general the axes are not important, at least
 they are not for ggseg3d, where the axis values
 are arbitrary.
 }

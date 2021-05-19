@@ -1,7 +1,7 @@
 #' Plot 3D brain parcellations
 #'
 #' \code{ggseg3d} plots and returns a plotly mesh3d object.
-#' @author Athanasia Mowinckel and Didac Pineiro
+#' @author Athanasia Mowinckel and Didac Piñeiro
 #'
 #' @param .data A data.frame to use for plot aesthetics. Must include a
 #' column called "region" corresponding to regions.
@@ -10,7 +10,7 @@
 #' can also be "subcort".
 #' @param surface String. Which surface to plot. Either "pial","white", or "inflated"[default]
 #' @param label String. Quoted name of column in atlas/data that should be used to name traces
-#' @param text String. Quoated name of column in atlas/data that should be added as extra
+#' @param text String. Quoted name of column in atlas/data that should be added as extra
 #' information in the hover text.
 #' @param colour String. Quoted name of column from which colour should be supplied
 #' @param palette String. Vector of colour names or HEX colours. Can also be a named
@@ -18,7 +18,7 @@
 #' @param na.colour String. Either name, hex of RGB for colour of NA in colour.
 #' @param na.alpha Numeric. A number between 0 and 1 to control transparency of NA-regions.
 #' @param show.legend Logical. Toggle legend if colour is numeric.
-#' @param options.legend list of layout changes to colourbar
+#' @param options.legend list of layout changes to colour bar
 #' @param ... additional arguments to \code{\link[plotly]{add_trace}}
 #'
 #' \strong{Available surfaces:}
@@ -28,7 +28,7 @@
 #' \item `white:` white matter surface
 #'  }
 #'
-#' @return a plotly object
+#' @return a plotly tri-surface mesh plot
 #'
 #' @importFrom dplyr filter full_join select distinct summarise
 #' @importFrom plotly plot_ly add_trace layout
@@ -37,8 +37,8 @@
 #'
 #' @examples
 #' ggseg3d()
-#' ggseg3d(surface="white")
-#' ggseg3d(surface="inflated")
+#' ggseg3d(surface = "white")
+#' ggseg3d(surface = "inflated")
 #' ggseg3d(show.legend = FALSE)
 #'
 #' @seealso \code{\link[plotly]{plot_ly}}, \code{\link[plotly]{add_trace}}, \code{\link[plotly]{layout}}, the plotly package

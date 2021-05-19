@@ -4,7 +4,7 @@
 #'
 #' @description
 #' The `ggseg_3datlas` class is a subclass of [`data.frame`][base::data.frame()],
-#' created in order to have different default behaviour. It heavily relieas on
+#' created in order to have different default behaviour. It heavily relies on
 #' the "tibble" [`tbl_df`][tibble::tibble()].
 #' [tidyverse](https://www.tidyverse.org/packages/), including
 #' [dplyr](http://dplyr.tidyverse.org/),
@@ -18,14 +18,22 @@
 #' * A `class` attribute of `c("ggseg3d_atlas", "tbl_df", "tbl", "data.frame")`.
 #' * A base type of `"list"`, where each element of the list has the same
 #'   [NROW()].
-#' * Alot of this script and its functions are taken from the
+#' * A lot of this script and its functions are taken from the
 #'   [`tibble`][tibble::tibble()]-package
 #'
 #' @name ggseg3d_atlas-class
 #' @importFrom dplyr tibble as_tibble one_of select everything rename group_by ungroup
 #' @importFrom tidyr unnest nest
 #' @aliases ggseg3d_atlas ggseg3d_atlas-class
+#' @return an object of class 'ggseg3d_atlas'. A nested tibble of different
+#'    brain surface shapes, hemispheres and tri-surface mesh information
+#'    for different brain regions in a specific atlas.
 #' @export
+#' @examples
+#' tmp <- as.data.frame(dk_3d)
+#' class(tmp)
+#' new_atlas <- as_ggseg3d_atlas(tmp)
+#' class(new_atlas)
 #' @seealso [tibble()], [as_tibble()], [tribble()], [print.tbl()], [glimpse()]
 as_ggseg3d_atlas <- function(x, return = FALSE) {
 

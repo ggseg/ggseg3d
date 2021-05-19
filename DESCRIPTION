@@ -1,6 +1,6 @@
 Package: ggseg3d
-Title: Plotting tool for brain atlases
-Version: 1.6.02
+Title: Tri-Surface Mesh Plots for Brain Atlases
+Version: 1.6.3
 Authors@R: c(person("Athanasia Mo", "Mowinckel", 
                     email = "a.m.mowinckel@psykologi.uio.no", 
                     role = c("aut", "cre"),
@@ -9,14 +9,20 @@ Authors@R: c(person("Athanasia Mo", "Mowinckel",
                     email = "d.v.pineiro@psykologi.uio.no", 
                     role = c("aut"),
                     comment = c(ORCID = "0000-0001-9997-9156")))
-Description: This package mainly contains a plotting functions: `ggseg3d`, 
-    and data.frames or tibbles of different brain atlases for plotting. 
+Description: Mainly contains a plotting function ggseg3d(), 
+    and data of two standard brain atlases (Desikan-Killiany and aseg). 
     By far, the largest bit of the package is the data for each of the atlases.
+    The functions and data enable users to plot tri-surface mesh plots of
+    brain atlases, and customise these by projecting colours onto the brain
+    segments based on values in their own data sets. Functions are wrappers
+    for 'plotly'. Mowinckel & Vidal-Piñeiro (2020)
+    <doi:10.1177/2515245920928009>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.1.1
 Depends: R (>= 2.10)
 LazyData: true
+LazyDataCompression: xz
 Imports: 
     dplyr,
     plotly,
@@ -30,7 +36,8 @@ Suggests:
     covr,
     testthat (>= 2.1.0),
     devtools,
-    processx
-VignetteBuilder: knitr
+    processx,
+    spelling
 URL: https://github.com/LCBC-UiO/ggseg3d
 BugReports: https://github.com/LCBC-UiO/ggseg3d/issues
+Language: en-US

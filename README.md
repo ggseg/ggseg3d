@@ -3,16 +3,12 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.com/LCBC-UiO/ggseg3d.svg?branch=master)](https://travis-ci.com/LCBC-UiO/ggseg3d)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/LCBC-UiO/ggseg3d?branch=master&svg=true)](https://ci.appveyor.com/project/LCBC-UiO/ggseg3d)
 [![Coverage
 status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/LCBC-UiO/ggseg3d)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R build
 status](https://github.com/LCBC-UiO/ggseg3d/workflows/R-CMD-check/badge.svg)](https://github.com/LCBC-UiO/ggseg3d/actions)
 <!-- badges: end -->
@@ -30,22 +26,12 @@ R.
 
 There are currently four atlases available in the package:
 
-1.  `dk_3d` - Desikan-Killany atlas (aparc).  
-2.  `aseg_3d` - Automatic subcortical segmentation.
+1.  `dk_3d` - Desikan-Killiany atlas (aparc).  
+2.  `aseg_3d` - Automatic sub-cortical segmentation.
 
-We are working on creating a detailed description in the wiki on how to
-create and contribute atlases to the package. The `ggseg3d` function
-already allows you to provide it with a data.frame of a custom atlas if
-you have it, but is must correspond to certain specifications to work.
-
-Please see the
-[wiki](https://github.com/LCBC-UiO/ggseg/wiki/Creating-and-contributing-atlases)
-for information on adding atlases, or inspect the included datasets for
-requirements. If anything is unclear in the wiki, give us a shout out in
-the issues\!
-
-You may find more atlases in the companion package
-[ggsegExtra](https://github.com/LCBC-UiO/ggsegExtra).
+If you want to create your own custom atlas or discover other compatible
+atlases, please see the companion package
+[ggsegExtra](https://lcbc-uio.github.io/ggsegExtra/).
 
 ## Installation
 
@@ -64,8 +50,9 @@ use them. All functions are documented in standard R fashion.
 ## Use
 
 The package also has a vignette, to help you get started using it. You
-can access it [here](https://lcbc-uio.github.io/ggseg3d/ggseg3d.html),
-or via R:
+can access it
+[here](https://lcbc-uio.github.io/ggseg3d/articles/ggseg3d.html), or via
+R:
 
 ``` r
 library(ggseg3d)
@@ -77,12 +64,6 @@ p <- ggseg3d(atlas=dk_3d) %>%
   remove_axes() %>% 
   pan_camera("right lateral")
 ```
-
-    #> Warning: `arrange_()` is deprecated as of dplyr 0.7.0.
-    #> Please use `arrange()` instead.
-    #> See vignette('programming') for more help
-    #> This warning is displayed once every 8 hours.
-    #> Call `lifecycle::last_warnings()` to see where this warning was generated.
 
 <img src="man/img/README-dk_3d-plot.png" width="700" />
 

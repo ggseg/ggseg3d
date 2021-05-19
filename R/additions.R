@@ -2,14 +2,14 @@
 #'
 #' Adds a translucent brain on top of a ggseg3d plot
 #' to create a point of reference, particularly
-#' important for subcortical plots.
+#' important for sub-cortical plots.
 #'
 #' @param p plotly object
 #' @param hemisphere string. hemisphere to plot ("left" or "right")
 #' @param colour string. colour to give the glass brain
 #' @param opacity numeric. transparency of the glass brain (0-1 float)
 #'
-#' @return plotly object with glassbrain mesh
+#' @return plotly object with glass brain tri-surface mesh
 #' @export
 #'
 #' @examples
@@ -59,7 +59,7 @@ add_glassbrain <- function(p,
 #' Pan camera position of ggseg3d plot
 #'
 #' The default position for plotly
-#' mesh plots are not satifsying for
+#' mesh plots are not satisfying for
 #' brain plots. This convenience function
 #' can pan the camera to lateral or medial
 #' view, or to custom made views if you are
@@ -104,7 +104,7 @@ pan_camera <- function(p, camera, aspectratio = 1){
 #' Remove axis information from ggseg3d plot
 #'
 #' When publishing data visualisation in 3d mesh plots
-#' in general the axes are not important, atleast
+#' in general the axes are not important, at least
 #' they are not for ggseg3d, where the axis values
 #' are arbitrary.
 #'

@@ -21,12 +21,12 @@ add_glassbrain(
 \item{opacity}{numeric. transparency of the glass brain (0-1 float)}
 }
 \value{
-plotly object with glassbrain mesh
+plotly object with glass brain tri-surface mesh
 }
 \description{
 Adds a translucent brain on top of a ggseg3d plot
 to create a point of reference, particularly
-important for subcortical plots.
+important for sub-cortical plots.
 }
 \examples{
 library(dplyr)

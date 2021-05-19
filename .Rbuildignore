@@ -16,3 +16,4 @@ logo.png
 ^_pkgdown\.yml$
 vignettes
 ^\.github$
+^cran-comments\.md$

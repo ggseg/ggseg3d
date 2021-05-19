@@ -33,7 +33,7 @@ data(aseg_3d)
 }
 \references{
 Fischl et al., (2002). Neuron, 33:341-355
-(\href{https://www.ncbi.nlm.nih.gov/pubmed/11832223}{PubMed})
+(\href{https://pubmed.ncbi.nlm.nih.gov/11832223/}{PubMed})
 }
 \seealso{
 Other ggseg3d_atlases: 

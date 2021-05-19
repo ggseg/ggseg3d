@@ -18,7 +18,7 @@ plotly object
 }
 \description{
 The default position for plotly
-mesh plots are not satifsying for
+mesh plots are not satisfying for
 brain plots. This convenience function
 can pan the camera to lateral or medial
 view, or to custom made views if you are
