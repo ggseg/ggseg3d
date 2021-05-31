@@ -4,13 +4,13 @@
 <!-- badges: start -->
 
 [![Coverage
-status](https://codecov.io/gh/LCBC-UiO/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/LCBC-UiO/ggseg3d)
+status](https://codecov.io/gh/ggseg/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/ggseg/ggseg3d)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R build
-status](https://github.com/LCBC-UiO/ggseg3d/workflows/R-CMD-check/badge.svg)](https://github.com/LCBC-UiO/ggseg3d/actions)
+status](https://github.com/ggseg/ggseg3d/workflows/R-CMD-check/badge.svg)](https://github.com/ggseg/ggseg3d/actions)
 <!-- badges: end -->
 
 This package mainly contains a plotting function `ggseg3d` and
@@ -31,9 +31,21 @@ There are currently four atlases available in the package:
 
 If you want to create your own custom atlas or discover other compatible
 atlases, please see the companion package
-[ggsegExtra](https://lcbc-uio.github.io/ggsegExtra/).
+[ggsegExtra](https://ggseg.github.io/ggsegExtra/).
 
 ## Installation
+
+We recommend installing {ggsegExtra} through the ggseg r-universe.
+
+``` r
+# Enable this universe
+options(repos = c(
+    ggseg = 'https://ggseg.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+
+# Install some packages
+install.packages('ggsegExtra')
+```
 
 The package can be installed using {remotes}. The package includes some
 large datasets for the brain coordinates. Please be patient during
@@ -41,7 +53,7 @@ download and install, it will take some time.
 
 ``` r
 install.packages("remotes")
-remotes::install_github("LCBC-UiO/ggseg3d", build_vignettes = TRUE)
+remotes::install_github("ggseg/ggseg3d", build_vignettes = TRUE)
 ```
 
 The functions are now installed, and you may load them when you want to
@@ -51,8 +63,7 @@ use them. All functions are documented in standard R fashion.
 
 The package also has a vignette, to help you get started using it. You
 can access it
-[here](https://lcbc-uio.github.io/ggseg3d/articles/ggseg3d.html), or via
-R:
+[here](https://ggseg.github.io/ggseg3d/articles/ggseg3d.html), or via R:
 
 ``` r
 library(ggseg3d)
@@ -65,7 +76,7 @@ p <- ggseg3d(atlas=dk_3d) %>%
   pan_camera("right lateral")
 ```
 
-<img src="man/img/README-dk_3d-plot.png" width="700" />
+![](man/img/README-dk_3d-plot.png)<!-- -->
 
 ``` r
 p <- ggseg3d(atlas=aseg_3d) %>% 
@@ -74,12 +85,12 @@ p <- ggseg3d(atlas=aseg_3d) %>%
   pan_camera("right lateral")
 ```
 
-<img src="man/img/README-aseg_3d-plot.png" width="700" />
+![](man/img/README-aseg_3d-plot.png)<!-- -->
 
 ### Report bugs or requests
 
 Don’t hesitate to ask for support using [github
-issues](https://github.com/LCBC-UiO/ggseg3d/issues), or requesting new
+issues](https://github.com/ggseg/ggseg3d/issues), or requesting new
 atlases. While we would love getting help in creating new atlases, you
 may also request atlases through the issues, and we will try to get to
 it.

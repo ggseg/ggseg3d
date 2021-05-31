@@ -27,7 +27,7 @@ A tibble with 4 observations and a nested data.frame
 data(dk_3d)
 }
 \description{
-Mesh data for the Desikan-Killany Cortical atlas,
+Mesh data for the Desikan-Killiany Cortical atlas,
 with 40 regions in on the cortical surface of the brain.
 }
 \details{

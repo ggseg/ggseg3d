@@ -37,7 +37,7 @@
 #'
 #' @examples
 #' ggseg3d()
-#' ggseg3d(surface = "white")
+#' ggseg3d(hemisphere = "left")
 #' ggseg3d(surface = "inflated")
 #' ggseg3d(show.legend = FALSE)
 #'

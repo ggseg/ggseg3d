@@ -17,43 +17,44 @@
 #' ggseg3d(atlas="aseg_3d") %>%
 #'    add_glassbrain("left")
 add_glassbrain <- function(p,
-                       hemisphere = c("left", "right"),
-                       colour = "#cecece",
-                       opacity=.3){
+                           hemisphere = c("left", "right"),
+                           colour = "#cecece",
+                           opacity=.3){
 
-    cortex <- dplyr::filter(cortex_3d,
-                            hemi %in% hemisphere)
-    cortex <- tidyr::unnest(cortex, ggseg_3d)
+  cortex <- dplyr::filter(cortex_3d,
+                          hemi %in% hemisphere)
+  cortex <- tidyr::unnest(cortex, ggseg_3d)
 
-    colour <- if(grepl("^#", colour)){
-      colour
-    }else{
-      col2hex(colour)
-    }
+  colour <- if(grepl("^#", colour)){
+    colour
+  }else{
+    col2hex(colour)
+  }
 
-    # add one trace per file inputed
-    for(tt in 1:nrow(cortex)){
+  # add one trace per file inputed
+  for(tt in 1:nrow(cortex)){
 
-      col = rep(colour, length(cortex$mesh[[tt]]$it[1,]))
+    col = rep(colour, length(cortex$mesh[[tt]]$it[1,]))
 
-      p = plotly::add_trace(p,
-                            x = cortex$mesh[[tt]]$vb["xpts",],
-                            y = cortex$mesh[[tt]]$vb["ypts",],
-                            z = cortex$mesh[[tt]]$vb["zpts",],
+    p = plotly::add_trace(
+      p,
+      x = cortex$mesh[[tt]]$vb["xpts",],
+      y = cortex$mesh[[tt]]$vb["ypts",],
+      z = cortex$mesh[[tt]]$vb["zpts",],
 
-                            i = cortex$mesh[[tt]]$it[1,]-1,
-                            j = cortex$mesh[[tt]]$it[2,]-1,
-                            k = cortex$mesh[[tt]]$it[3,]-1,
+      i = cortex$mesh[[tt]]$it[1,]-1,
+      j = cortex$mesh[[tt]]$it[2,]-1,
+      k = cortex$mesh[[tt]]$it[3,]-1,
 
-                            facecolor = col,
-                            type = "mesh3d",
-                            showscale = FALSE,
-                            name = "cerebral cortex",
-                            opacity = opacity
-      )
-    }
+      facecolor = col,
+      type = "mesh3d",
+      showscale = FALSE,
+      name = "cerebral cortex",
+      opacity = opacity
+    )
+  }
 
-    p
+  p
 }
 
 #' Pan camera position of ggseg3d plot

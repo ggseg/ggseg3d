@@ -1,7 +1,7 @@
 ## Mesh data ----
 #' Desikan-Killiany Cortical Atlas
 #'
-#' Mesh data for the Desikan-Killany Cortical atlas,
+#' Mesh data for the Desikan-Killiany Cortical atlas,
 #' with 40 regions in on the cortical surface of the brain.
 #'
 #' A nested tibble for all available surfaces and hemispheres
@@ -37,10 +37,10 @@
 "dk_3d"
 
 
-#' Freesurfer automatic subcortical segmentation of a brain volume
+#' FreeSurfer automatic subcortical segmentation of a brain volume
 #'
 #' Coordinate data for the subcortical parcellations implemented
-#' in Freesurfer.
+#' in FreeSurfer.
 #'
 #' @docType data
 #' @name aseg_3d

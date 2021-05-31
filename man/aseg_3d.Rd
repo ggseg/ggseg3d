@@ -3,7 +3,7 @@
 \docType{data}
 \name{aseg_3d}
 \alias{aseg_3d}
-\title{Freesurfer automatic subcortical segmentation of a brain volume}
+\title{FreeSurfer automatic subcortical segmentation of a brain volume}
 \format{
 A tibble with 4 observations and a nested data.frame
 \describe{
@@ -26,7 +26,7 @@ data(aseg_3d)
 }
 \description{
 Coordinate data for the subcortical parcellations implemented
-in Freesurfer.
+in FreeSurfer.
 }
 \examples{
 data(aseg_3d)
