@@ -38,6 +38,6 @@ Suggests:
     devtools,
     processx,
     spelling
-URL: https://github.com/ggseg/ggseg3d
-BugReports: https://github.com/ggseg/ggseg3d/issues
+URL: https://github.com/ggseg/ggseg3d/
+BugReports: https://github.com/ggseg/ggseg3d/issues/
 Language: en-US

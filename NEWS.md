@@ -1,7 +1,8 @@
 # ggseg3d 1.6.3
 
 - Prepare for CRAN  
-- remove white surface from `dk_3d` to reduce size and pass CRAN checks
+- remove white surface from `dk_3d` to reduce size and pass CRAN checks  
+- update github urls to new org  
 
 # ggseg3d 1.6.02
 

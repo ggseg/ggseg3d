@@ -13,5 +13,6 @@
 0 errors | 0 warnings | 1 note
 
 * This is a new release.
-* Data for this package is quite large (4Mb), since it contains mesh information for two default datasets. We've compressed as much as we can, and want to keep both datasets as these are standard brain atlases in the field and the two that most users will ever use. 
-* A couple of the examples take a little longer than usual to run, but I'd rather not wrap them in dontrun, as they're still not long all in all.
+* A couple of the examples take a little longer than usual to run, but I'd rather not wrap them in \dontrun, as they're still not long all in all.
+* fixed broken URLs  
+* Reduced data size to within boundaries
