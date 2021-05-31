@@ -130,11 +130,6 @@ ggseg3d(.data = someData, atlas=dk_3d, colour = "p") %>%
   pan_camera("right medial")
 ```
 
-There is also a surface of the white-matter
-```{r,fig.width=5, eval=TRUE}
-ggseg3d(atlas=dk_3d, surface="white")
-```
-
 There is much more you can do with the camera options, or by adding extra layout options to plotly. 
 You may want to have a look at these resources if you want to do more complex adaptations to the plots:
 

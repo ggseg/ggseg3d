@@ -87,8 +87,8 @@ ggseg3d(show.legend = FALSE)
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/LCBC-UiO/ggseg3d}
-  \item Report bugs at \url{https://github.com/LCBC-UiO/ggseg3d/issues}
+  \item \url{https://github.com/ggseg/ggseg3d}
+  \item Report bugs at \url{https://github.com/ggseg/ggseg3d/issues}
 }
 
 
