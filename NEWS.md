@@ -14,7 +14,7 @@
 # ggseg 1.5
 
 ## ggseg 1.5.2
-
+git 
 * Adapted to work with dplyr 0.8.1
 
 ## ggseg 1.5.1
