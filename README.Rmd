@@ -41,6 +41,14 @@ If you want to create your own custom atlas or discover other compatible atlases
 
 ## Installation
 
+
+ggseg3d can be installed from CRAN with:
+
+```{r, eval = FALSE}
+install.packages("ggseg3d")
+```
+
+
 We recommend installing {ggsegExtra} through the ggseg r-universe.
 
 ```{r eval = FALSE}
@@ -50,9 +58,8 @@ options(repos = c(
     CRAN = 'https://cloud.r-project.org'))
 
 # Install some packages
-install.packages('ggsegExtra')
+install.packages('ggseg3d')
 ```
-
 
 The package can be installed using {remotes}. The package includes some large datasets for the brain coordinates. Please be patient during download and install, it will take some time.
 

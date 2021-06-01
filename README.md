@@ -11,6 +11,7 @@ status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.or
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R build
 status](https://github.com/ggseg/ggseg3d/workflows/R-CMD-check/badge.svg)](https://github.com/ggseg/ggseg3d/actions)
+[![R-CMD-check](https://github.com/LCBC-UiO/ggseg3d/workflows/R-CMD-check/badge.svg)](https://github.com/LCBC-UiO/ggseg3d/actions)
 <!-- badges: end -->
 
 This package mainly contains a plotting function `ggseg3d` and
@@ -35,6 +36,12 @@ atlases, please see the companion package
 
 ## Installation
 
+ggseg3d can be installed from CRAN with:
+
+``` r
+install.packages("ggseg3d")
+```
+
 We recommend installing {ggsegExtra} through the ggseg r-universe.
 
 ``` r
@@ -44,7 +51,7 @@ options(repos = c(
     CRAN = 'https://cloud.r-project.org'))
 
 # Install some packages
-install.packages('ggsegExtra')
+install.packages('ggseg3d')
 ```
 
 The package can be installed using {remotes}. The package includes some
