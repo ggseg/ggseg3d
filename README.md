@@ -2,15 +2,10 @@
 # ggseg3d <img src='man/figures/logo.png' align="right" height="138.5" />
 
 <!-- badges: start -->
-
-[![Coverage
-status](https://codecov.io/gh/ggseg/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/ggseg/ggseg3d)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
-[![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![R build
-status](https://github.com/ggseg/ggseg3d/workflows/R-CMD-check/badge.svg)](https://github.com/ggseg/ggseg3d/actions)
+[![Coverage status](https://codecov.io/gh/ggseg/ggseg3d/branch/master/graph/badge.svg)](https://codecov.io/gh/ggseg/ggseg3d)
+[![CRAN status](https://www.r-pkg.org/badges/version/ggseg3d)](https://CRAN.R-project.org/package=ggseg3d)
+[![downloads](https://cranlogs.r-pkg.org/badges/last-month/ggseg?color=blue)](https://r-pkg.org/pkg/ggseg)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R-CMD-check](https://github.com/LCBC-UiO/ggseg3d/workflows/R-CMD-check/badge.svg)](https://github.com/LCBC-UiO/ggseg3d/actions)
 <!-- badges: end -->
 
