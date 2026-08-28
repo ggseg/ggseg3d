@@ -24,8 +24,15 @@
 #' @export
 resolve_brain_mesh <- function(
   hemisphere = c("lh", "rh"),
-  surface = c("inflated", "semi-inflated", "white", "pial",
-              "sphere", "smoothwm", "orig"),
+  surface = c(
+    "inflated",
+    "semi-inflated",
+    "white",
+    "pial",
+    "sphere",
+    "smoothwm",
+    "orig"
+  ),
   brain_meshes = NULL
 ) {
   hemisphere <- match.arg(hemisphere)
@@ -40,7 +47,9 @@ resolve_brain_mesh <- function(
     mesh <- ggseg.meshes::get_cortical_mesh(hemisphere, surface)
   }
 
-  if (is.null(mesh)) return(NULL)
+  if (is.null(mesh)) {
+    return(NULL)
+  }
 
   if (min(mesh$faces$i) == 0) {
     mesh$faces$i <- mesh$faces$i + 1L
@@ -166,7 +175,9 @@ vertices_to_labels <- function(
 vertices_to_text <- function(atlas_data, n_vertices, text_col) {
   vertex_text <- rep(NA_character_, n_vertices)
 
-  if (!text_col %in% names(atlas_data)) return(vertex_text)
+  if (!text_col %in% names(atlas_data)) {
+    return(vertex_text)
+  }
 
   for (i in seq_len(nrow(atlas_data))) {
     region_vertices <- atlas_data$vertices[[i]]
@@ -342,7 +353,9 @@ build_cerebellar_meshes <- function(
   n_vertices <- nrow(mesh$vertices)
   vertex_colors <- vertices_to_colors(atlas_data, n_vertices, na_colour)
   vertex_labels <- vertices_to_labels(
-    atlas_data, n_vertices, na_label = ""
+    atlas_data,
+    n_vertices,
+    na_label = ""
   )
 
   vertex_texts <- if (!is.null(text_by)) {
@@ -380,7 +393,8 @@ is_flat_mesh <- function(vertices, tol = 1) {
       diff(range(vertices$x)),
       diff(range(vertices$y)),
       diff(range(vertices$z))
-    ) < tol
+    ) <
+      tol
   )
 }
 
@@ -397,15 +411,21 @@ is_flat_mesh <- function(vertices, tol = 1) {
 #' @return List of mesh data structures
 #' @keywords internal
 build_subcortical_meshes <- function(
-  atlas_data, na_colour,
-  text_by = NULL, label_by = "region"
+  atlas_data,
+  na_colour,
+  text_by = NULL,
+  label_by = "region"
 ) {
   meshes <- lapply(seq_len(nrow(atlas_data)), function(i) {
     mesh_data <- atlas_data$mesh[[i]]
-    if (is.null(mesh_data)) return(NULL)
+    if (is.null(mesh_data)) {
+      return(NULL)
+    }
 
     colour <- atlas_data$colour[i]
-    if (is.na(colour)) colour <- na_colour
+    if (is.na(colour)) {
+      colour <- na_colour
+    }
     colour <- unname(ifelse(grepl("^#", colour), colour, col2hex(colour)))
 
     region_name <- if (label_by %in% names(atlas_data)) {
@@ -470,7 +490,9 @@ build_tract_meshes <- function(
 
     if (has_centerlines) {
       cl_idx <- which(atlas_centerlines$centerlines$label == label)
-      if (length(cl_idx) == 0) return(NULL)
+      if (length(cl_idx) == 0) {
+        return(NULL)
+      }
 
       centerline <- atlas_centerlines$centerlines$points[[cl_idx]]
       tangents <- atlas_centerlines$centerlines$tangents[[cl_idx]]
@@ -492,7 +514,9 @@ build_tract_meshes <- function(
       vertex_colors <- tangents_to_colors(mesh_data)
     } else {
       colour <- atlas_data$colour[i]
-      if (is.na(colour)) colour <- na_colour
+      if (is.na(colour)) {
+        colour <- na_colour
+      }
       colour <- unname(ifelse(grepl("^#", colour), colour, col2hex(colour)))
       vertex_colors <- rep(colour, n_vertices)
     }

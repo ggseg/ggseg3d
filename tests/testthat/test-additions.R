@@ -145,7 +145,9 @@ test_that("ggseg3d produces anatomically positioned hemispheres by default", {
   left <- NULL
   right <- NULL
   for (m in p$x$meshes) {
-    if (m$name == "left inflated") left <- m
+    if (m$name == "left inflated") {
+      left <- m
+    }
     if (m$name == "right inflated") right <- m
   }
   expect_lte(max(left$vertices$x), 1e-6)

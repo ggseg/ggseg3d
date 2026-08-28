@@ -25,9 +25,10 @@ is_unified_atlas <- function(atlas) {
 
   has_core <- !is.null(atlas$core)
 
-  if (!is.null(atlas$data) &&
-        (inherits(atlas$data, "ggseg_atlas_data") ||
-           inherits(atlas$data, "brain_atlas_data"))) {
+  has_atlas_data <- inherits(atlas$data, "ggseg_atlas_data") ||
+    inherits(atlas$data, "brain_atlas_data")
+
+  if (has_atlas_data) {
     has_3d <- !is.null(atlas$data$vertices) ||
       !is.null(atlas$data$meshes) ||
       !is.null(atlas$data$centerlines)
@@ -145,9 +146,15 @@ data_merge_mesh <- function(.data, atlas_data) {
 #' Merge legend data from surface and deep cerebellar components
 #' @noRd
 merge_legend_data <- function(surface_legend, deep_legend) {
-  if (is.null(surface_legend) && is.null(deep_legend)) return(NULL)
-  if (is.null(surface_legend)) return(deep_legend)
-  if (is.null(deep_legend)) return(surface_legend)
+  if (is.null(surface_legend) && is.null(deep_legend)) {
+    return(NULL)
+  }
+  if (is.null(surface_legend)) {
+    return(deep_legend)
+  }
+  if (is.null(deep_legend)) {
+    return(surface_legend)
+  }
 
   combined <- rbind(surface_legend, deep_legend)
   combined[!duplicated(combined$label), , drop = FALSE]

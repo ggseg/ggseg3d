@@ -71,7 +71,9 @@ ggseg3d <- function(
   }
   if (lifecycle::is_present(colour)) {
     lifecycle::deprecate_warn(
-      "2.1.0", "ggseg3d(colour=)", "ggseg3d(colour_by=)"
+      "2.1.0",
+      "ggseg3d(colour=)",
+      "ggseg3d(colour_by=)"
     )
     colour_by <- colour
   }
@@ -219,8 +221,10 @@ prepare_brain_meshes.subcortical_atlas <- function(
     label_by
   )
   meshes <- build_subcortical_meshes(
-    result$atlas_data, na_colour,
-    text_by = text_by, label_by = label_by
+    result$atlas_data,
+    na_colour,
+    text_by = text_by,
+    label_by = label_by
   )
 
   list(meshes = meshes, legend_data = result$legend_data)
@@ -256,23 +260,32 @@ prepare_brain_meshes.cerebellar_atlas <- function(
     label_by
   )
   surface_meshes <- build_cerebellar_meshes(
-    result$atlas_data, na_colour,
-    text_by = text_by, label_by = label_by,
+    result$atlas_data,
+    na_colour,
+    text_by = text_by,
+    label_by = label_by,
     opacity = surface_opacity
   )
 
   if (has_deep) {
     deep_data <- prepare_mesh_atlas_data(atlas, .data)
     deep_result <- apply_colours_and_legend(
-      deep_data, colour_by, palette, na_colour, label_by
+      deep_data,
+      colour_by,
+      palette,
+      na_colour,
+      label_by
     )
     deep_meshes <- build_subcortical_meshes(
-      deep_result$atlas_data, na_colour,
-      text_by = text_by, label_by = label_by
+      deep_result$atlas_data,
+      na_colour,
+      text_by = text_by,
+      label_by = label_by
     )
     all_meshes <- c(surface_meshes, deep_meshes)
     legend_data <- merge_legend_data(
-      result$legend_data, deep_result$legend_data
+      result$legend_data,
+      deep_result$legend_data
     )
   } else {
     all_meshes <- surface_meshes
