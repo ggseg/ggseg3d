@@ -10,11 +10,14 @@ cerebellar_atlas_fixture <- function(
   palette,
   atlas = "test_cerebellar"
 ) {
-  ggseg_atlas(
+  ggseg.formats::ggseg_atlas(
     atlas = atlas,
     type = "cerebellar",
     core = core,
-    data = ggseg_data_cerebellar(vertices = vertices, meshes = meshes),
+    data = ggseg.formats::ggseg_data_cerebellar(
+      vertices = vertices,
+      meshes = meshes
+    ),
     palette = palette
   )
 }
@@ -46,11 +49,11 @@ subcortical_atlas_fixture <- function(
   palette,
   atlas = "test_subcortical"
 ) {
-  ggseg_atlas(
+  ggseg.formats::ggseg_atlas(
     atlas = atlas,
     type = "subcortical",
     core = core,
-    data = ggseg_data_subcortical(meshes = meshes),
+    data = ggseg.formats::ggseg_data_subcortical(meshes = meshes),
     palette = palette
   )
 }
@@ -62,11 +65,14 @@ tract_atlas_fixture <- function(
   palette,
   atlas = "test_tract"
 ) {
-  ggseg_atlas(
+  ggseg.formats::ggseg_atlas(
     atlas = atlas,
     type = "tract",
     core = core,
-    data = ggseg_data_tract(centerlines = centerlines, meshes = meshes),
+    data = ggseg.formats::ggseg_data_tract(
+      centerlines = centerlines,
+      meshes = meshes
+    ),
     palette = palette
   )
 }
