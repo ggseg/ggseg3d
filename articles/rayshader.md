@@ -355,8 +355,8 @@ for mask extraction where shadows would contaminate the output:
 ``` r
 
 highlight <- tibble(
-  region = c("precentral"),
-  highlight = c("#FF0000")
+  region = "precentral",
+  highlight = "#FF0000"
 )
 
 ggsegray(
@@ -515,10 +515,10 @@ together with magick:
 library(magick)
 
 views <- c("left lateral", "left medial", "right lateral", "right medial")
-files <- paste0("panel_", gsub(" ", "_", views), ".png")
+files <- paste0("panel_", gsub(" ", "_", views, fixed = TRUE), ".png")
 
 for (i in seq_along(views)) {
-  hemi <- if (grepl("left", views[i])) "left" else "right"
+  hemi <- if (grepl("left", views[i], fixed = TRUE)) "left" else "right"
 
   ggsegray(
     .data = some_data,

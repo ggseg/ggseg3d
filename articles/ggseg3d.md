@@ -69,7 +69,12 @@ subcort_data <- tibble(
   p = c(0.2, 0.5, 0.8)
 )
 
-ggseg3d(.data = subcort_data, atlas = aseg(), colour_by = "p", na_alpha = .5) |>
+ggseg3d(
+  .data = subcort_data,
+  atlas = aseg(),
+  colour_by = "p",
+  na_alpha = 0.5
+) |>
   add_glassbrain()
 ```
 

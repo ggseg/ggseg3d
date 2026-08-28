@@ -6,8 +6,6 @@ Builds mesh data structures and legend data from a \`ggseg_atlas\`.
 ## Usage
 
 ``` r
-prepare_brain_meshes(atlas, ...)
-
 # S3 method for class 'cortical_atlas'
 prepare_brain_meshes(
   atlas,
@@ -67,6 +65,8 @@ prepare_brain_meshes(
   tube_segments = 10,
   ...
 )
+
+prepare_brain_meshes(atlas, ...)
 ```
 
 ## Arguments
@@ -75,13 +75,10 @@ prepare_brain_meshes(
 
   A \`ggseg_atlas\` object
 
-- ...:
-
-  Type-specific arguments passed to methods
-
 - .data:
 
-  Optional user data to merge
+  A data.frame to use for plot aesthetics. Must include a column called
+  "region" corresponding to regions.
 
 - surface:
 
@@ -94,27 +91,30 @@ prepare_brain_meshes(
 
 - label_by:
 
-  Column name for region hover labels
+  String. Column name used as hover label for each region.
 
 - text_by:
 
-  Column name for extra hover text
+  String. Column name for extra hover text shown below the region label.
 
 - colour_by:
 
-  Column name for colour values
+  String. Column name mapped to mesh colours.
 
 - palette:
 
-  Colour palette specification
+  String. Vector of colour names or HEX colours. Can also be a named
+  numeric vector, with colours as names, and breakpoint for that colour
+  as the value
 
 - na_colour:
 
-  Colour for NA values
+  String. Either name, hex of RGB for colour of NA in colour.
 
 - na_alpha:
 
-  Transparency for NA regions
+  Numeric. A number between 0 and 1 to control transparency of
+  NA-regions.
 
 - edge_by:
 
@@ -122,7 +122,12 @@ prepare_brain_meshes(
 
 - brain_meshes:
 
-  Optional user-supplied brain meshes
+  Optional user-supplied mesh data. Passed through to
+  \[ggseg.formats::get_brain_mesh()\] for format details.
+
+- ...:
+
+  Type-specific arguments passed to methods
 
 - surface_opacity:
 

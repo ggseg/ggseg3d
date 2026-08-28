@@ -101,7 +101,7 @@ ggseg3d(
   atlas = dk(),
   colour_by = "p",
   text_by = "p",
-  palette = c("forestgreen" = 0, "white" = .05, "firebrick" = 1)
+  palette = c("forestgreen" = 0, "white" = 0.05, "firebrick" = 1)
 )
 ```
 
@@ -196,7 +196,7 @@ ggseg3d(
   atlas = aseg(),
   colour_by = "p",
   text_by = "p",
-  na_alpha = .5
+  na_alpha = 0.5
 ) |>
   add_glassbrain()
 ```

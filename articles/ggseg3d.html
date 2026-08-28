@@ -141,7 +141,12 @@ wraps them in a translucent cortex for anatomical context:</p>
 <span>  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/ggseg3d.html">ggseg3d</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">subcort_data</span>, atlas <span class="op">=</span> <span class="fu"><a href="https://ggsegverse.github.io/ggseg.formats/reference/aseg.html" class="external-link">aseg</a></span><span class="op">(</span><span class="op">)</span>, colour_by <span class="op">=</span> <span class="st">"p"</span>, na_alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu"><a href="../reference/ggseg3d.html">ggseg3d</a></span><span class="op">(</span></span>
+<span>  .data <span class="op">=</span> <span class="va">subcort_data</span>,</span>
+<span>  atlas <span class="op">=</span> <span class="fu"><a href="https://ggsegverse.github.io/ggseg.formats/reference/aseg.html" class="external-link">aseg</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  colour_by <span class="op">=</span> <span class="st">"p"</span>,</span>
+<span>  na_alpha <span class="op">=</span> <span class="fl">0.5</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/add_glassbrain.html">add_glassbrain</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/intro-subcortical.png" title="Subcortical structures inside a glass brain" alt="Thalamus, caudate, and hippocampus coloured by p-value, visible through a semi-transparent cortical shell."><div class="figcaption">Thalamus, caudate, and hippocampus coloured by

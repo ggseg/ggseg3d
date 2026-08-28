@@ -48,7 +48,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggseg3d-development-version">ggseg3d (development version)<a class="anchor" aria-label="anchor" href="#ggseg3d-development-version"></a></h2>
-<ul><li>Test fixtures now resolve region names dynamically via <code><a href="https://ggsegverse.github.io/ggseg.formats/reference/atlas_regions.html" class="external-link">ggseg.formats::atlas_regions()</a></code> instead of hard-coding schema-specific strings, so <code>ggseg3d</code> checks cleanly against both the released and development <code>ggseg.formats</code> atlas schema. Geometry snapshots skip on CRAN.</li>
+<ul><li><p>Test fixtures now resolve region names dynamically via <code><a href="https://ggsegverse.github.io/ggseg.formats/reference/atlas_regions.html" class="external-link">ggseg.formats::atlas_regions()</a></code> instead of hard-coding schema-specific strings, so <code>ggseg3d</code> checks cleanly against both the released and development <code>ggseg.formats</code> atlas schema. Geometry snapshots skip on CRAN.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> on a <code>ggsegray</code> object now returns the object invisibly, as print methods are expected to. It still renders the scene; only the return value changed, and piping was never supported off <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.2" id="ggseg3d-212">ggseg3d 2.1.2<a class="anchor" aria-label="anchor" href="#ggseg3d-212"></a></h2><p class="text-muted">CRAN release: 2026-07-02</p>
