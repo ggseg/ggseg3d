@@ -50,6 +50,7 @@ is_unified_atlas <- function(atlas) {
 #'
 #' @return Prepared data frame with hemi, region, label, colour, and vertices
 #' @keywords internal
+#' @noRd
 prepare_atlas_data <- function(atlas, .data) {
   vertices <- if (!is.null(atlas$data$vertices)) {
     atlas$data$vertices
@@ -88,6 +89,7 @@ prepare_atlas_data <- function(atlas, .data) {
 #'
 #' @return Prepared data frame with hemi, region, label, colour, and mesh
 #' @keywords internal
+#' @noRd
 prepare_mesh_atlas_data <- function(atlas, .data) {
   if (!is.null(atlas$data$centerlines)) {
     base_data <- atlas$data$centerlines[, "label", drop = FALSE]
@@ -126,6 +128,7 @@ prepare_mesh_atlas_data <- function(atlas, .data) {
 #' @param atlas_data Atlas data frame
 #' @return Merged data frame
 #' @keywords internal
+#' @noRd
 data_merge_mesh <- function(.data, atlas_data) {
   join_cols <- intersect(c("region", "label", "hemi"), names(.data))
 

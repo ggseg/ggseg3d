@@ -12,9 +12,9 @@ test_that("create_ggseg3d_widget creates htmlwidget", {
   widget <- create_ggseg3d_widget(meshes, NULL)
 
   expect_s3_class(widget, c("ggseg3d", "htmlwidget"))
-  expect_equal(widget$x$options$camera, "right lateral")
+  expect_identical(widget$x$options$camera, "right lateral")
   expect_true(widget$x$options$showLegend)
-  expect_equal(widget$x$options$backgroundColor, "#ffffff")
+  expect_identical(widget$x$options$backgroundColor, "#ffffff")
 })
 
 test_that("create_ggseg3d_widget includes legend data", {
@@ -28,13 +28,13 @@ test_that("create_ggseg3d_widget includes legend data", {
 
   widget <- create_ggseg3d_widget(meshes, legend_data)
 
-  expect_equal(widget$x$colorbar, legend_data)
+  expect_identical(widget$x$colorbar, legend_data)
 })
 
 test_that("create_ggseg3d_widget has correct sizing policy", {
   meshes <- list()
   widget <- create_ggseg3d_widget(meshes, NULL)
 
-  expect_equal(widget$sizingPolicy$defaultWidth, 600)
-  expect_equal(widget$sizingPolicy$defaultHeight, 500)
+  expect_identical(widget$sizingPolicy$defaultWidth, 600)
+  expect_identical(widget$sizingPolicy$defaultHeight, 500)
 })

@@ -13,6 +13,7 @@ check_ggseg3d <- function(
 
 
 #' @importFrom dplyr left_join
+#' @noRd
 merge_atlas_data <- function(.data, atlas_data) {
   cols <- names(atlas_data)[names(atlas_data) %in% names(.data)]
 

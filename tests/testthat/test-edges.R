@@ -8,7 +8,7 @@ test_that("find_boundary_edges finds edges between different colors", {
 
   edges <- find_boundary_edges(faces, vertex_colors)
 
-  expect_true(length(edges) > 0)
+  expect_gt(length(edges), 0)
   edge_vertices <- unlist(edges)
   expect_true(1 %in% edge_vertices || 2 %in% edge_vertices)
 })
@@ -23,7 +23,7 @@ test_that("find_boundary_edges returns empty for uniform colors", {
 
   edges <- find_boundary_edges(faces, vertex_colors)
 
-  expect_equal(length(edges), 0)
+  expect_length(edges, 0)
 })
 
 test_that("find_boundary_edges handles single face", {
@@ -32,7 +32,7 @@ test_that("find_boundary_edges handles single face", {
 
   edges <- find_boundary_edges(faces, vertex_colors)
 
-  expect_equal(length(edges), 3)
+  expect_length(edges, 3)
 })
 
 test_that("find_boundary_edges deduplicates shared edges", {
@@ -50,7 +50,7 @@ test_that("find_boundary_edges deduplicates shared edges", {
     function(e) paste(sort(e), collapse = "-"),
     character(1)
   )
-  expect_equal(length(edge_keys), length(unique(edge_keys)))
+  expect_length(edge_keys, length(unique(edge_keys)))
 })
 
 test_that("find_boundary_edges skips NA groups without NAs in output", {
@@ -63,9 +63,9 @@ test_that("find_boundary_edges skips NA groups without NAs in output", {
 
   edges <- find_boundary_edges(faces, vertex_colors)
 
-  expect_true(length(edges) > 0)
+  expect_gt(length(edges), 0)
   edge_verts <- unlist(edges)
-  expect_false(any(is.na(edge_verts)))
+  expect_false(anyNA(edge_verts))
 })
 
 test_that("find_boundary_edges returns empty for all-NA groups", {
@@ -74,5 +74,5 @@ test_that("find_boundary_edges returns empty for all-NA groups", {
 
   edges <- find_boundary_edges(faces, vertex_colors)
 
-  expect_equal(length(edges), 0)
+  expect_length(edges, 0)
 })

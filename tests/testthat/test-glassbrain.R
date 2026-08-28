@@ -4,7 +4,7 @@ test_that("Check glassbrain", {
 
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
   n_meshes_base <- length(ggseg3d(atlas = aseg())$x$meshes)
-  expect_true(length(p$x$meshes) > n_meshes_base)
+  expect_gt(length(p$x$meshes), n_meshes_base)
 
   p <- ggseg3d(atlas = aseg()) |>
     add_glassbrain(hemisphere = "left")
@@ -17,12 +17,12 @@ test_that("Check glassbrain", {
   glassbrain_meshes <- p$x$meshes[vapply(
     p$x$meshes,
     function(m) {
-      grepl("glass brain", m$name)
+      grepl("glass brain", m$name, fixed = TRUE)
     },
     logical(1)
   )]
-  expect_true(length(glassbrain_meshes) > 0)
-  expect_equal(glassbrain_meshes[[1]]$colors[[1]], "#FF0000")
+  expect_gt(length(glassbrain_meshes), 0)
+  expect_identical(glassbrain_meshes[[1]]$colors[[1]], "#FF0000")
 })
 
 test_that("add_glassbrain with hex color", {
@@ -32,12 +32,12 @@ test_that("add_glassbrain with hex color", {
   glassbrain_meshes <- p$x$meshes[vapply(
     p$x$meshes,
     function(m) {
-      grepl("glass brain", m$name)
+      grepl("glass brain", m$name, fixed = TRUE)
     },
     logical(1)
   )]
 
-  expect_equal(glassbrain_meshes[[1]]$colors[[1]], "#AABBCC")
+  expect_identical(glassbrain_meshes[[1]]$colors[[1]], "#AABBCC")
 })
 
 test_that("add_glassbrain with custom opacity", {
@@ -47,7 +47,7 @@ test_that("add_glassbrain with custom opacity", {
   glassbrain_meshes <- p$x$meshes[vapply(
     p$x$meshes,
     function(m) {
-      grepl("glass brain", m$name)
+      grepl("glass brain", m$name, fixed = TRUE)
     },
     logical(1)
   )]
@@ -69,7 +69,7 @@ test_that("add_glassbrain with both hemispheres", {
   glassbrain_meshes <- p$x$meshes[vapply(
     p$x$meshes,
     function(m) {
-      grepl("glass brain", m$name)
+      grepl("glass brain", m$name, fixed = TRUE)
     },
     logical(1)
   )]

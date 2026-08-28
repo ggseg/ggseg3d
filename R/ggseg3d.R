@@ -115,22 +115,6 @@ ggseg3d <- function(
 }
 
 
-# prepare_brain_meshes S3 generic ----
-
-#' Prepare brain meshes and legend data
-#'
-#' S3 generic that dispatches to atlas-type-specific preparation methods.
-#' Builds mesh data structures and legend data from a `ggseg_atlas`.
-#'
-#' @param atlas A `ggseg_atlas` object
-#' @param ... Type-specific arguments passed to methods
-#'
-#' @return List with `meshes` (list of mesh entries) and `legend_data`
-#' @keywords internal
-prepare_brain_meshes <- function(atlas, ...) {
-  UseMethod("prepare_brain_meshes")
-}
-
 #' @export
 #' @keywords internal
 prepare_brain_meshes.default <- function(atlas, ...) {
@@ -143,18 +127,12 @@ prepare_brain_meshes.default <- function(atlas, ...) {
 }
 
 #' @method prepare_brain_meshes cortical_atlas
-#' @param .data Optional user data to merge
+#' @inheritParams ggseg3d
 #' @param surface Surface type: `"inflated"` (default), `"semi-inflated"`,
 #'   `"white"`, `"pial"`. Use `"LCBC"` as alias for `"inflated"`.
 #' @param hemisphere Character vector of hemispheres: `"right"`, `"left"`.
-#' @param label_by Column name for region hover labels
-#' @param text_by Column name for extra hover text
-#' @param colour_by Column name for colour values
-#' @param palette Colour palette specification
-#' @param na_colour Colour for NA values
-#' @param na_alpha Transparency for NA regions
 #' @param edge_by Column name for region boundary edge grouping
-#' @param brain_meshes Optional user-supplied brain meshes
+#' @inheritParams resolve_brain_mesh
 #' @export
 #' @rdname prepare_brain_meshes
 #' @keywords internal
@@ -343,6 +321,24 @@ prepare_brain_meshes.tract_atlas <- function(
 }
 
 
+# prepare_brain_meshes S3 generic ----
+
+#' Prepare brain meshes and legend data
+#'
+#' S3 generic that dispatches to atlas-type-specific preparation methods.
+#' Builds mesh data structures and legend data from a `ggseg_atlas`.
+#'
+#' @param atlas A `ggseg_atlas` object
+#' @param ... Type-specific arguments passed to methods
+#'
+#' @return List with `meshes` (list of mesh entries) and `legend_data`
+#' @rdname prepare_brain_meshes
+#' @keywords internal
+prepare_brain_meshes <- function(atlas, ...) {
+  UseMethod("prepare_brain_meshes")
+}
+
+
 # Shared helpers ----
 
 #' Apply colour palette and build legend data
@@ -350,14 +346,16 @@ prepare_brain_meshes.tract_atlas <- function(
 #' Shared pipeline step for all atlas types: applies colour palette to
 #' atlas data and builds the legend data structure.
 #'
-#' @param atlas_data Prepared atlas data frame
+#' @param atlas_data Prepared atlas data frame, with the columns each helper
+#'   needs (label, colour, and either vertices or mesh).
 #' @param colour_by Column name for colour values
-#' @param palette Colour palette specification
-#' @param na_colour Colour for NA values
 #' @param label_by Column name for labels
+#' @param na_colour Colour for NA values
+#' @param palette Colour palette specification
 #'
 #' @return List with `atlas_data` and `legend_data`
 #' @keywords internal
+#' @noRd
 apply_colours_and_legend <- function(
   atlas_data,
   colour_by,
@@ -402,6 +400,7 @@ apply_colours_and_legend <- function(
 #'
 #' @return List with centerlines, tube_radius, tube_segments, or NULL
 #' @keywords internal
+#' @noRd
 build_centerline_data <- function(
   atlas,
   tube_radius = NULL,

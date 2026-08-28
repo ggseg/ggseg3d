@@ -40,11 +40,11 @@ resolve_brain_mesh <- function(
 
   from_ggseg_meshes <- is.null(brain_meshes) && surface != "inflated"
 
-  if (!from_ggseg_meshes) {
-    mesh <- ggseg.formats::get_brain_mesh(hemisphere, surface, brain_meshes)
-  } else {
+  if (from_ggseg_meshes) {
     check_ggseg_meshes(surface)
     mesh <- ggseg.meshes::get_cortical_mesh(hemisphere, surface)
+  } else {
+    mesh <- ggseg.formats::get_brain_mesh(hemisphere, surface, brain_meshes)
   }
 
   if (is.null(mesh)) {
@@ -106,6 +106,7 @@ normalize_cortical_mesh <- function(mesh, hemisphere, rotate_axes) {
 #'
 #' @return Character vector of colors, one per mesh vertex
 #' @keywords internal
+#' @noRd
 vertices_to_colors <- function(
   atlas_data,
   n_vertices,
@@ -139,6 +140,7 @@ vertices_to_colors <- function(
 #'
 #' @return Character vector of labels, one per mesh vertex
 #' @keywords internal
+#' @noRd
 vertices_to_labels <- function(
   atlas_data,
   n_vertices,
@@ -172,6 +174,7 @@ vertices_to_labels <- function(
 #'
 #' @return Character vector of text values, one per mesh vertex
 #' @keywords internal
+#' @noRd
 vertices_to_text <- function(atlas_data, n_vertices, text_col) {
   vertex_text <- rep(NA_character_, n_vertices)
 
@@ -242,16 +245,16 @@ vertices_to_groups <- function(
 #' Creates mesh data structures for cortical ggseg_atlas objects using
 #' shared brain meshes with vertex-based colouring.
 #'
-#' @param atlas_data Prepared atlas data frame
 #' @param hemisphere Hemispheres to include
 #' @param surface Surface type
-#' @param na_colour Colour for NA values
 #' @param edge_by Column for edge grouping (or NULL)
-#' @param brain_meshes Optional user-supplied brain meshes
 #'
 #' @return List of mesh data structures
 #' @importFrom rlang .data
+#' @inheritParams apply_colours_and_legend
+#' @inheritParams resolve_brain_mesh
 #' @keywords internal
+#' @noRd
 build_cortical_meshes <- function(
   atlas_data,
   hemisphere,
@@ -323,14 +326,14 @@ build_cortical_meshes <- function(
 #' Creates mesh data structures for cerebellar ggseg_atlas objects using
 #' the shared SUIT cerebellar surface with vertex-based colouring.
 #'
-#' @param atlas_data Prepared atlas data frame with vertices column
-#' @param na_colour Colour for NA values
 #' @param text_by Column for hover text (or NULL)
 #' @param label_by Column for vertex labels
 #' @param opacity Numeric opacity for the mesh (0 = transparent, 1 = opaque)
 #'
 #' @return List of mesh data structures
+#' @inheritParams apply_colours_and_legend
 #' @keywords internal
+#' @noRd
 build_cerebellar_meshes <- function(
   atlas_data,
   na_colour,
@@ -404,12 +407,11 @@ is_flat_mesh <- function(vertices, tol = 1) {
 #' Creates mesh data structures for subcortical atlases with per-region mesh
 #' data using face-based colouring (each structure is a separate mesh).
 #'
-#' @param atlas_data Prepared atlas data frame with label, colour, and mesh
-#'   columns
-#' @param na_colour Colour for NA values
 #'
 #' @return List of mesh data structures
+#' @inheritParams apply_colours_and_legend
 #' @keywords internal
+#' @noRd
 build_subcortical_meshes <- function(
   atlas_data,
   na_colour,
@@ -460,14 +462,13 @@ build_subcortical_meshes <- function(
 #' Supports palette colours (uniform per tract) or orientation-based RGB
 #' colours computed from centerline tangent vectors.
 #'
-#' @param atlas_data Prepared atlas data frame with label, colour, and mesh
-#'   columns
-#' @param na_colour Colour for NA values
 #' @param color_by How to colour tracts: "colour" (use colour column),
 #'   "orientation" (direction-based RGB from tangents)
 #'
 #' @return List of mesh data structures
+#' @inheritParams apply_colours_and_legend
 #' @keywords internal
+#' @noRd
 build_tract_meshes <- function(
   atlas_data,
   na_colour,
@@ -486,64 +487,88 @@ build_tract_meshes <- function(
   }
 
   meshes <- lapply(seq_len(nrow(atlas_data)), function(i) {
-    label <- atlas_data$label[i]
-
-    if (has_centerlines) {
-      cl_idx <- which(atlas_centerlines$centerlines$label == label)
-      if (length(cl_idx) == 0) {
-        return(NULL)
-      }
-
-      centerline <- atlas_centerlines$centerlines$points[[cl_idx]]
-      tangents <- atlas_centerlines$centerlines$tangents[[cl_idx]]
-
-      mesh_data <- generate_tube_mesh(
-        centerline = centerline,
-        radius = atlas_centerlines$tube_radius,
-        segments = atlas_centerlines$tube_segments
-      )
-      mesh_data$metadata$tangents <- tangents
+    mesh_data <- if (has_centerlines) {
+      tract_tube_mesh(atlas_data$label[i], atlas_centerlines)
     } else {
-      mesh_data <- atlas_data$mesh[[i]]
-      if (is.null(mesh_data)) return(NULL)
+      atlas_data$mesh[[i]]
     }
 
-    n_vertices <- nrow(mesh_data$vertices)
-
-    if (color_by == "orientation" && !is.null(mesh_data$metadata$tangents)) {
-      vertex_colors <- tangents_to_colors(mesh_data)
-    } else {
-      colour <- atlas_data$colour[i]
-      if (is.na(colour)) {
-        colour <- na_colour
-      }
-      colour <- unname(ifelse(grepl("^#", colour), colour, col2hex(colour)))
-      vertex_colors <- rep(colour, n_vertices)
+    if (is.null(mesh_data)) {
+      return(NULL)
     }
 
     tract_name <- if (label_by %in% names(atlas_data)) {
       atlas_data[[label_by]][i]
     } else {
-      label
-    }
-
-    hover <- NULL
-    if (!is.null(text_by) && text_by %in% names(atlas_data)) {
-      val <- atlas_data[[text_by]][i]
-      if (!is.na(val)) hover <- paste0(text_by, ": ", val)
+      atlas_data$label[i]
     }
 
     make_mesh_entry(
       name = tract_name,
       vertices = mesh_data$vertices,
       faces = mesh_data$faces,
-      colors = vertex_colors,
+      colors = tract_vertex_colours(
+        mesh_data,
+        atlas_data$colour[i],
+        color_by,
+        na_colour
+      ),
       color_mode = "vertexcolor",
-      hover_text = hover
+      hover_text = mesh_hover_text(atlas_data, i, text_by)
     )
   })
 
   Filter(Negate(is.null), meshes)
+}
+
+
+# Builds one tract's tube mesh from its centerline, carrying the tangents
+# through so orientation colouring can use them. NULL when the tract has no
+# centerline.
+tract_tube_mesh <- function(label, atlas_centerlines) {
+  cl_idx <- which(atlas_centerlines$centerlines$label == label)
+  if (length(cl_idx) == 0) {
+    return(NULL)
+  }
+
+  mesh_data <- generate_tube_mesh(
+    centerline = atlas_centerlines$centerlines$points[[cl_idx]],
+    radius = atlas_centerlines$tube_radius,
+    segments = atlas_centerlines$tube_segments
+  )
+  mesh_data$metadata$tangents <- atlas_centerlines$centerlines$tangents[[
+    cl_idx
+  ]]
+
+  mesh_data
+}
+
+
+tract_vertex_colours <- function(mesh_data, colour, color_by, na_colour) {
+  if (color_by == "orientation" && !is.null(mesh_data$metadata$tangents)) {
+    return(tangents_to_colors(mesh_data))
+  }
+
+  if (is.na(colour)) {
+    colour <- na_colour
+  }
+  colour <- unname(ifelse(grepl("^#", colour), colour, col2hex(colour)))
+
+  rep(colour, nrow(mesh_data$vertices))
+}
+
+
+mesh_hover_text <- function(atlas_data, i, text_by) {
+  if (is.null(text_by) || !text_by %in% names(atlas_data)) {
+    return(NULL)
+  }
+
+  val <- atlas_data[[text_by]][i]
+  if (is.na(val)) {
+    return(NULL)
+  }
+
+  paste0(text_by, ": ", val)
 }
 
 
@@ -556,6 +581,7 @@ build_tract_meshes <- function(
 #' @param mesh_data Mesh data with vertices data.frame and metadata list
 #' @return Character vector of hex colours (one per mesh vertex)
 #' @keywords internal
+#' @noRd
 tangents_to_colors <- function(mesh_data) {
   metadata <- mesh_data$metadata
   n_centerline <- metadata$n_centerline_points
@@ -591,6 +617,7 @@ tangents_to_colors <- function(mesh_data) {
 #' @param segments Number of segments around tube circumference.
 #' @return List with vertices (data.frame), faces (data.frame), and metadata
 #' @keywords internal
+#' @noRd
 generate_tube_mesh <- function(centerline, radius = 0.5, segments = 8) {
   if (!is.matrix(centerline) || nrow(centerline) < 2) {
     cli::cli_abort("centerline must be a matrix with at least 2 rows")
@@ -603,43 +630,8 @@ generate_tube_mesh <- function(centerline, radius = 0.5, segments = 8) {
     radius <- rep(radius, n_points)
   }
 
-  n_vertices <- n_points * segments
-  n_faces <- (n_points - 1) * segments * 2
-
-  vertices <- matrix(0, nrow = n_vertices, ncol = 3)
-  faces <- matrix(0L, nrow = n_faces, ncol = 3)
-
-  angles <- seq(0, 2 * pi, length.out = segments + 1)[1:segments]
-
-  for (i in seq_len(n_points)) {
-    center <- centerline[i, ]
-    normal <- frames$normals[i, ]
-    binormal <- frames$binormals[i, ]
-    r <- radius[i]
-
-    for (j in seq_len(segments)) {
-      angle <- angles[j]
-      offset <- r * (cos(angle) * normal + sin(angle) * binormal)
-      vertex_idx <- (i - 1) * segments + j
-      vertices[vertex_idx, ] <- center + offset
-    }
-  }
-
-  face_idx <- 1
-  for (i in seq_len(n_points - 1)) {
-    for (j in seq_len(segments)) {
-      j_next <- if (j == segments) 1L else j + 1L
-
-      v1 <- (i - 1L) * segments + j
-      v2 <- (i - 1L) * segments + j_next
-      v3 <- i * segments + j
-      v4 <- i * segments + j_next
-
-      faces[face_idx, ] <- c(v1, v2, v3)
-      faces[face_idx + 1L, ] <- c(v2, v4, v3)
-      face_idx <- face_idx + 2L
-    }
-  }
+  vertices <- tube_ring_vertices(centerline, frames, radius, segments)
+  faces <- tube_quad_faces(n_points, segments)
 
   list(
     vertices = data.frame(
@@ -657,8 +649,56 @@ generate_tube_mesh <- function(centerline, radius = 0.5, segments = 8) {
 }
 
 
+# One ring of `segments` vertices around each centerline point, swept in the
+# normal/binormal plane of that point's frame.
+tube_ring_vertices <- function(centerline, frames, radius, segments) {
+  n_points <- nrow(centerline)
+  vertices <- matrix(0, nrow = n_points * segments, ncol = 3)
+  angles <- seq(0, 2 * pi, length.out = segments + 1)[1:segments]
+
+  for (i in seq_len(n_points)) {
+    normal <- frames$normals[i, ]
+    binormal <- frames$binormals[i, ]
+
+    for (j in seq_len(segments)) {
+      offset <- radius[i] *
+        (cos(angles[j]) * normal + sin(angles[j]) * binormal)
+      vertices[(i - 1) * segments + j, ] <- centerline[i, ] + offset
+    }
+  }
+
+  vertices
+}
+
+
+# Two triangles per quad between consecutive rings, wrapping the last segment
+# back to the first.
+tube_quad_faces <- function(n_points, segments) {
+  faces <- matrix(0L, nrow = (n_points - 1) * segments * 2, ncol = 3)
+  face_idx <- 1
+
+  for (i in seq_len(n_points - 1)) {
+    for (j in seq_len(segments)) {
+      j_next <- if (j == segments) 1L else j + 1L
+
+      v1 <- (i - 1L) * segments + j
+      v2 <- (i - 1L) * segments + j_next
+      v3 <- i * segments + j
+      v4 <- i * segments + j_next
+
+      faces[face_idx, ] <- c(v1, v2, v3)
+      faces[face_idx + 1L, ] <- c(v2, v4, v3)
+      face_idx <- face_idx + 2L
+    }
+  }
+
+  faces
+}
+
+
 #' Compute parallel transport frames along curve
 #' @keywords internal
+#' @noRd
 compute_parallel_transp_fr <- function(curve) {
   # nolint: object_length_linter
   n <- nrow(curve)
@@ -708,6 +748,7 @@ compute_parallel_transp_fr <- function(curve) {
 
 #' Cross product of two 3D vectors
 #' @keywords internal
+#' @noRd
 cross_product <- function(a, b) {
   c(
     a[2] * b[3] - a[3] * b[2],
@@ -719,6 +760,7 @@ cross_product <- function(a, b) {
 
 #' Rotate vector around axis by angle (Rodrigues' formula)
 #' @keywords internal
+#' @noRd
 rotate_vector <- function(v, axis, angle) {
   cos_a <- cos(angle)
   sin_a <- sin(angle)

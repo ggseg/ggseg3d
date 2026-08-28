@@ -17,7 +17,7 @@
 #' @name ggseg3d-package
 #' @docType package
 #' @keywords internal
-#' @import ggseg.formats
+#' @importFrom ggseg.formats dk aseg tracula
 "_PACKAGE"
 
 #' @export

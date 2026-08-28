@@ -1,22 +1,22 @@
 test_that("resolve_brain_mesh returns mesh for inflated surface", {
   mesh <- resolve_brain_mesh(hemisphere = "lh", surface = "inflated")
 
-  expect_true(!is.null(mesh))
+  expect_false(is.null(mesh))
   expect_true("vertices" %in% names(mesh))
   expect_true("faces" %in% names(mesh))
-  expect_true(nrow(mesh$vertices) > 0)
-  expect_true(nrow(mesh$faces) > 0)
-  expect_equal(ncol(mesh$vertices), 3)
-  expect_equal(ncol(mesh$faces), 3)
+  expect_gt(nrow(mesh$vertices), 0)
+  expect_gt(nrow(mesh$faces), 0)
+  expect_identical(ncol(mesh$vertices), 3L)
+  expect_identical(ncol(mesh$faces), 3L)
 })
 
 test_that("resolve_brain_mesh returns both hemispheres", {
   lh <- resolve_brain_mesh(hemisphere = "lh", surface = "inflated")
   rh <- resolve_brain_mesh(hemisphere = "rh", surface = "inflated")
 
-  expect_true(!is.null(lh))
-  expect_true(!is.null(rh))
-  expect_equal(nrow(lh$vertices), nrow(rh$vertices))
+  expect_false(is.null(lh))
+  expect_false(is.null(rh))
+  expect_identical(nrow(lh$vertices), nrow(rh$vertices))
 })
 
 test_that("resolve_brain_mesh validates arguments", {
@@ -60,9 +60,9 @@ test_that("vertices_to_colors creates correct color vector", {
   )
 
   expect_length(colors, 6)
-  expect_equal(colors[1:3], rep("#FF0000", 3))
-  expect_equal(colors[4:5], rep("#00FF00", 2))
-  expect_equal(colors[6], "#CCCCCC")
+  expect_identical(colors[1:3], rep("#FF0000", 3))
+  expect_identical(colors[4:5], rep("#00FF00", 2))
+  expect_identical(colors[6], "#CCCCCC")
 })
 
 test_that("vertices_to_colors handles NA colours", {
@@ -79,9 +79,9 @@ test_that("vertices_to_colors handles NA colours", {
     na_colour = "#AAAAAA"
   )
 
-  expect_equal(colors[1:2], rep("#FF0000", 2))
-  expect_equal(colors[3:4], rep("#AAAAAA", 2))
-  expect_equal(colors[5], "#AAAAAA")
+  expect_identical(colors[1:2], rep("#FF0000", 2))
+  expect_identical(colors[3:4], rep("#AAAAAA", 2))
+  expect_identical(colors[5], "#AAAAAA")
 })
 
 test_that("vertices_to_groups creates correct group vector", {
@@ -95,8 +95,8 @@ test_that("vertices_to_groups creates correct group vector", {
   groups <- vertices_to_groups(atlas_data, n_vertices = 6, group_col = "lobe")
 
   expect_length(groups, 6)
-  expect_equal(groups[1:3], rep("frontal", 3))
-  expect_equal(groups[4:5], rep("parietal", 2))
+  expect_identical(groups[1:3], rep("frontal", 3))
+  expect_identical(groups[4:5], rep("parietal", 2))
   expect_true(is.na(groups[6]))
 })
 
@@ -114,21 +114,21 @@ test_that("resolve_brain_mesh returns inflated surfaces", {
   lh <- resolve_brain_mesh(hemisphere = "lh", surface = "inflated")
   rh <- resolve_brain_mesh(hemisphere = "rh", surface = "inflated")
 
-  expect_true(!is.null(lh))
-  expect_true(!is.null(rh))
+  expect_false(is.null(lh))
+  expect_false(is.null(rh))
 })
 
 test_that("resolve_brain_mesh returns white surface", {
   mesh <- resolve_brain_mesh(hemisphere = "lh", surface = "white")
-  expect_true(!is.null(mesh))
+  expect_false(is.null(mesh))
   expect_true("vertices" %in% names(mesh))
   expect_true("faces" %in% names(mesh))
 })
 
 test_that("vertices_to_colors handles empty vertices", {
   atlas_data <- data.frame(
-    region = c("a"),
-    colour = c("#FF0000"),
+    region = "a",
+    colour = "#FF0000",
     stringsAsFactors = FALSE
   )
   atlas_data$vertices <- list(integer(0))
@@ -139,13 +139,13 @@ test_that("vertices_to_colors handles empty vertices", {
     na_colour = "#CCCCCC"
   )
 
-  expect_equal(colors, rep("#CCCCCC", 5))
+  expect_identical(colors, rep("#CCCCCC", 5))
 })
 
 test_that("vertices_to_colors handles out-of-bounds indices", {
   atlas_data <- data.frame(
-    region = c("a"),
-    colour = c("#FF0000"),
+    region = "a",
+    colour = "#FF0000",
     stringsAsFactors = FALSE
   )
   atlas_data$vertices <- list(c(-1, 0, 100))
@@ -156,8 +156,8 @@ test_that("vertices_to_colors handles out-of-bounds indices", {
     na_colour = "#CCCCCC"
   )
 
-  expect_equal(colors[1], "#FF0000")
-  expect_equal(colors[5], "#CCCCCC")
+  expect_identical(colors[1], "#FF0000")
+  expect_identical(colors[5], "#CCCCCC")
 })
 
 test_that("vertices_to_groups handles NA group values", {
@@ -170,7 +170,7 @@ test_that("vertices_to_groups handles NA group values", {
 
   groups <- vertices_to_groups(atlas_data, n_vertices = 5, group_col = "lobe")
 
-  expect_equal(groups[1:2], rep("frontal", 2))
+  expect_identical(groups[1:2], rep("frontal", 2))
   expect_true(is.na(groups[3]))
   expect_true(is.na(groups[4]))
 })
@@ -237,9 +237,9 @@ test_that("is_unified_atlas detects direct meshes", {
 })
 
 test_that("cross_product computes correct cross products", {
-  expect_equal(cross_product(c(1, 0, 0), c(0, 1, 0)), c(0, 0, 1))
-  expect_equal(cross_product(c(0, 1, 0), c(0, 0, 1)), c(1, 0, 0))
-  expect_equal(cross_product(c(1, 0, 0), c(1, 0, 0)), c(0, 0, 0))
+  expect_identical(cross_product(c(1, 0, 0), c(0, 1, 0)), c(0, 0, 1))
+  expect_identical(cross_product(c(0, 1, 0), c(0, 0, 1)), c(1, 0, 0))
+  expect_identical(cross_product(c(1, 0, 0), c(1, 0, 0)), c(0, 0, 0))
 })
 
 test_that("rotate_vector rotates correctly", {
@@ -264,9 +264,9 @@ test_that("generate_tube_mesh creates correct mesh structure", {
   expect_true("vertices" %in% names(result))
   expect_true("faces" %in% names(result))
   expect_true("metadata" %in% names(result))
-  expect_equal(nrow(result$vertices), 4 * 6)
-  expect_equal(nrow(result$faces), (4 - 1) * 6 * 2)
-  expect_equal(result$metadata$n_centerline_points, 4)
+  expect_identical(nrow(result$vertices), 4L * 6L)
+  expect_identical(nrow(result$faces), (4L - 1L) * 6L * 2L)
+  expect_identical(result$metadata$n_centerline_points, 4L)
 })
 
 test_that("generate_tube_mesh accepts per-point radius", {
@@ -282,7 +282,7 @@ test_that("generate_tube_mesh accepts per-point radius", {
     segments = 4
   )
 
-  expect_equal(nrow(result$vertices), 3 * 4)
+  expect_identical(nrow(result$vertices), 3L * 4L)
 })
 
 test_that("generate_tube_mesh errors on bad input", {
@@ -302,9 +302,9 @@ test_that("compute_parallel_transp_fr returns correct structure", {
   expect_true("tangents" %in% names(frames))
   expect_true("normals" %in% names(frames))
   expect_true("binormals" %in% names(frames))
-  expect_equal(nrow(frames$tangents), 4)
-  expect_equal(nrow(frames$normals), 4)
-  expect_equal(nrow(frames$binormals), 4)
+  expect_identical(nrow(frames$tangents), 4L)
+  expect_identical(nrow(frames$normals), 4L)
+  expect_identical(nrow(frames$binormals), 4L)
 
   for (i in 1:4) {
     expect_equal(sqrt(sum(frames$tangents[i, ]^2)), 1, tolerance = 1e-10)
@@ -315,8 +315,8 @@ test_that("compute_parallel_transp_fr returns correct structure", {
 
 test_that("build_tract_meshes with centerlines creates tube meshes", {
   atlas_data <- data.frame(
-    label = c("tract_a"),
-    colour = c("#FF0000"),
+    label = "tract_a",
+    colour = "#FF0000",
     stringsAsFactors = FALSE
   )
 
@@ -347,15 +347,15 @@ test_that("build_tract_meshes with centerlines creates tube meshes", {
   )
 
   expect_length(meshes, 1)
-  expect_equal(meshes[[1]]$name, "tract_a")
-  expect_equal(meshes[[1]]$colorMode, "vertexcolor")
-  expect_equal(length(meshes[[1]]$colors), 3 * 4)
+  expect_identical(meshes[[1]]$name, "tract_a")
+  expect_identical(meshes[[1]]$colorMode, "vertexcolor")
+  expect_length(meshes[[1]]$colors, 3 * 4)
 })
 
 test_that("build_tract_meshes warns with no data", {
   atlas_data <- data.frame(
-    label = c("tract_a"),
-    colour = c("#FF0000"),
+    label = "tract_a",
+    colour = "#FF0000",
     stringsAsFactors = FALSE
   )
 
@@ -368,8 +368,8 @@ test_that("build_tract_meshes warns with no data", {
 
 test_that("build_tract_meshes with centerlines and orientation coloring", {
   atlas_data <- data.frame(
-    label = c("tract_a"),
-    colour = c("#FF0000"),
+    label = "tract_a",
+    colour = "#FF0000",
     stringsAsFactors = FALSE
   )
 
@@ -453,8 +453,8 @@ test_that("is_flat_mesh detects flat surfaces", {
 
 test_that("build_tract_meshes with mesh data (no centerlines)", {
   atlas_data <- data.frame(
-    label = c("tract_a"),
-    colour = c("#FF0000"),
+    label = "tract_a",
+    colour = "#FF0000",
     stringsAsFactors = FALSE
   )
   mesh <- list(
@@ -466,8 +466,8 @@ test_that("build_tract_meshes with mesh data (no centerlines)", {
   meshes <- build_tract_meshes(atlas_data, "#CCCCCC", color_by = "colour")
 
   expect_length(meshes, 1)
-  expect_equal(meshes[[1]]$name, "tract_a")
-  expect_equal(meshes[[1]]$colors, rep("#FF0000", 3))
+  expect_identical(meshes[[1]]$name, "tract_a")
+  expect_identical(meshes[[1]]$colors, rep("#FF0000", 3))
 })
 
 test_that("build_tract_meshes skips NULL mesh entries", {
@@ -485,7 +485,7 @@ test_that("build_tract_meshes skips NULL mesh entries", {
   meshes <- build_tract_meshes(atlas_data, "#CCCCCC", color_by = "colour")
 
   expect_length(meshes, 1)
-  expect_equal(meshes[[1]]$name, "tract_a")
+  expect_identical(meshes[[1]]$name, "tract_a")
 })
 
 test_that("build_cortical_meshes warns when brain mesh not found", {
@@ -544,12 +544,12 @@ test_that("build_tract_meshes skips labels not in centerlines", {
   )
 
   expect_length(meshes, 1)
-  expect_equal(meshes[[1]]$name, "tract_a")
+  expect_identical(meshes[[1]]$name, "tract_a")
 })
 
 test_that("build_tract_meshes applies na_colour for NA colour", {
   atlas_data <- data.frame(
-    label = c("tract_a"),
+    label = "tract_a",
     colour = NA_character_,
     stringsAsFactors = FALSE
   )
@@ -565,7 +565,7 @@ test_that("build_tract_meshes applies na_colour for NA colour", {
     color_by = "colour"
   )
 
-  expect_equal(meshes[[1]]$colors, rep("#CCCCCC", 3))
+  expect_identical(meshes[[1]]$colors, rep("#CCCCCC", 3))
 })
 
 test_that("build_centerline_data returns NULL when no centerlines", {
@@ -590,5 +590,5 @@ test_that("build_centerline_data skips NULL points in centerlines", {
 
   expect_type(result, "list")
   expect_null(result$centerlines$points[[2]])
-  expect_equal(nrow(result$centerlines$points[[1]]), 2)
+  expect_identical(nrow(result$centerlines$points[[1]]), 2L)
 })

@@ -3,14 +3,14 @@ test_that("Check that ggseg3d is working", {
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
   expect_true("meshes" %in% names(p$x))
   expect_true("options" %in% names(p$x))
-  expect_true(length(p$x$meshes) > 0)
+  expect_gt(length(p$x$meshes), 0)
   rm(p)
 
   lifecycle::expect_deprecated(
     p <- ggseg3d(atlas = "aseg")
   )
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
-  expect_true(length(p$x$meshes) > 0)
+  expect_gt(length(p$x$meshes), 0)
 
   expect_error(ggseg3d(atlas = hhj), "object 'hhj")
 
@@ -23,7 +23,7 @@ test_that("Check that ggseg3d is working", {
           "precentral",
           "superior parietal"
         ),
-        p = sample(seq(0, .5, .001), 4),
+        p = sample(seq(0, 0.5, 0.001), 4),
         stringsAsFactors = FALSE
       ),
       colour_by = "p"
@@ -33,7 +33,7 @@ test_that("Check that ggseg3d is working", {
   dk_regions <- ggseg.formats::atlas_regions(dk())
   some_data <- data.frame(
     region = dk_regions[1:4],
-    p = sample(seq(0, .5, .001), 4),
+    p = sample(seq(0, 0.5, 0.001), 4),
     stringsAsFactors = FALSE
   )
 
@@ -52,27 +52,27 @@ test_that("Check that ggseg3d is working", {
     palette = c("black", "white")
   )
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
-  expect_true(!is.null(p$x$colorbar))
+  expect_false(is.null(p$x$colorbar))
   expect_true(p$x$options$showLegend)
 
   p_hidden <- p |> set_legend(FALSE)
   expect_false(p_hidden$x$options$showLegend)
 
   p_sized <- ggseg3d() |> set_dimensions(width = 800, height = 600)
-  expect_equal(p_sized$width, 800)
-  expect_equal(p_sized$height, 600)
+  expect_identical(p_sized$width, 800)
+  expect_identical(p_sized$height, 600)
 })
 
 test_that("ggseg3d works with aseg subcortical atlas", {
   p <- ggseg3d(atlas = aseg())
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
-  expect_true(length(p$x$meshes) > 0)
+  expect_gt(length(p$x$meshes), 0)
 })
 
 test_that("ggseg3d with left hemisphere only", {
   p <- ggseg3d(hemisphere = "left")
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
-  expect_true(length(p$x$meshes) > 0)
+  expect_gt(length(p$x$meshes), 0)
 })
 
 test_that("ggseg3d with inflated surface", {
@@ -114,7 +114,7 @@ test_that("ggseg3d with custom palette", {
     palette = c("blue" = 0, "white" = 0.5, "red" = 1)
   )
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
-  expect_equal(p$x$colorbar$type, "continuous")
+  expect_identical(p$x$colorbar$type, "continuous")
 })
 
 test_that("ggseg3d with na_colour and na_alpha", {
@@ -148,7 +148,7 @@ test_that("deprecated params trigger warnings", {
 test_that("ggseg3d with both hemispheres", {
   p <- ggseg3d(hemisphere = c("left", "right"))
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
-  expect_true(length(p$x$meshes) >= 2)
+  expect_gte(length(p$x$meshes), 2)
 })
 
 test_that("ggseg3d with atlas object instead of string", {
@@ -164,7 +164,7 @@ test_that("ggseg3d unified atlas without user data", {
 test_that("ggseg3d with aseg mesh atlas", {
   p <- ggseg3d(atlas = aseg(), hemisphere = "subcort")
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
-  expect_true(length(p$x$meshes) > 0)
+  expect_gt(length(p$x$meshes), 0)
 })
 
 test_that("ggseg3d errors on invalid atlas object", {
@@ -207,7 +207,7 @@ test_that("prepare_brain_meshes handles atlas with centerlines", {
   prepared <- prepare_brain_meshes(atlas)
 
   expect_type(prepared, "list")
-  expect_true(length(prepared$meshes) > 0)
+  expect_gt(length(prepared$meshes), 0)
 })
 
 test_that("prepare_brain_meshes handles atlas$data$meshes path", {
@@ -236,7 +236,7 @@ test_that("prepare_brain_meshes handles atlas$data$meshes path", {
   prepared <- prepare_brain_meshes(atlas)
 
   expect_type(prepared, "list")
-  expect_true(length(prepared$meshes) > 0)
+  expect_gt(length(prepared$meshes), 0)
 })
 
 test_that("prepare_brain_meshes uses orientation coloring for tracts", {
@@ -275,7 +275,7 @@ test_that("prepare_brain_meshes uses orientation coloring for tracts", {
 
   prepared <- prepare_brain_meshes(atlas, tract_color = "orientation")
 
-  expect_true(length(prepared$meshes) > 0)
+  expect_gt(length(prepared$meshes), 0)
   expect_true(all(grepl("^#", prepared$meshes[[1]]$colors)))
 })
 
@@ -301,11 +301,11 @@ test_that("prepare_brain_meshes handles cerebellar atlas with vertices", {
   prepared <- prepare_brain_meshes(atlas)
 
   expect_type(prepared, "list")
-  expect_true(length(prepared$meshes) > 0)
-  expect_equal(prepared$meshes[[1]]$colorMode, "vertexcolor")
-  expect_equal(prepared$meshes[[1]]$name, "cerebellum")
-  expect_equal(
-    length(prepared$meshes[[1]]$vertices$x),
+  expect_gt(length(prepared$meshes), 0)
+  expect_identical(prepared$meshes[[1]]$colorMode, "vertexcolor")
+  expect_identical(prepared$meshes[[1]]$name, "cerebellum")
+  expect_length(
+    prepared$meshes[[1]]$vertices$x,
     nrow(ggseg.formats::get_cerebellar_mesh()$vertices)
   )
 })
@@ -335,9 +335,9 @@ test_that("cerebellar atlas colors correct vertices", {
   prepared <- prepare_brain_meshes(atlas)
   colors <- prepared$meshes[[1]]$colors
 
-  expect_equal(colors[1:5], rep("#FF0000", 5))
-  expect_equal(colors[101:105], rep("#00FF00", 5))
-  expect_equal(colors[50], "darkgrey")
+  expect_identical(colors[1:5], rep("#FF0000", 5))
+  expect_identical(colors[101:105], rep("#00FF00", 5))
+  expect_identical(colors[50], "darkgrey")
 })
 
 test_that("cerebellar atlas with deep nuclei renders mixed surface + meshes", {
@@ -376,15 +376,15 @@ test_that("cerebellar atlas with deep nuclei renders mixed surface + meshes", {
 
   prepared <- prepare_brain_meshes(atlas)
 
-  expect_true(length(prepared$meshes) >= 2)
+  expect_gte(length(prepared$meshes), 2)
   surface <- prepared$meshes[[1]]
-  expect_equal(surface$name, "cerebellum")
-  expect_equal(surface$colorMode, "vertexcolor")
+  expect_identical(surface$name, "cerebellum")
+  expect_identical(surface$colorMode, "vertexcolor")
   expect_equal(surface$opacity, 0.3)
 
   deep <- prepared$meshes[[2]]
-  expect_equal(deep$name, "Dentate")
-  expect_equal(deep$colorMode, "facecolor")
+  expect_identical(deep$name, "Dentate")
+  expect_identical(deep$colorMode, "facecolor")
 })
 
 test_that("cerebellar surface_opacity can be overridden", {
@@ -429,11 +429,11 @@ test_that("merge_legend_data handles NULL inputs", {
   legend <- data.frame(label = "a", colour = "#FF0000")
 
   expect_null(merge_legend_data(NULL, NULL))
-  expect_equal(merge_legend_data(NULL, legend), legend)
-  expect_equal(merge_legend_data(legend, NULL), legend)
+  expect_identical(merge_legend_data(NULL, legend), legend)
+  expect_identical(merge_legend_data(legend, NULL), legend)
 
   combined <- merge_legend_data(legend, legend)
-  expect_equal(nrow(combined), 1)
+  expect_identical(nrow(combined), 1L)
 })
 
 test_that("build_cerebellar_meshes errors when mesh unavailable", {
@@ -504,7 +504,7 @@ test_that("cerebellar atlas with text_by populates vertex texts", {
 
   prepared <- prepare_brain_meshes(atlas, text_by = "score")
   texts <- prepared$meshes[[1]]$vertexTexts
-  expect_true(!is.null(texts))
+  expect_false(is.null(texts))
   expect_match(texts[1], "score")
 })
 
@@ -532,7 +532,7 @@ test_that("vertices_to_text returns NA vector when column is missing", {
 
   result <- vertices_to_text(atlas_data, 3, "nonexistent")
 
-  expect_equal(length(result), 3)
+  expect_length(result, 3)
   expect_true(all(is.na(result)))
 })
 
@@ -552,7 +552,7 @@ test_that("text_by works with subcortical atlas", {
     function(m) m$hoverText %||% "",
     character(1)
   )
-  expect_true(any(grepl("p:", hover_texts)))
+  expect_true(any(grepl("p:", hover_texts, fixed = TRUE)))
 })
 
 test_that("text_by works with tract atlas", {
@@ -571,5 +571,5 @@ test_that("text_by works with tract atlas", {
     function(m) m$hoverText %||% "",
     character(1)
   )
-  expect_true(any(grepl("fa:", hover_texts)))
+  expect_true(any(grepl("fa:", hover_texts, fixed = TRUE)))
 })

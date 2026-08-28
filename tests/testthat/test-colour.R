@@ -13,9 +13,9 @@ test_that("apply_colour_palette handles numeric data", {
   )
 
   expect_true(result$is_numeric)
-  expect_equal(result$fill, "new_col")
-  expect_equal(result$data_min, 1)
-  expect_equal(result$data_max, 3)
+  expect_identical(result$fill, "new_col")
+  expect_identical(result$data_min, 1)
+  expect_identical(result$data_max, 3)
   expect_true(all(grepl("^#", result$data$colour)))
 })
 
@@ -29,7 +29,7 @@ test_that("apply_colour_palette handles categorical data", {
   result <- apply_colour_palette(atlas_data, "colour", NULL, "#CCCCCC")
 
   expect_false(result$is_numeric)
-  expect_equal(result$fill, "colour")
+  expect_identical(result$fill, "colour")
 })
 
 test_that("apply_colour_palette handles NA values", {
@@ -41,7 +41,7 @@ test_that("apply_colour_palette handles NA values", {
 
   result <- apply_colour_palette(atlas_data, "colour", NULL, "#AABBCC")
 
-  expect_equal(result$data$colour[2], "#AABBCC")
+  expect_identical(result$data$colour[2], "#AABBCC")
 })
 
 test_that("apply_colour_palette converts named colors to hex", {
@@ -53,8 +53,8 @@ test_that("apply_colour_palette converts named colors to hex", {
 
   result <- apply_colour_palette(atlas_data, "colour", NULL, "#CCCCCC")
 
-  expect_equal(result$data$colour[1], "#FF0000")
-  expect_equal(result$data$colour[2], "#0000FF")
+  expect_identical(result$data$colour[1], "#FF0000")
+  expect_identical(result$data$colour[2], "#0000FF")
 })
 
 test_that("apply_colour_palette handles single constant value", {
@@ -72,5 +72,5 @@ test_that("apply_colour_palette handles single constant value", {
   )
 
   expect_true(result$is_numeric)
-  expect_equal(result$data_min, result$data_max)
+  expect_identical(result$data_min, result$data_max)
 })

@@ -1,12 +1,12 @@
 test_that("set_background works", {
   p <- ggseg3d() |> set_background("black")
-  expect_equal(p$x$options$backgroundColor, "#000000")
+  expect_identical(p$x$options$backgroundColor, "#000000")
 
   p <- ggseg3d() |> set_background("#FF5733")
-  expect_equal(p$x$options$backgroundColor, "#FF5733")
+  expect_identical(p$x$options$backgroundColor, "#FF5733")
 
   p <- ggseg3d() |> set_background("white")
-  expect_equal(p$x$options$backgroundColor, "#FFFFFF")
+  expect_identical(p$x$options$backgroundColor, "#FFFFFF")
 })
 
 test_that("set_legend works", {
@@ -19,26 +19,26 @@ test_that("set_legend works", {
 
 test_that("set_dimensions works", {
   p <- ggseg3d() |> set_dimensions(width = 800, height = 600)
-  expect_equal(p$width, 800)
-  expect_equal(p$height, 600)
+  expect_identical(p$width, 800)
+  expect_identical(p$height, 600)
 
   p <- ggseg3d() |> set_dimensions(width = 1200)
-  expect_equal(p$width, 1200)
+  expect_identical(p$width, 1200)
   expect_null(p$height)
 
   p <- ggseg3d() |> set_dimensions(height = 400)
   expect_null(p$width)
-  expect_equal(p$height, 400)
+  expect_identical(p$height, 400)
 })
 
 test_that("set_edges works", {
   p <- ggseg3d() |> set_edges("red")
-  expect_equal(p$x$meshes[[1]]$edgeColor, "#FF0000")
-  expect_equal(p$x$meshes[[1]]$edgeWidth, 1)
+  expect_identical(p$x$meshes[[1]]$edgeColor, "#FF0000")
+  expect_identical(p$x$meshes[[1]]$edgeWidth, 1)
 
   p <- ggseg3d() |> set_edges("#00FF00", width = 2)
-  expect_equal(p$x$meshes[[1]]$edgeColor, "#00FF00")
-  expect_equal(p$x$meshes[[1]]$edgeWidth, 2)
+  expect_identical(p$x$meshes[[1]]$edgeColor, "#00FF00")
+  expect_identical(p$x$meshes[[1]]$edgeWidth, 2)
 
   p <- ggseg3d() |>
     set_edges("black") |>
@@ -61,14 +61,14 @@ test_that("set_flat_shading works", {
 test_that("set_orthographic works", {
   p <- ggseg3d() |> set_orthographic(TRUE)
   expect_true(p$x$options$orthographic)
-  expect_equal(p$x$options$frustumSize, 220)
+  expect_identical(p$x$options$frustumSize, 220)
 
   p <- ggseg3d() |> set_orthographic(FALSE)
   expect_false(p$x$options$orthographic)
 
   p <- ggseg3d() |> set_orthographic(TRUE, frustum_size = 300)
   expect_true(p$x$options$orthographic)
-  expect_equal(p$x$options$frustumSize, 300)
+  expect_identical(p$x$options$frustumSize, 300)
 })
 
 test_that("additions reject non-ggseg3d objects", {
@@ -102,7 +102,7 @@ test_that("set_positioning centers hemispheres", {
     }
     x_range <- range(m$vertices$x)
     x_center <- mean(x_range)
-    expect_true(abs(x_center) < 1)
+    expect_lt(abs(x_center), 1)
   }
 })
 
@@ -119,8 +119,8 @@ test_that("set_positioning anatomical offsets hemispheres", {
     }
     if (grepl("right", m$name, ignore.case = TRUE)) right_mesh <- m
   }
-  expect_true(mean(range(left_mesh$vertices$x)) < 0)
-  expect_true(mean(range(right_mesh$vertices$x)) > 0)
+  expect_lt(mean(range(left_mesh$vertices$x)), 0)
+  expect_gt(mean(range(right_mesh$vertices$x)), 0)
 })
 
 test_that("set_positioning leaves subcortical region meshes untouched", {
@@ -129,7 +129,7 @@ test_that("set_positioning leaves subcortical region meshes untouched", {
 
   p_positioned <- p |> set_positioning("centered")
   for (i in seq_along(p_positioned$x$meshes)) {
-    expect_equal(
+    expect_identical(
       p_positioned$x$meshes[[i]]$vertices,
       original_meshes[[i]]$vertices
     )
@@ -159,17 +159,19 @@ test_that("add_glassbrain warns and returns unchanged when widget is flat", {
   p$x$meshes[[1]]$isFlatmap <- TRUE
   n <- length(p$x$meshes)
   expect_warning(result <- add_glassbrain(p), "flatmap|flat")
-  expect_equal(length(result$x$meshes), n)
+  expect_length(result$x$meshes, n)
 })
 
 test_that("add_glassbrain warns for unavailable mesh", {
+  p <- ggseg3d(atlas = aseg())
+
   expect_warning(
-    ggseg3d(atlas = aseg()) |>
-      add_glassbrain(
-        hemisphere = "left",
-        surface = "pial",
-        brain_meshes = list()
-      ),
+    add_glassbrain(
+      p,
+      hemisphere = "left",
+      surface = "pial",
+      brain_meshes = list()
+    ),
     "not available"
   )
 })
@@ -183,9 +185,9 @@ test_that("additions can be chained", {
     pan_camera("left lateral")
 
   expect_s3_class(p, c("ggseg3d", "htmlwidget"))
-  expect_equal(p$x$options$backgroundColor, "#000000")
+  expect_identical(p$x$options$backgroundColor, "#000000")
   expect_false(p$x$options$showLegend)
   expect_true(p$x$options$flatShading)
   expect_true(p$x$options$orthographic)
-  expect_equal(p$x$options$camera, "left lateral")
+  expect_identical(p$x$options$camera, "left lateral")
 })

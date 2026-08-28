@@ -1,22 +1,25 @@
 options(rgl.useNULL = TRUE)
 
 test_that("camera_preset_to_position returns correct vectors", {
-  expect_equal(camera_preset_to_position("left lateral"), c(-350, 0, 0))
-  expect_equal(camera_preset_to_position("right lateral"), c(350, 0, 0))
-  expect_equal(camera_preset_to_position("left medial"), c(350, 0, 0))
-  expect_equal(camera_preset_to_position("right medial"), c(-350, 0, 0))
-  expect_equal(camera_preset_to_position("left superior"), c(-120, 0, 330))
-  expect_equal(camera_preset_to_position("right inferior"), c(120, 0, -330))
-  expect_equal(camera_preset_to_position("left anterior"), c(-120, 330, 0))
-  expect_equal(camera_preset_to_position("right posterior"), c(120, -330, 0))
+  expect_identical(camera_preset_to_position("left lateral"), c(-350, 0, 0))
+  expect_identical(camera_preset_to_position("right lateral"), c(350, 0, 0))
+  expect_identical(camera_preset_to_position("left medial"), c(350, 0, 0))
+  expect_identical(camera_preset_to_position("right medial"), c(-350, 0, 0))
+  expect_identical(camera_preset_to_position("left superior"), c(-120, 0, 330))
+  expect_identical(camera_preset_to_position("right inferior"), c(120, 0, -330))
+  expect_identical(camera_preset_to_position("left anterior"), c(-120, 330, 0))
+  expect_identical(
+    camera_preset_to_position("right posterior"),
+    c(120, -330, 0)
+  )
 })
 
 test_that("camera_preset_to_position accepts underscore variants", {
-  expect_equal(
+  expect_identical(
     camera_preset_to_position("left_lateral"),
     camera_preset_to_position("left lateral")
   )
-  expect_equal(
+  expect_identical(
     camera_preset_to_position("right_superior"),
     camera_preset_to_position("right superior")
   )
@@ -31,9 +34,9 @@ test_that("camera_preset_to_position errors on unknown preset", {
 
 test_that("look_at_origin produces orthonormal rotation matrix", {
   m <- look_at_origin(c(-350, 0, 0))
-  expect_equal(dim(m), c(4, 4))
-  expect_equal(m[4, ], c(0, 0, 0, 1))
-  expect_equal(m[1:3, 4], c(0, 0, 0))
+  expect_identical(dim(m), c(4L, 4L))
+  expect_identical(m[4, ], c(0, 0, 0, 1))
+  expect_identical(m[1:3, 4], c(0, 0, 0))
 
   rows <- m[1:3, 1:3]
   expect_equal(rows %*% t(rows), diag(3), tolerance = 1e-10)
@@ -41,7 +44,7 @@ test_that("look_at_origin produces orthonormal rotation matrix", {
 
 test_that("look_at_origin handles vertical eye positions", {
   m <- look_at_origin(c(0, 0, 330))
-  expect_equal(dim(m), c(4, 4))
+  expect_identical(dim(m), c(4L, 4L))
 
   rows <- m[1:3, 1:3]
   expect_equal(rows %*% t(rows), diag(3), tolerance = 1e-10)
@@ -66,11 +69,11 @@ test_that("mesh_entry_to_mesh3d converts vertex-colored mesh", {
   mesh3d <- mesh_entry_to_mesh3d(entry)
 
   expect_s3_class(mesh3d, "mesh3d")
-  expect_equal(ncol(mesh3d$vb), 4)
-  expect_equal(ncol(mesh3d$it), 2)
+  expect_identical(ncol(mesh3d$vb), 4L)
+  expect_identical(ncol(mesh3d$it), 2L)
   expect_equal(mesh3d$material$alpha, 0.8)
-  expect_equal(length(mesh3d$material$color), 4)
-  expect_equal(mesh3d$meshColor, "vertices")
+  expect_length(mesh3d$material$color, 4)
+  expect_identical(mesh3d$meshColor, "vertices")
 })
 
 test_that("mesh_entry_to_mesh3d handles 0-indexed faces from make_mesh_entry", {
@@ -88,14 +91,14 @@ test_that("mesh_entry_to_mesh3d handles 0-indexed faces from make_mesh_entry", {
     color_mode = "vertexcolor"
   )
 
-  expect_equal(entry$faces$i, 0L)
-  expect_equal(entry$faces$j, 1L)
-  expect_equal(entry$faces$k, 2L)
+  expect_identical(entry$faces$i, 0L)
+  expect_identical(entry$faces$j, 1L)
+  expect_identical(entry$faces$k, 2L)
 
   mesh3d <- mesh_entry_to_mesh3d(entry)
-  expect_equal(mesh3d$it[1, 1], 1L)
-  expect_equal(mesh3d$it[2, 1], 2L)
-  expect_equal(mesh3d$it[3, 1], 3L)
+  expect_identical(mesh3d$it[1, 1], 1L)
+  expect_identical(mesh3d$it[2, 1], 2L)
+  expect_identical(mesh3d$it[3, 1], 3L)
 })
 
 test_that("mesh_entry_to_mesh3d converts face-colored mesh", {
@@ -114,8 +117,8 @@ test_that("mesh_entry_to_mesh3d converts face-colored mesh", {
   )
 
   mesh3d <- mesh_entry_to_mesh3d(entry)
-  expect_equal(mesh3d$meshColor, "faces")
-  expect_equal(length(mesh3d$material$color), 2)
+  expect_identical(mesh3d$meshColor, "faces")
+  expect_length(mesh3d$material$color, 2)
 })
 
 test_that("prepare_brain_meshes returns meshes and legend_data", {
@@ -128,7 +131,7 @@ test_that("prepare_brain_meshes returns meshes and legend_data", {
   expect_type(prepared, "list")
   expect_true("meshes" %in% names(prepared))
   expect_true("legend_data" %in% names(prepared))
-  expect_true(length(prepared$meshes) > 0)
+  expect_gt(length(prepared$meshes), 0)
 })
 
 test_that("ggsegray errors on invalid atlas", {
@@ -159,7 +162,7 @@ test_that("ggsegray creates rgl scene", {
   p <- ggsegray(hemisphere = "left", atlas = dk())
 
   expect_s3_class(p, "ggsegray")
-  expect_true(is.integer(p$device))
+  expect_type(p$device, "integer")
   rgl::close3d()
 })
 
@@ -325,7 +328,7 @@ test_that("set_edges works with ggsegray", {
 
   p3 <- set_edges(p2, NULL)
   expect_s3_class(p3, "ggsegray")
-  expect_equal(length(p3$edge_ids), 0)
+  expect_length(p3$edge_ids, 0)
 
   rgl::close3d()
 })
@@ -339,12 +342,12 @@ test_that("ggsegray stores meshes and edge_ids", {
   rgl::close3d()
 })
 
-test_that("print.ggsegray returns rglwidget", {
+test_that("print.ggsegray renders and returns the object invisibly", {
   skip_if_not_installed("rgl")
 
   p <- ggsegray(hemisphere = "left", atlas = dk())
-  widget <- print(p)
-  expect_s3_class(widget, "htmlwidget")
+  returned <- expect_invisible(print(p))
+  expect_identical(returned, p)
   rgl::close3d()
 })
 
@@ -363,7 +366,7 @@ test_that("set_legend renders continuous legend for numeric data", {
     colour_by = "p",
     hemisphere = "left"
   )
-  expect_equal(p$legend_data$type, "continuous")
+  expect_identical(p$legend_data$type, "continuous")
   result <- set_legend(p)
   expect_s3_class(result, "ggsegray")
   rgl::close3d()

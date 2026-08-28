@@ -5,6 +5,10 @@
   strings, so `ggseg3d` checks cleanly against both the released and
   development `ggseg.formats` atlas schema. Geometry snapshots skip on CRAN.
 
+- `print()` on a `ggsegray` object now returns the object invisibly, as print
+  methods are expected to. It still renders the scene; only the return value
+  changed, and piping was never supported off `print()`.
+
 # ggseg3d 2.1.2
 
 - decouples tests from ggseg.formats internal workings.

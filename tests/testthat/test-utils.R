@@ -1,5 +1,5 @@
 test_that("get_palette works", {
-  expect_equal(
+  expect_identical(
     get_palette("blue"),
     data.frame(
       values = c(0, 1),
@@ -10,7 +10,7 @@ test_that("get_palette works", {
     )
   )
 
-  expect_equal(
+  expect_identical(
     get_palette(c("blue" = 1)),
     data.frame(
       values = c(1, 2),
@@ -21,7 +21,7 @@ test_that("get_palette works", {
     )
   )
 
-  expect_equal(
+  expect_identical(
     get_palette(NULL),
     structure(
       list(
@@ -35,7 +35,7 @@ test_that("get_palette works", {
     )
   )
 
-  expect_equal(
+  expect_identical(
     get_palette(c("firebrick", "white", "goldenrod")),
     structure(
       list(
@@ -49,7 +49,7 @@ test_that("get_palette works", {
     )
   )
 
-  expect_equal(
+  expect_identical(
     get_palette(c("#ffffff", "#d3d3d3", "#32f303")),
     structure(
       list(
@@ -63,7 +63,7 @@ test_that("get_palette works", {
     )
   )
 
-  expect_equal(
+  expect_identical(
     get_palette(c("#ffffff" = 0, "#d3d3d3" = 1, "#32f303" = 2)),
     structure(
       list(
@@ -79,30 +79,30 @@ test_that("get_palette works", {
 })
 
 test_that("col2hex works", {
-  expect_equal(col2hex("red"), "#FF0000")
-  expect_equal(col2hex("green"), "#00FF00")
-  expect_equal(col2hex("blue"), "#0000FF")
-  expect_equal(col2hex("white"), "#FFFFFF")
-  expect_equal(col2hex("black"), "#000000")
+  expect_identical(col2hex("red"), "#FF0000")
+  expect_identical(col2hex("green"), "#00FF00")
+  expect_identical(col2hex("blue"), "#0000FF")
+  expect_identical(col2hex("white"), "#FFFFFF")
+  expect_identical(col2hex("black"), "#000000")
 })
 
 test_that("get_palette with named numeric palette", {
   pal <- get_palette(c("blue" = 0, "white" = 50, "red" = 100))
 
-  expect_equal(pal$values, c(0, 50, 100))
-  expect_equal(pal$orig, c("blue", "white", "red"))
+  expect_identical(pal$values, c(0, 50, 100))
+  expect_identical(pal$orig, c("blue", "white", "red"))
   expect_equal(pal$norm, c(0, 0.5, 1))
 })
 
 test_that("get_palette handles two colors", {
   pal <- get_palette(c("blue", "red"))
 
-  expect_equal(nrow(pal), 2)
-  expect_equal(pal$orig, c("blue", "red"))
+  expect_identical(nrow(pal), 2L)
+  expect_identical(pal$orig, c("blue", "red"))
 })
 
 test_that("range_norm normalizes correctly", {
   expect_equal(range_norm(c(0, 50, 100)), c(0, 0.5, 1))
-  expect_equal(range_norm(c(10, 20)), c(0, 1))
+  expect_identical(range_norm(c(10, 20)), c(0, 1))
   expect_equal(range_norm(c(-10, 0, 10)), c(0, 0.5, 1))
 })

@@ -127,6 +127,22 @@ ggsegray <- function(
 }
 
 
+#' @noRd
+#' @export
+print.ggsegray <- function(x, ...) {
+  rgl::set3d(x$device)
+  print(rgl::rglwidget())
+  invisible(x)
+}
+
+#' @noRd
+#' @importFrom knitr knit_print
+#' @export
+knit_print.ggsegray <- function(x, ...) {
+  # nocov start
+  invisible(x)
+} # nocov end
+
 #' Convert mesh entry to rgl mesh3d object
 #'
 #' Converts the internal mesh_entry list structure (as built by
@@ -140,6 +156,7 @@ ggsegray <- function(
 #'
 #' @return An rgl `mesh3d` object
 #' @keywords internal
+#' @noRd
 mesh_entry_to_mesh3d <- function(mesh_entry, ...) {
   rlang::check_installed("rgl", reason = "to convert meshes")
 
@@ -191,6 +208,7 @@ mesh_entry_to_mesh3d <- function(mesh_entry, ...) {
 #'
 #' @return Numeric vector of length 3 (x, y, z).
 #' @keywords internal
+#' @noRd
 camera_preset_to_position <- function(preset) {
   presets <- list(
     "left lateral" = c(-350, 0, 0),
@@ -242,6 +260,7 @@ camera_preset_to_position <- function(preset) {
 #'
 #' @return A 4x4 rotation matrix.
 #' @keywords internal
+#' @noRd
 look_at_origin <- function(eye) {
   eye_n <- eye / sqrt(sum(eye^2))
 
@@ -315,22 +334,6 @@ render_edges_rgl <- function(mesh_entry, colour = NULL, width = NULL) {
   id <- rgl::segments3d(x, y, z, color = edge_color, lwd = edge_width)
   invisible(id)
 }
-
-
-#' @noRd
-#' @export
-print.ggsegray <- function(x, ...) {
-  rgl::set3d(x$device)
-  print(rgl::rglwidget())
-}
-
-#' @noRd
-#' @importFrom knitr knit_print
-#' @export
-knit_print.ggsegray <- function(x, ...) {
-  # nocov start
-  invisible(x)
-} # nocov end
 
 
 check_ggsegray <- function(
