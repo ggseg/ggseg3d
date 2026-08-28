@@ -7,6 +7,7 @@
 #'
 #' @return An htmlwidget object of class "ggseg3d"
 #' @keywords internal
+#' @noRd
 create_ggseg3d_widget <- function(meshes, legend_data) {
   options <- list(
     camera = "right lateral",

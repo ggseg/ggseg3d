@@ -1,9 +1,9 @@
 test_that("build_cortical_meshes skips hemisphere without data", {
   atlas_data <- data.frame(
-    label = c("a"),
-    region = c("region a"),
-    hemi = c("left"),
-    colour = c("#FF0000"),
+    label = "a",
+    region = "region a",
+    hemi = "left",
+    colour = "#FF0000",
     stringsAsFactors = FALSE
   )
   atlas_data$vertices <- list(c(0, 1, 2))
@@ -16,7 +16,7 @@ test_that("build_cortical_meshes skips hemisphere without data", {
     NULL
   )
 
-  expect_true(length(meshes) >= 1)
+  expect_gte(length(meshes), 1)
 })
 
 test_that("build_cortical_meshes with edge_by parameter", {
@@ -38,16 +38,16 @@ test_that("build_cortical_meshes with edge_by parameter", {
     "lobe"
   )
 
-  expect_true(length(meshes) > 0)
-  expect_true(!is.null(meshes[[1]]$edgeColor))
+  expect_gt(length(meshes), 0)
+  expect_false(is.null(meshes[[1]]$edgeColor))
 })
 
 test_that("build_subcortical_meshes handles subcort data", {
   atlas_data <- data.frame(
-    label = c("Left-Caudate"),
-    region = c("caudate"),
-    hemi = c("subcort"),
-    colour = c("#FF0000"),
+    label = "Left-Caudate",
+    region = "caudate",
+    hemi = "subcort",
+    colour = "#FF0000",
     stringsAsFactors = FALSE
   )
   atlas_data$mesh <- list(
@@ -59,15 +59,15 @@ test_that("build_subcortical_meshes handles subcort data", {
 
   meshes <- build_subcortical_meshes(atlas_data, "#CCCCCC")
 
-  expect_true(length(meshes) > 0)
+  expect_gt(length(meshes), 0)
 })
 
 test_that("build_tract_meshes handles tract data with legacy meshes", {
   atlas_data <- data.frame(
-    label = c("tract1"),
-    region = c("tract 1"),
-    hemi = c("subcort"),
-    colour = c("#FF0000"),
+    label = "tract1",
+    region = "tract 1",
+    hemi = "subcort",
+    colour = "#FF0000",
     stringsAsFactors = FALSE
   )
   atlas_data$mesh <- list(
@@ -79,5 +79,5 @@ test_that("build_tract_meshes handles tract data with legacy meshes", {
 
   meshes <- build_tract_meshes(atlas_data, "#CCCCCC", "colour", NULL)
 
-  expect_true(length(meshes) > 0)
+  expect_gt(length(meshes), 0)
 })

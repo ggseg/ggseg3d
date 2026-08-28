@@ -15,18 +15,18 @@ test_that("merge_atlas_data joins data correctly", {
   result <- merge_atlas_data(user_data, atlas_data)
 
   expect_true("value" %in% names(result))
-  expect_equal(result$value[result$label == "a"], 10)
+  expect_identical(result$value[result$label == "a"], 10)
   expect_true(is.na(result$value[result$label == "c"]))
 })
 
 test_that("merge_atlas_data errors on no common columns", {
   atlas_data <- data.frame(
-    label = c("a"),
+    label = "a",
     stringsAsFactors = FALSE
   )
 
   user_data <- data.frame(
-    unrelated = c("x"),
+    unrelated = "x",
     stringsAsFactors = FALSE
   )
 
@@ -71,8 +71,14 @@ test_that("merge_atlas_data joins on multiple common columns", {
 
   result <- merge_atlas_data(user_data, atlas_data)
 
-  expect_equal(result$value[result$label == "a" & result$hemi == "left"], 100)
-  expect_equal(result$value[result$label == "a" & result$hemi == "right"], 200)
+  expect_identical(
+    result$value[result$label == "a" & result$hemi == "left"],
+    100
+  )
+  expect_identical(
+    result$value[result$label == "a" & result$hemi == "right"],
+    200
+  )
 })
 
 test_that("check_ggseg3d passes for valid widget", {
@@ -110,7 +116,7 @@ test_that("range_norm normalizes to 0-1 range", {
   expect_equal(result, c(0, 0.5, 1))
 
   result <- range_norm(c(10, 20, 30, 40))
-  expect_equal(result, c(0, 1 / 3, 2 / 3, 1))
+  expect_identical(result, c(0, 1 / 3, 2 / 3, 1))
 })
 
 test_that("range_norm handles single value", {

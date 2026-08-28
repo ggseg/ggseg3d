@@ -3,13 +3,12 @@
 #' Processes colour mapping for ggseg_atlas objects using
 #' vertex-based colouring.
 #'
-#' @param atlas_data Atlas data frame with vertices column
 #' @param colour Column name for colour values
-#' @param palette Colour palette specification
-#' @param na_colour Colour for NA values
 #'
 #' @return List with data, fill column name, palette, and colour metadata
+#' @inheritParams apply_colours_and_legend
 #' @keywords internal
+#' @noRd
 apply_colour_palette <- function(
   atlas_data,
   colour,

@@ -422,7 +422,9 @@ set_positioning <- function(p, positioning = c("anatomical", "centered")) {
 
   p$x$meshes <- lapply(p$x$meshes, function(mesh) {
     name <- mesh$name %||% ""
-    if (!grepl(surface_pattern, name)) return(mesh)
+    if (!grepl(surface_pattern, name)) {
+      return(mesh)
+    }
 
     is_left <- startsWith(name, "left ")
     vertices <- mesh$vertices

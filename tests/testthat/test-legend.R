@@ -13,11 +13,11 @@ test_that("build_legend_data returns continuous legend for numeric data", {
     data = data.frame()
   )
 
-  expect_equal(result$type, "continuous")
-  expect_equal(result$title, "value")
-  expect_equal(result$min, 0)
-  expect_equal(result$max, 10)
-  expect_true(length(result$colors) > 0)
+  expect_identical(result$type, "continuous")
+  expect_identical(result$title, "value")
+  expect_identical(result$min, 0)
+  expect_identical(result$max, 10)
+  expect_gt(length(result$colors), 0)
 })
 
 test_that("build_legend_data returns discrete legend for categorical data", {
@@ -39,10 +39,10 @@ test_that("build_legend_data returns discrete legend for categorical data", {
     data = data
   )
 
-  expect_equal(result$type, "discrete")
-  expect_equal(result$title, "region")
-  expect_equal(length(result$labels), 3)
-  expect_equal(length(result$colors), 3)
+  expect_identical(result$type, "discrete")
+  expect_identical(result$title, "region")
+  expect_length(result$labels, 3)
+  expect_length(result$colors, 3)
 })
 
 test_that("build_legend_data returns NULL when data_min equals data_max", {
@@ -77,10 +77,10 @@ test_that("build_continuous_legend works with named palette", {
     data_max = 10
   )
 
-  expect_equal(result$type, "continuous")
-  expect_equal(result$min, 0)
-  expect_equal(result$max, 10)
-  expect_true(!is.null(result$breakpoints))
+  expect_identical(result$type, "continuous")
+  expect_identical(result$min, 0)
+  expect_identical(result$max, 10)
+  expect_false(is.null(result$breakpoints))
 })
 
 test_that("build_continuous_legend works without named palette", {
@@ -99,11 +99,11 @@ test_that("build_continuous_legend works without named palette", {
     data_max = 100
   )
 
-  expect_equal(result$type, "continuous")
-  expect_equal(result$min, 0)
-  expect_equal(result$max, 100)
-  expect_true(!is.null(result$values))
-  expect_equal(length(result$values), 10)
+  expect_identical(result$type, "continuous")
+  expect_identical(result$min, 0)
+  expect_identical(result$max, 100)
+  expect_false(is.null(result$values))
+  expect_length(result$values, 10)
 })
 
 test_that("build_discrete_legend handles data.frame input", {
@@ -115,9 +115,9 @@ test_that("build_discrete_legend handles data.frame input", {
 
   result <- build_discrete_legend(data, "colour", "region")
 
-  expect_equal(result$type, "discrete")
-  expect_equal(result$title, "region")
-  expect_equal(length(result$labels), 3)
+  expect_identical(result$type, "discrete")
+  expect_identical(result$title, "region")
+  expect_length(result$labels, 3)
 })
 
 test_that("build_discrete_legend handles many unique values", {
@@ -141,8 +141,8 @@ test_that("build_discrete_legend handles NA values", {
 
   result <- build_discrete_legend(data, "colour", "region")
 
-  expect_equal(result$type, "discrete")
-  expect_true(all(!is.na(result$colors)))
+  expect_identical(result$type, "discrete")
+  expect_false(anyNA(result$colors))
 })
 
 test_that("build_discrete_legend handles tibble input", {
@@ -153,8 +153,8 @@ test_that("build_discrete_legend handles tibble input", {
 
   result <- build_discrete_legend(data, "colour", "region")
 
-  expect_equal(result$type, "discrete")
-  expect_equal(length(result$labels), 2)
+  expect_identical(result$type, "discrete")
+  expect_length(result$labels, 2)
 })
 
 
@@ -166,8 +166,8 @@ test_that("build_discrete_legend handles non-dataframe input", {
   )
 
   result <- build_discrete_legend(data, "colour", "region")
-  expect_equal(result$type, "discrete")
-  expect_equal(length(result$labels), 2)
+  expect_identical(result$type, "discrete")
+  expect_length(result$labels, 2)
 })
 
 test_that("build_discrete_legend removes duplicate labels", {
@@ -179,5 +179,5 @@ test_that("build_discrete_legend removes duplicate labels", {
 
   result <- build_discrete_legend(data, "colour", "region")
 
-  expect_equal(length(result$labels), 2)
+  expect_length(result$labels, 2)
 })

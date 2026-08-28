@@ -15,14 +15,14 @@ test_that("renderGgseg3d creates render function", {
     ggseg3d()
   })
 
-  expect_true(is.function(render_fn))
+  expect_type(render_fn, "closure")
 })
 
 test_that("renderGgseg3d with quoted expression", {
   expr <- quote(ggseg3d())
   render_fn <- renderGgseg3d(expr, quoted = TRUE)
 
-  expect_true(is.function(render_fn))
+  expect_type(render_fn, "closure")
 })
 
 test_that("updateGgseg3dCamera builds correct message type", {
@@ -37,63 +37,66 @@ test_that("updateGgseg3dCamera builds correct message type", {
     "left lateral"
   )
 
-  expect_equal(result$type, "ggseg3d-camera-brain_plot")
-  expect_equal(result$message, "left lateral")
+  expect_identical(result$type, "ggseg3d-camera-brain_plot")
+  expect_identical(result$message, "left lateral")
 })
 
 test_that("updateGgseg3dBackground converts named color to hex", {
   converted <- col2hex("red")
-  expect_equal(converted, "#FF0000")
+  expect_identical(converted, "#FF0000")
 
   converted <- col2hex("blue")
-  expect_equal(converted, "#0000FF")
+  expect_identical(converted, "#0000FF")
 })
 
 test_that("updateGgseg3dCamera function exists and is exported", {
-  expect_true(is.function(updateGgseg3dCamera))
+  expect_type(updateGgseg3dCamera, "closure")
 })
 
 test_that("updateGgseg3dBackground function exists and is exported", {
-  expect_true(is.function(updateGgseg3dBackground))
+  expect_type(updateGgseg3dBackground, "closure")
 })
 
 test_that("updateGgseg3dCamera calls sendCustomMessage", {
-  messages <- list()
+  messages <- new.env(parent = emptyenv())
   mock_session <- list(
     sendCustomMessage = function(type, message) {
-      messages <<- list(type = type, message = message)
+      messages$type <- type
+      messages$message <- message
     }
   )
 
   updateGgseg3dCamera(mock_session, "test_output", "left lateral")
 
-  expect_equal(messages$type, "ggseg3d-camera-test_output")
-  expect_equal(messages$message, "left lateral")
+  expect_identical(messages$type, "ggseg3d-camera-test_output")
+  expect_identical(messages$message, "left lateral")
 })
 
 test_that("updateGgseg3dBackground calls sendCustomMessage with hex color", {
-  messages <- list()
+  messages <- new.env(parent = emptyenv())
   mock_session <- list(
     sendCustomMessage = function(type, message) {
-      messages <<- list(type = type, message = message)
+      messages$type <- type
+      messages$message <- message
     }
   )
 
   updateGgseg3dBackground(mock_session, "test_output", "red")
 
-  expect_equal(messages$type, "ggseg3d-background-test_output")
-  expect_equal(messages$message, "#FF0000")
+  expect_identical(messages$type, "ggseg3d-background-test_output")
+  expect_identical(messages$message, "#FF0000")
 })
 
 test_that("updateGgseg3dBackground passes hex color through", {
-  messages <- list()
+  messages <- new.env(parent = emptyenv())
   mock_session <- list(
     sendCustomMessage = function(type, message) {
-      messages <<- list(type = type, message = message)
+      messages$type <- type
+      messages$message <- message
     }
   )
 
   updateGgseg3dBackground(mock_session, "test_output", "#AABBCC")
 
-  expect_equal(messages$message, "#AABBCC")
+  expect_identical(messages$message, "#AABBCC")
 })

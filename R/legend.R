@@ -16,6 +16,7 @@
 #'
 #' @return List with legend specification or NULL
 #' @keywords internal
+#' @noRd
 build_legend_data <- function(
   is_numeric,
   data_min,
@@ -57,6 +58,7 @@ build_legend_data <- function(
 #'
 #' @return List with continuous legend specification
 #' @keywords internal
+#' @noRd
 build_continuous_legend <- function(
   palette,
   pal_colours,
@@ -104,6 +106,7 @@ build_continuous_legend <- function(
 #' @return List with discrete legend specification or NULL if too many
 #'   categories
 #' @keywords internal
+#' @noRd
 build_discrete_legend <- function(data, fill_col, label_col) {
   if (is.data.frame(data)) {
     unique_values <- unique(data[[fill_col]])

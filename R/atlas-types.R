@@ -25,9 +25,10 @@ is_unified_atlas <- function(atlas) {
 
   has_core <- !is.null(atlas$core)
 
-  if (!is.null(atlas$data) &&
-        (inherits(atlas$data, "ggseg_atlas_data") ||
-           inherits(atlas$data, "brain_atlas_data"))) {
+  has_atlas_data <- inherits(atlas$data, "ggseg_atlas_data") ||
+    inherits(atlas$data, "brain_atlas_data")
+
+  if (has_atlas_data) {
     has_3d <- !is.null(atlas$data$vertices) ||
       !is.null(atlas$data$meshes) ||
       !is.null(atlas$data$centerlines)
@@ -49,6 +50,7 @@ is_unified_atlas <- function(atlas) {
 #'
 #' @return Prepared data frame with hemi, region, label, colour, and vertices
 #' @keywords internal
+#' @noRd
 prepare_atlas_data <- function(atlas, .data) {
   vertices <- if (!is.null(atlas$data$vertices)) {
     atlas$data$vertices
@@ -87,6 +89,7 @@ prepare_atlas_data <- function(atlas, .data) {
 #'
 #' @return Prepared data frame with hemi, region, label, colour, and mesh
 #' @keywords internal
+#' @noRd
 prepare_mesh_atlas_data <- function(atlas, .data) {
   if (!is.null(atlas$data$centerlines)) {
     base_data <- atlas$data$centerlines[, "label", drop = FALSE]
@@ -125,6 +128,7 @@ prepare_mesh_atlas_data <- function(atlas, .data) {
 #' @param atlas_data Atlas data frame
 #' @return Merged data frame
 #' @keywords internal
+#' @noRd
 data_merge_mesh <- function(.data, atlas_data) {
   join_cols <- intersect(c("region", "label", "hemi"), names(.data))
 
@@ -145,9 +149,15 @@ data_merge_mesh <- function(.data, atlas_data) {
 #' Merge legend data from surface and deep cerebellar components
 #' @noRd
 merge_legend_data <- function(surface_legend, deep_legend) {
-  if (is.null(surface_legend) && is.null(deep_legend)) return(NULL)
-  if (is.null(surface_legend)) return(deep_legend)
-  if (is.null(deep_legend)) return(surface_legend)
+  if (is.null(surface_legend) && is.null(deep_legend)) {
+    return(NULL)
+  }
+  if (is.null(surface_legend)) {
+    return(deep_legend)
+  }
+  if (is.null(deep_legend)) {
+    return(surface_legend)
+  }
 
   combined <- rbind(surface_legend, deep_legend)
   combined[!duplicated(combined$label), , drop = FALSE]

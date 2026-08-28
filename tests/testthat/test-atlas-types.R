@@ -26,7 +26,7 @@ test_that("prepare_atlas_data extracts vertices and joins core", {
   expect_true("hemi" %in% names(result))
   expect_true("colour" %in% names(result))
   expect_true("vertices" %in% names(result))
-  expect_equal(result$colour[result$label == "bankssts"], "#FF0000")
+  expect_identical(result$colour[result$label == "bankssts"], "#FF0000")
 })
 
 test_that("prepare_atlas_data works with data component", {
@@ -55,7 +55,7 @@ test_that("prepare_atlas_data works with data component", {
 
   result <- prepare_atlas_data(atlas, NULL)
 
-  expect_equal(nrow(result), 2)
+  expect_identical(nrow(result), 2L)
   expect_true("vertices" %in% names(result))
 })
 
@@ -89,7 +89,7 @@ test_that("prepare_atlas_data merges user data", {
   result <- prepare_atlas_data(atlas, user_data)
 
   expect_true("my_value" %in% names(result))
-  expect_equal(result$my_value[result$label == "a"], 10)
+  expect_identical(result$my_value[result$label == "a"], 10)
 })
 
 test_that("prepare_mesh_atlas_data extracts meshes and joins core", {
@@ -127,12 +127,12 @@ test_that("prepare_mesh_atlas_data extracts meshes and joins core", {
   expect_true("label" %in% names(result))
   expect_true("mesh" %in% names(result))
   expect_true("colour" %in% names(result))
-  expect_equal(result$colour[result$label == "Left-Caudate"], "#123456")
+  expect_identical(result$colour[result$label == "Left-Caudate"], "#123456")
 })
 
 test_that("prepare_mesh_atlas_data works with data component", {
   meshes_data <- data.frame(
-    label = c("a"),
+    label = "a",
     stringsAsFactors = FALSE
   )
   meshes_data$mesh <- list(
@@ -161,7 +161,7 @@ test_that("prepare_mesh_atlas_data works with data component", {
 
   result <- prepare_mesh_atlas_data(atlas, NULL)
 
-  expect_equal(nrow(result), 1)
+  expect_identical(nrow(result), 1L)
   expect_true("mesh" %in% names(result))
 })
 
@@ -183,18 +183,18 @@ test_that("data_merge_mesh joins user data with atlas", {
   result <- data_merge_mesh(user_data, atlas_data)
 
   expect_true("value" %in% names(result))
-  expect_equal(result$value[result$label == "a"], 100)
+  expect_identical(result$value[result$label == "a"], 100)
 })
 
 test_that("data_merge_mesh warns when no common columns", {
   atlas_data <- data.frame(
-    label = c("a"),
+    label = "a",
     stringsAsFactors = FALSE
   )
   atlas_data$mesh <- list(list())
 
   user_data <- data.frame(
-    unrelated_col = c("x"),
+    unrelated_col = "x",
     stringsAsFactors = FALSE
   )
 
@@ -203,7 +203,7 @@ test_that("data_merge_mesh warns when no common columns", {
     "No common columns"
   )
 
-  expect_equal(result, atlas_data)
+  expect_identical(result, atlas_data)
 })
 
 test_that("data_merge_mesh joins on region column", {
@@ -265,5 +265,5 @@ test_that("prepare_mesh_atlas_data merges user data", {
   result <- prepare_mesh_atlas_data(atlas, user_data)
 
   expect_true("value" %in% names(result))
-  expect_equal(result$value[result$label == "a"], 100)
+  expect_identical(result$value[result$label == "a"], 100)
 })
